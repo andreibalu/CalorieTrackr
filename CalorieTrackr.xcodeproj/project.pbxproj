@@ -58,13 +58,37 @@
 			children = (
 				F0D407DF29F406A700DC4D82 /* AppDelegate.swift */,
 				F0D407E129F406A700DC4D82 /* SceneDelegate.swift */,
-				F0D407E329F406A700DC4D82 /* ViewController.swift */,
-				F0D407E529F406A700DC4D82 /* Main.storyboard */,
+				F0D407F529F40BF700DC4D82 /* Models */,
+				F0D407F329F40BCE00DC4D82 /* Controllers */,
+				F0D407F429F40BD900DC4D82 /* Views */,
 				F0D407E829F406A900DC4D82 /* Assets.xcassets */,
 				F0D407EA29F406A900DC4D82 /* LaunchScreen.storyboard */,
 				F0D407ED29F406A900DC4D82 /* Info.plist */,
 			);
 			path = CalorieTrackr;
+			sourceTree = "<group>";
+		};
+		F0D407F329F40BCE00DC4D82 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				F0D407E329F406A700DC4D82 /* ViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		F0D407F429F40BD900DC4D82 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F0D407E529F406A700DC4D82 /* Main.storyboard */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		F0D407F529F40BF700DC4D82 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
