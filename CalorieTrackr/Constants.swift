@@ -12,4 +12,6 @@ struct K {
         static let navy = "ColorNavy"
         static let crem = "ColorCrem"
     }
+    
+    static let appName = "CalorieTrackr"
 }

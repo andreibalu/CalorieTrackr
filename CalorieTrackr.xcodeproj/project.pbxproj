@@ -42,7 +42,6 @@
 		F0D407D329F406A700DC4D82 = {
 			isa = PBXGroup;
 			children = (
-				F0D407F629F4110400DC4D82 /* Constants.swift */,
 				F0D407DE29F406A700DC4D82 /* CalorieTrackr */,
 				F0D407DD29F406A700DC4D82 /* Products */,
 			);
@@ -67,6 +66,7 @@
 				F0D407E829F406A900DC4D82 /* Assets.xcassets */,
 				F0D407EA29F406A900DC4D82 /* LaunchScreen.storyboard */,
 				F0D407ED29F406A900DC4D82 /* Info.plist */,
+				F0D407F629F4110400DC4D82 /* Constants.swift */,
 			);
 			path = CalorieTrackr;
 			sourceTree = "<group>";
