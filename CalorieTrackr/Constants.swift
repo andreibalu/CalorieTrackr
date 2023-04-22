@@ -14,6 +14,6 @@ struct K {
     }
     
     static let appName = "CalorieTrackr"
-    static let registerSegue = "RegisterToApp"
+    static let registerSegue = "RegisterToSurvey"
     static let loginSegue = "LoginToApp"
 }

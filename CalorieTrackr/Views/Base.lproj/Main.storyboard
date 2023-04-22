@@ -49,12 +49,37 @@
                     <connections>
                         <outlet property="emailTextField" destination="zhF-zL-RU1" id="uAs-xU-bfI"/>
                         <outlet property="passwordTextField" destination="gsH-kC-jJQ" id="ndF-PB-alI"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="RegisterToApp" id="wjo-Se-gHY"/>
+                        <segue destination="C03-06-vsM" kind="show" identifier="RegisterToSurvey" id="4Ih-62-iZ6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aRt-DJ-ten" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1303.0534351145038" y="-473.23943661971833"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="BYY-9b-3Iy">
+            <objects>
+                <viewController id="C03-06-vsM" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="GSm-N0-Oek">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Survey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q86-Sn-u2C">
+                                <rect key="frame" x="146" y="207" width="101" height="41"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="afa-ni-ank"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="fQt-ZI-TtQ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lvX-KX-UW2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="407" y="-473"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wuH-2N-Eo5">
@@ -190,6 +215,13 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home logged in page ( stats)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsi-Js-a5V">
+                                <rect key="frame" x="5" y="207" width="383" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -201,12 +233,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="210" y="127"/>
+            <point key="canvasLocation" x="407" y="708"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="vm6-Bg-Udv"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
