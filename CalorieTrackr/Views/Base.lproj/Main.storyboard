@@ -72,10 +72,10 @@
             </objects>
             <point key="canvasLocation" x="-4219" y="151"/>
         </scene>
-        <!--View Controller-->
+        <!--Welcome View Controller-->
         <scene sceneID="gzi-Gw-G1h">
             <objects>
-                <viewController id="XB9-n2-oRe" customClass="ViewController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="XB9-n2-oRe" customClass="WelcomeViewController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9oH-uX-AxJ">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -175,10 +175,10 @@
             </objects>
             <point key="canvasLocation" x="-1303" y="708"/>
         </scene>
-        <!--View Controller-->
+        <!--Home View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -195,6 +195,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="qXx-Jd-Qq9"/>
+                    <connections>
+                        <outlet property="titleLabel" destination="CJR-Ny-jtA" id="xTl-5S-aYk"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
