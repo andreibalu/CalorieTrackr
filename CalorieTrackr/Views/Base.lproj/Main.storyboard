@@ -37,6 +37,9 @@
                                 <state key="normal" title="Register">
                                     <color key="titleColor" name="AccentColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="registerPressed:" destination="PYa-K4-R3s" eventType="touchUpInside" id="WaF-1g-ew8"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="b4L-j2-SwP"/>
@@ -44,7 +47,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="zA5-1P-2D5"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" id="wjo-Se-gHY"/>
+                        <outlet property="emailTextField" destination="zhF-zL-RU1" id="uAs-xU-bfI"/>
+                        <outlet property="passwordTextField" destination="gsH-kC-jJQ" id="ndF-PB-alI"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="RegisterToApp" id="wjo-Se-gHY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aRt-DJ-ten" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -151,6 +156,9 @@
                                 <state key="normal" title="Login">
                                     <color key="titleColor" name="AccentColor"/>
                                 </state>
+                                <connections>
+                                    <action selector="loginPressed:" destination="d4Z-hA-m02" eventType="touchUpInside" id="79F-Hw-4tC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qyM-AO-63G"/>
@@ -158,7 +166,9 @@
                     </view>
                     <navigationItem key="navigationItem" id="ZjK-gR-fc2"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="show" id="vm6-Bg-Udv"/>
+                        <outlet property="emailTextField" destination="MTl-1a-ROz" id="BgY-Ro-QVa"/>
+                        <outlet property="passwordTextField" destination="dMe-yy-4aN" id="x2L-8s-ydG"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="LoginToApp" id="vm6-Bg-Udv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eN7-o4-ACg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -192,7 +202,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wjo-Se-gHY"/>
+        <segue reference="vm6-Bg-Udv"/>
     </inferredMetricsTieBreakers>
     <resources>
         <namedColor name="AccentColor">

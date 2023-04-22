@@ -68,9 +68,9 @@
 				F0D407F329F40BCE00DC4D82 /* Controllers */,
 				F0D407F429F40BD900DC4D82 /* Views */,
 				F0D407E829F406A900DC4D82 /* Assets.xcassets */,
+				F0D407F629F4110400DC4D82 /* Constants.swift */,
 				F0D407EA29F406A900DC4D82 /* LaunchScreen.storyboard */,
 				F0D407ED29F406A900DC4D82 /* Info.plist */,
-				F0D407F629F4110400DC4D82 /* Constants.swift */,
 			);
 			path = CalorieTrackr;
 			sourceTree = "<group>";
