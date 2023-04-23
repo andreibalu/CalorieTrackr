@@ -7,23 +7,39 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D45947E2172D930A5C34D9BC /* Pods_CalorieTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B36584155B619E98D4BAD6B /* Pods_CalorieTrackr.framework */; };
+		F085EC7E29F43BE40077A979 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F085EC7D29F43BE40077A979 /* HomeViewController.swift */; };
+		F0996A1B29F57D070001732C /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0996A1A29F57D070001732C /* SurveyViewController.swift */; };
 		F0D407E029F406A700DC4D82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D407DF29F406A700DC4D82 /* AppDelegate.swift */; };
 		F0D407E229F406A700DC4D82 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D407E129F406A700DC4D82 /* SceneDelegate.swift */; };
-		F0D407E429F406A700DC4D82 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D407E329F406A700DC4D82 /* ViewController.swift */; };
+		F0D407E429F406A700DC4D82 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D407E329F406A700DC4D82 /* WelcomeViewController.swift */; };
 		F0D407E729F406A700DC4D82 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0D407E529F406A700DC4D82 /* Main.storyboard */; };
 		F0D407E929F406A900DC4D82 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F0D407E829F406A900DC4D82 /* Assets.xcassets */; };
 		F0D407EC29F406A900DC4D82 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F0D407EA29F406A900DC4D82 /* LaunchScreen.storyboard */; };
+		F0D407F729F4110400DC4D82 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D407F629F4110400DC4D82 /* Constants.swift */; };
+		F0D407F929F4196700DC4D82 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D407F829F4196700DC4D82 /* LoginViewController.swift */; };
+		F0D407FB29F4197900DC4D82 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D407FA29F4197900DC4D82 /* RegisterViewController.swift */; };
+		F0D407FD29F4302F00DC4D82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0D407FC29F4302F00DC4D82 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		29426FB05E56E52942784AC7 /* Pods-CalorieTrackr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalorieTrackr.debug.xcconfig"; path = "Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr.debug.xcconfig"; sourceTree = "<group>"; };
+		3AC08F3B86D4A1A522EBCF87 /* Pods-CalorieTrackr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalorieTrackr.release.xcconfig"; path = "Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr.release.xcconfig"; sourceTree = "<group>"; };
+		5B36584155B619E98D4BAD6B /* Pods_CalorieTrackr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CalorieTrackr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F085EC7D29F43BE40077A979 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		F0996A1A29F57D070001732C /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
 		F0D407DC29F406A700DC4D82 /* CalorieTrackr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalorieTrackr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0D407DF29F406A700DC4D82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0D407E129F406A700DC4D82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		F0D407E329F406A700DC4D82 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F0D407E329F406A700DC4D82 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
 		F0D407E629F406A700DC4D82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F0D407E829F406A900DC4D82 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F0D407EB29F406A900DC4D82 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F0D407ED29F406A900DC4D82 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F0D407F629F4110400DC4D82 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		F0D407F829F4196700DC4D82 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		F0D407FA29F4197900DC4D82 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		F0D407FC29F4302F00DC4D82 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +47,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D45947E2172D930A5C34D9BC /* Pods_CalorieTrackr.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3A4D22351780626F796BFE64 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5B36584155B619E98D4BAD6B /* Pods_CalorieTrackr.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5B05021F5EF1A9893BBF6797 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				29426FB05E56E52942784AC7 /* Pods-CalorieTrackr.debug.xcconfig */,
+				3AC08F3B86D4A1A522EBCF87 /* Pods-CalorieTrackr.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		F0D407D329F406A700DC4D82 = {
 			isa = PBXGroup;
 			children = (
 				F0D407DE29F406A700DC4D82 /* CalorieTrackr */,
 				F0D407DD29F406A700DC4D82 /* Products */,
+				5B05021F5EF1A9893BBF6797 /* Pods */,
+				3A4D22351780626F796BFE64 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -62,7 +98,9 @@
 				F0D407F329F40BCE00DC4D82 /* Controllers */,
 				F0D407F429F40BD900DC4D82 /* Views */,
 				F0D407E829F406A900DC4D82 /* Assets.xcassets */,
+				F0D407F629F4110400DC4D82 /* Constants.swift */,
 				F0D407EA29F406A900DC4D82 /* LaunchScreen.storyboard */,
+				F0D407FC29F4302F00DC4D82 /* GoogleService-Info.plist */,
 				F0D407ED29F406A900DC4D82 /* Info.plist */,
 			);
 			path = CalorieTrackr;
@@ -71,7 +109,11 @@
 		F0D407F329F40BCE00DC4D82 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				F0D407E329F406A700DC4D82 /* ViewController.swift */,
+				F0D407E329F406A700DC4D82 /* WelcomeViewController.swift */,
+				F0D407F829F4196700DC4D82 /* LoginViewController.swift */,
+				F0D407FA29F4197900DC4D82 /* RegisterViewController.swift */,
+				F085EC7D29F43BE40077A979 /* HomeViewController.swift */,
+				F0996A1A29F57D070001732C /* SurveyViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -98,9 +140,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0D407F029F406A900DC4D82 /* Build configuration list for PBXNativeTarget "CalorieTrackr" */;
 			buildPhases = (
+				C5B1D7F2F317D30B9356A9E6 /* [CP] Check Pods Manifest.lock */,
 				F0D407D829F406A700DC4D82 /* Sources */,
 				F0D407D929F406A700DC4D82 /* Frameworks */,
 				F0D407DA29F406A700DC4D82 /* Resources */,
+				D90ED4F3E0A90A86EA8B8DB0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -150,6 +194,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0D407EC29F406A900DC4D82 /* LaunchScreen.storyboard in Resources */,
+				F0D407FD29F4302F00DC4D82 /* GoogleService-Info.plist in Resources */,
 				F0D407E929F406A900DC4D82 /* Assets.xcassets in Resources */,
 				F0D407E729F406A700DC4D82 /* Main.storyboard in Resources */,
 			);
@@ -157,14 +202,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		C5B1D7F2F317D30B9356A9E6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CalorieTrackr-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D90ED4F3E0A90A86EA8B8DB0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F0D407D829F406A700DC4D82 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0D407E429F406A700DC4D82 /* ViewController.swift in Sources */,
+				F0D407E429F406A700DC4D82 /* WelcomeViewController.swift in Sources */,
 				F0D407E029F406A700DC4D82 /* AppDelegate.swift in Sources */,
+				F0996A1B29F57D070001732C /* SurveyViewController.swift in Sources */,
 				F0D407E229F406A700DC4D82 /* SceneDelegate.swift in Sources */,
+				F0D407FB29F4197900DC4D82 /* RegisterViewController.swift in Sources */,
+				F0D407F929F4196700DC4D82 /* LoginViewController.swift in Sources */,
+				F085EC7E29F43BE40077A979 /* HomeViewController.swift in Sources */,
+				F0D407F729F4110400DC4D82 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,6 +398,7 @@
 		};
 		F0D407F129F406A900DC4D82 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 29426FB05E56E52942784AC7 /* Pods-CalorieTrackr.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -334,6 +427,7 @@
 		};
 		F0D407F229F406A900DC4D82 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3AC08F3B86D4A1A522EBCF87 /* Pods-CalorieTrackr.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
