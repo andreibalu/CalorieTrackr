@@ -78,7 +78,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="fQt-ZI-TtQ">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="fJV-yc-l11">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="CNw-J5-OyY">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="CNw-J5-OyY">
                                 <rect key="frame" x="276" y="5" width="101" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <buttonConfiguration key="configuration" style="filled" imagePlacement="leading" title="Logout" subtitle="" titleAlignment="automatic">
@@ -243,7 +243,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="qXx-Jd-Qq9">
                         <barButtonItem key="rightBarButtonItem" style="plain" id="wgW-0z-JEp">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Pgp-hd-6Oc">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Pgp-hd-6Oc">
                                 <rect key="frame" x="269.33333333333331" y="5" width="107.66666666666669" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
