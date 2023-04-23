@@ -6,6 +6,9 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 class SurveyViewController: UIViewController {
     
@@ -14,5 +17,14 @@ class SurveyViewController: UIViewController {
         super.viewDidLoad()
         
         navigationItem.hidesBackButton = true
+    }
+    
+    @IBAction func logoutPressed(_ sender: UIButton) {
+        do {
+            try Auth.auth().signOut()
+            navigationController?.popToRootViewController(animated: true)
+        } catch let signOutError as NSError {
+            print("Error signing out: %@", signOutError)
+        }
     }
 }
