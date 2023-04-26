@@ -79,7 +79,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Answer" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e04-Yf-t7e">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e04-Yf-t7e">
                                 <rect key="frame" x="148" y="528" width="97" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -138,7 +138,7 @@
                     <connections>
                         <outlet property="backButton" destination="hty-cl-2Zd" id="EDS-ci-lF4"/>
                         <outlet property="nextButton" destination="aqK-3h-Mhe" id="UWQ-Re-KXq"/>
-                        <outlet property="pickerView" destination="lCb-Iq-TA8" id="buI-qs-U2h"/>
+                        <outlet property="pickerViewSex" destination="lCb-Iq-TA8" id="buI-qs-U2h"/>
                         <outlet property="progressButton" destination="B5a-gL-ZRm" id="1VI-Mu-uBQ"/>
                         <outlet property="questionLabel" destination="hcb-JJ-Bqs" id="phQ-eu-Dlr"/>
                         <outlet property="textField" destination="e04-Yf-t7e" id="zTi-dD-O2g"/>

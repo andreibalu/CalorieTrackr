@@ -13,24 +13,34 @@ import FirebaseAuth
 class SurveyViewController: UIViewController {
     
     let db = Firestore.firestore()
-    let uid = Auth.auth().currentUser
     
     var questionsBrain = QuestionsBrain()
-    var user = User(name: "", sex: "", age: 18, height: 180, weight: 78.0, weightGoal: 80.0, weeksGoal: 10, activity: 3, streak: 0)
+    var name : String?
+    var sex : String?
+    var age : Int?
+    var height : Int?
+    var weight : Double?
+    var weightGoal : Double?
+    var weeksGoal : Int?
+    var activity : Int?
+    var streak : Int?
     
     @IBOutlet weak var progressButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var pickerView: UIPickerView!
+    @IBOutlet weak var pickerViewSex: UIPickerView!
     @IBOutlet weak var questionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         textField.delegate = self
         
+        pickerViewSex.dataSource = self
+        pickerViewSex.delegate = self
+        
         navigationItem.hidesBackButton = true
-        pickerView.isHidden = true
+        pickerViewSex.isHidden = true
         textField.isHidden = true
         progressButton.isHidden = true
 
@@ -53,17 +63,19 @@ class SurveyViewController: UIViewController {
     
     func updateUI() {
         questionLabel.text = questionsBrain.getQuestionQ()
-        if questionsBrain.getQuestionNeeds() == "TextField" {
+        if questionsBrain.getQuestionNeeds() == "textField" {
             textField.isHidden = false
-            pickerView.isHidden = true
-            
-            if let name = textField.text {
-                
-            }
+            pickerViewSex.isHidden = true
+            name = textField.text       //set name
         }
         
-        if questionsBrain.getQuestionNeeds() == "PickerView" {
-            pickerView.isHidden = false
+        if questionsBrain.getQuestionNeeds() == "pickerViewSex" {
+            pickerViewSex.isHidden = false
+            textField.isHidden = true
+        }
+        
+        if questionsBrain.getQuestionNeeds() == "pickerView" {
+            pickerViewSex.isHidden = true
             textField.isHidden = true
         }
         
@@ -73,13 +85,14 @@ class SurveyViewController: UIViewController {
         else if questionsBrain.getQuestionNumber() == questionsBrain.QuestionsCount - 1 {
             nextButton.isHidden = true
             progressButton.isHidden = false
+            print(name!)
+            print(sex!)
         }
         else {
             backButton.isHidden = false
             nextButton.isHidden = false
             progressButton.isHidden = true
         }
-//        if questionsBrain
     }
     
     @IBAction func progressPressed(_ sender: Any) {
@@ -93,6 +106,24 @@ class SurveyViewController: UIViewController {
         } catch let signOutError as NSError {
             print("Error signing out: %@", signOutError)
         }
+    }
+}
+
+extension SurveyViewController : UIPickerViewDataSource, UIPickerViewDelegate {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return questionsBrain.sex.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return questionsBrain.sex[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        sex = questionsBrain.sex[row]       //set sex
     }
 }
 

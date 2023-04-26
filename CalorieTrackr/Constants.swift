@@ -13,6 +13,13 @@ struct K {
         static let crem = "ColorCrem"
     }
     
+    struct FStore {
+        static let collectionName = "Users"
+        static let senderField = "sender"
+        static let nameField = "name"
+        static let dateField = "date"
+    }
+    
     static let appName = "CalorieTrackr"
     static let registerSegue = "RegisterToSurvey"
     static let loginSegue = "LoginToApp"
