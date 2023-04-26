@@ -17,6 +17,8 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //
+        passwordTextField.delegate = self
+        emailTextField.delegate = self
     }
     
     @IBAction func loginPressed(_ sender: UIButton) {
@@ -29,5 +31,12 @@ class LoginViewController: UIViewController {
                 }
             }
         }
+    }
+}
+
+extension LoginViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }

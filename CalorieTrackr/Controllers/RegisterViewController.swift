@@ -17,6 +17,9 @@ class RegisterViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //
+        passwordTextField.delegate = self
+        emailTextField.delegate = self
+
     }
     
     @IBAction func registerPressed(_ sender: UIButton) {
@@ -31,5 +34,12 @@ class RegisterViewController: UIViewController {
         
           
         }
+    }
+}
+
+extension RegisterViewController : UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
