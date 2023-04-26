@@ -10,10 +10,8 @@ import Foundation
 struct Questions{
     
     var q : String
-    var needs : String
     
-    init(q: String, needs: String) {
+    init(q: String) {
         self.q = q
-        self.needs = needs
     }
 }

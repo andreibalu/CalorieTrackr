@@ -8,17 +8,41 @@
 import Foundation
 
 struct QuestionsBrain{
-    let questions = [   Questions(q: "What's your name", needs: "textField"),
-                        Questions(q: "What is your sex?", needs: "pickerViewSex"),
-                        Questions(q: "How old are you", needs: "pickerView"),
-                        Questions(q: "How tall are you", needs: "pickerView"),
-                        Questions(q: "What's your weight", needs: "pickerView"),
-                        Questions(q: "What is your ideal weight", needs: "pickerView"),
-                        Questions(q: "In how many weeks do you want to reach your ideal weight", needs: "pickerView"),
-                        Questions(q: "How many times do you exercise every week?", needs: "pickerView")
+    let questions = [   Questions(q: "What's your name"),
+                        Questions(q: "What is your sex?"),
+                        Questions(q: "How old are you"),
+                        Questions(q: "How tall are you"),
+                        Questions(q: "What's your weight"),
+                        Questions(q: "What is your ideal weight"),
+                        Questions(q: "In how many weeks do you want to reach your ideal weight"),
+                        Questions(q: "How many times do you exercise every week?")
     ]
     
     let sex = ["Male", "Female", "Other", "Dino"]
+    var age : [String] {
+        let s = 1...99
+        return s.map { String($0) }
+    }
+    var weight : [String] {
+        let s = 30...160
+        return s.map { String($0) }
+    }
+    var height : [String] {
+        let s = 130...210
+        return s.map { String($0) }
+    }
+    var ideal : [String] {
+        let s = 30...160
+        return s.map { String($0) }
+    }
+    var weeks : [String] {
+        let s = 5...50
+        return s.map { String($0) }
+    }
+    var ex : [String] {
+        let s = 1...7
+        return s.map { String($0) }
+    }
     
     var QuestionNumber = 0
     var QuestionsCount : Int {
@@ -42,9 +66,4 @@ struct QuestionsBrain{
     func getQuestionQ() -> String {
         return questions[QuestionNumber].q
     }
-    
-    func getQuestionNeeds() -> String {
-        return questions[QuestionNumber].needs
-    }
-    
 }

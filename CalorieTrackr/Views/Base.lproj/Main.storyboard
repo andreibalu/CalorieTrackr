@@ -137,11 +137,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="backButton" destination="hty-cl-2Zd" id="EDS-ci-lF4"/>
+                        <outlet property="nameField" destination="e04-Yf-t7e" id="zTi-dD-O2g"/>
                         <outlet property="nextButton" destination="aqK-3h-Mhe" id="UWQ-Re-KXq"/>
-                        <outlet property="pickerViewSex" destination="lCb-Iq-TA8" id="buI-qs-U2h"/>
+                        <outlet property="pickerView" destination="lCb-Iq-TA8" id="buI-qs-U2h"/>
                         <outlet property="progressButton" destination="B5a-gL-ZRm" id="1VI-Mu-uBQ"/>
                         <outlet property="questionLabel" destination="hcb-JJ-Bqs" id="phQ-eu-Dlr"/>
-                        <outlet property="textField" destination="e04-Yf-t7e" id="zTi-dD-O2g"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lvX-KX-UW2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

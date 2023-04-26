@@ -17,33 +17,32 @@ class SurveyViewController: UIViewController {
     var questionsBrain = QuestionsBrain()
     var name : String?
     var sex : String?
-    var age : Int?
-    var height : Int?
-    var weight : Double?
-    var weightGoal : Double?
-    var weeksGoal : Int?
-    var activity : Int?
-    var streak : Int?
+    var age : String?
+    var height : String?
+    var weight : String?
+    var ideal : String?
+    var weeks : String?
+    var ex : String?
+    var streak : String?
     
     @IBOutlet weak var progressButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
-    @IBOutlet weak var textField: UITextField!
-    @IBOutlet weak var pickerViewSex: UIPickerView!
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var questionLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        textField.delegate = self
+        nameField.delegate = self
         
-        pickerViewSex.dataSource = self
-        pickerViewSex.delegate = self
+        pickerView.dataSource = self
+        pickerView.delegate = self
         
         navigationItem.hidesBackButton = true
-        pickerViewSex.isHidden = true
-        textField.isHidden = true
-        progressButton.isHidden = true
-
+//        pickerViewSex.isHidden = true
+//        nameField.isHidden = true
+//        progressButton.isHidden = true
         updateUI()
     }
     
@@ -61,37 +60,47 @@ class SurveyViewController: UIViewController {
         updateUI()
     }
     
+    func hideUI(){
+        pickerView.isHidden = true
+        nameField.isHidden = true
+        backButton.isHidden = true
+        nextButton.isHidden = true
+        progressButton.isHidden = true
+        
+    }
+    
     func updateUI() {
+        hideUI()
+        questionLogic()
+        buttonLogic()
+        
+    }
+    
+    func questionLogic(){
         questionLabel.text = questionsBrain.getQuestionQ()
-        if questionsBrain.getQuestionNeeds() == "textField" {
-            textField.isHidden = false
-            pickerViewSex.isHidden = true
-            name = textField.text       //set name
+        if questionsBrain.getQuestionQ() == questionsBrain.questions[0].q {
+                       nameField.isHidden = false
+                       name = nameField.text       //set name
+                   }
+        else {
+            pickerView.isHidden = false
+            pickerView.reloadAllComponents()
         }
-        
-        if questionsBrain.getQuestionNeeds() == "pickerViewSex" {
-            pickerViewSex.isHidden = false
-            textField.isHidden = true
-        }
-        
-        if questionsBrain.getQuestionNeeds() == "pickerView" {
-            pickerViewSex.isHidden = true
-            textField.isHidden = true
-        }
-        
+    }
+    
+    func buttonLogic(){
         if questionsBrain.getQuestionNumber() == 0 {
-            backButton.isHidden = true
+            nextButton.isHidden = false
         }
         else if questionsBrain.getQuestionNumber() == questionsBrain.QuestionsCount - 1 {
-            nextButton.isHidden = true
             progressButton.isHidden = false
+            backButton.isHidden = false
             print(name!)
             print(sex!)
         }
         else {
             backButton.isHidden = false
             nextButton.isHidden = false
-            progressButton.isHidden = true
         }
     }
     
@@ -115,15 +124,69 @@ extension SurveyViewController : UIPickerViewDataSource, UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return questionsBrain.sex.count
+        let currQ = questionsBrain.getQuestionQ()
+        switch currQ {
+        case questionsBrain.questions[1].q:
+            return questionsBrain.sex.count
+        case questionsBrain.questions[2].q:
+            return questionsBrain.age.count
+        case questionsBrain.questions[3].q:
+            return questionsBrain.height.count
+        case questionsBrain.questions[4].q:
+            return questionsBrain.weight.count
+        case questionsBrain.questions[5].q:
+            return questionsBrain.ideal.count
+        case questionsBrain.questions[6].q:
+            return questionsBrain.weeks.count
+        case questionsBrain.questions[7].q:
+            return questionsBrain.ex.count
+        default:
+            return 0
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return questionsBrain.sex[row]
+        let currQ = questionsBrain.getQuestionQ()
+        switch currQ {
+        case questionsBrain.questions[1].q:
+            return questionsBrain.sex[row]
+        case questionsBrain.questions[2].q:
+            return questionsBrain.age[row]
+        case questionsBrain.questions[3].q:
+            return questionsBrain.height[row]
+        case questionsBrain.questions[4].q:
+            return questionsBrain.weight[row]
+        case questionsBrain.questions[5].q:
+            return questionsBrain.ideal[row]
+        case questionsBrain.questions[6].q:
+            return questionsBrain.weeks[row]
+        case questionsBrain.questions[7].q:
+            return questionsBrain.ex[row]
+        default:
+            return "error"
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        sex = questionsBrain.sex[row]       //set sex
+        let currQ = questionsBrain.getQuestionQ()
+        switch currQ {
+        case questionsBrain.questions[1].q:
+            sex = questionsBrain.sex[row]
+        case questionsBrain.questions[2].q:
+            age = questionsBrain.age[row]
+        case questionsBrain.questions[3].q:
+            height = questionsBrain.height[row]
+        case questionsBrain.questions[4].q:
+            weight = questionsBrain.weight[row]
+        case questionsBrain.questions[5].q:
+            ideal = questionsBrain.ideal[row]
+        case questionsBrain.questions[6].q:
+            weeks = questionsBrain.weeks[row]
+        case questionsBrain.questions[7].q:
+            ex = questionsBrain.ex[row]
+        default:
+            print("error")
+        }      //set sex
     }
 }
 
