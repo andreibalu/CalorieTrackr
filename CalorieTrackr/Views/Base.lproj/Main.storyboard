@@ -113,7 +113,6 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Progress"/>
                                 <connections>
-                                    <action selector="nextPressed:" destination="C03-06-vsM" eventType="touchUpInside" id="E10-y7-FtV"/>
                                     <action selector="progressPressed:" destination="C03-06-vsM" eventType="touchUpInside" id="R9K-xm-4Zc"/>
                                 </connections>
                             </button>

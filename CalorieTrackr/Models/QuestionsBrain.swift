@@ -27,7 +27,9 @@ struct QuestionsBrain{
     }
     
     mutating func nextQuestion(){
-        QuestionNumber = QuestionNumber + 1
+        if QuestionNumber < QuestionsCount {
+            QuestionNumber = QuestionNumber + 1
+        }
     }
     
     mutating func prevQuestion(){

@@ -67,7 +67,6 @@ class SurveyViewController: UIViewController {
         }
         else if questionsBrain.getQuestionNumber() == questionsBrain.QuestionsCount - 1 {
             nextButton.isHidden = true
-            nextButton.isEnabled = false
             progressButton.isHidden = false
         }
         else {
@@ -75,9 +74,6 @@ class SurveyViewController: UIViewController {
             nextButton.isHidden = false
             progressButton.isHidden = true
         }
-        
-        print(questionsBrain.QuestionsCount)
-        print(questionsBrain.getQuestionNumber())
 //        if questionsBrain
     }
     
@@ -94,9 +90,6 @@ class SurveyViewController: UIViewController {
         }
     }
 }
-
-
-
 
 extension SurveyViewController : UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
