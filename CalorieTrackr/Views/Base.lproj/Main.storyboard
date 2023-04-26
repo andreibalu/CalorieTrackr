@@ -66,18 +66,63 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Survey" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q86-Sn-u2C">
-                                <rect key="frame" x="146" y="207" width="101" height="41"/>
+                                <rect key="frame" x="146" y="103" width="101" height="41"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Question" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hcb-JJ-Bqs">
+                                <rect key="frame" x="76" y="178" width="240" height="226"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Answer" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="e04-Yf-t7e">
+                                <rect key="frame" x="148" y="528" width="97" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aqK-3h-Mhe">
+                                <rect key="frame" x="310" y="727" width="60" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Next"/>
+                                <connections>
+                                    <action selector="nextPressed:" destination="C03-06-vsM" eventType="touchUpInside" id="gT8-rG-lQE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hty-cl-2Zd">
+                                <rect key="frame" x="23" y="727" width="62" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Back"/>
+                                <connections>
+                                    <action selector="backPressed:" destination="C03-06-vsM" eventType="touchUpInside" id="FF1-mw-QL1"/>
+                                </connections>
+                            </button>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lCb-Iq-TA8">
+                                <rect key="frame" x="0.0" y="464" width="393" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B5a-gL-ZRm">
+                                <rect key="frame" x="294" y="726" width="92" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Progress"/>
+                                <connections>
+                                    <action selector="nextPressed:" destination="C03-06-vsM" eventType="touchUpInside" id="E10-y7-FtV"/>
+                                    <action selector="progressPressed:" destination="C03-06-vsM" eventType="touchUpInside" id="R9K-xm-4Zc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="afa-ni-ank"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="fQt-ZI-TtQ">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="fJV-yc-l11">
+                        <barButtonItem key="rightBarButtonItem" id="fJV-yc-l11">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="CNw-J5-OyY">
                                 <rect key="frame" x="276" y="5" width="101" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -91,10 +136,18 @@
                             </button>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="backButton" destination="hty-cl-2Zd" id="EDS-ci-lF4"/>
+                        <outlet property="nextButton" destination="aqK-3h-Mhe" id="UWQ-Re-KXq"/>
+                        <outlet property="pickerView" destination="lCb-Iq-TA8" id="buI-qs-U2h"/>
+                        <outlet property="progressButton" destination="B5a-gL-ZRm" id="1VI-Mu-uBQ"/>
+                        <outlet property="questionLabel" destination="hcb-JJ-Bqs" id="phQ-eu-Dlr"/>
+                        <outlet property="textField" destination="e04-Yf-t7e" id="zTi-dD-O2g"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lvX-KX-UW2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="407" y="-473"/>
+            <point key="canvasLocation" x="406.87022900763355" y="-473.23943661971833"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="wuH-2N-Eo5">
@@ -242,12 +295,16 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="qXx-Jd-Qq9">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="wgW-0z-JEp">
+                        <barButtonItem key="rightBarButtonItem" id="wgW-0z-JEp">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Pgp-hd-6Oc">
                                 <rect key="frame" x="269.33333333333331" y="5" width="107.66666666666669" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" image="rectangle.portrait.and.arrow.right.fill" catalog="system" title="Logout"/>
+                                <buttonConfiguration key="configuration" style="filled" image="rectangle.portrait.and.arrow.right.fill" catalog="system">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="Logout"/>
+                                    </attributedString>
+                                </buttonConfiguration>
                                 <connections>
                                     <action selector="logoutPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0h0-IM-7pB"/>
                                 </connections>
