@@ -9,6 +9,7 @@ import Foundation
 
 struct QuestionsBrain{
     let questions = [   Questions(q: "What's your name", needs: "TextField"),
+                        Questions(q: "What is your sex?", needs: "PickerView"),
                         Questions(q: "How old are you", needs: "PickerView"),
                         Questions(q: "How tall are you", needs: "PickerView"),
                         Questions(q: "What's your weight", needs: "PickerView"),

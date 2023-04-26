@@ -8,7 +8,8 @@
 import Foundation
 
 struct User {
-    let name: Int
+    let name: String
+    let sex : String
     let age: Int
     let height: Int
     let weight: Double

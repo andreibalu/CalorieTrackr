@@ -13,9 +13,10 @@ import FirebaseAuth
 class SurveyViewController: UIViewController {
     
     let db = Firestore.firestore()
-    let user = Auth.auth().currentUser
+    let uid = Auth.auth().currentUser
     
     var questionsBrain = QuestionsBrain()
+    var user = User(name: "", sex: "", age: 18, height: 180, weight: 78.0, weightGoal: 80.0, weeksGoal: 10, activity: 3, streak: 0)
     
     @IBOutlet weak var progressButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -55,6 +56,10 @@ class SurveyViewController: UIViewController {
         if questionsBrain.getQuestionNeeds() == "TextField" {
             textField.isHidden = false
             pickerView.isHidden = true
+            
+            if let name = textField.text {
+                
+            }
         }
         
         if questionsBrain.getQuestionNeeds() == "PickerView" {
