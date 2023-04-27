@@ -20,7 +20,6 @@
 		F0D407F929F4196700DC4D82 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D407F829F4196700DC4D82 /* LoginViewController.swift */; };
 		F0D407FB29F4197900DC4D82 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D407FA29F4197900DC4D82 /* RegisterViewController.swift */; };
 		F0D407FD29F4302F00DC4D82 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F0D407FC29F4302F00DC4D82 /* GoogleService-Info.plist */; };
-		F0E7261929F9789000C7404A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E7261829F9789000C7404A /* User.swift */; };
 		F0E7261B29F97EDC00C7404A /* Questions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E7261A29F97EDC00C7404A /* Questions.swift */; };
 		F0E7261D29F9800200C7404A /* QuestionsBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0E7261C29F9800200C7404A /* QuestionsBrain.swift */; };
 /* End PBXBuildFile section */
@@ -43,7 +42,6 @@
 		F0D407F829F4196700DC4D82 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		F0D407FA29F4197900DC4D82 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		F0D407FC29F4302F00DC4D82 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		F0E7261829F9789000C7404A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		F0E7261A29F97EDC00C7404A /* Questions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Questions.swift; sourceTree = "<group>"; };
 		F0E7261C29F9800200C7404A /* QuestionsBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionsBrain.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -135,7 +133,6 @@
 		F0D407F529F40BF700DC4D82 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				F0E7261829F9789000C7404A /* User.swift */,
 				F0E7261A29F97EDC00C7404A /* Questions.swift */,
 				F0E7261C29F9800200C7404A /* QuestionsBrain.swift */,
 			);
@@ -264,7 +261,6 @@
 				F0E7261B29F97EDC00C7404A /* Questions.swift in Sources */,
 				F0D407E229F406A700DC4D82 /* SceneDelegate.swift in Sources */,
 				F0D407FB29F4197900DC4D82 /* RegisterViewController.swift in Sources */,
-				F0E7261929F9789000C7404A /* User.swift in Sources */,
 				F0E7261D29F9800200C7404A /* QuestionsBrain.swift in Sources */,
 				F0D407F929F4196700DC4D82 /* LoginViewController.swift in Sources */,
 				F085EC7E29F43BE40077A979 /* HomeViewController.swift in Sources */,

@@ -15,8 +15,16 @@ struct K {
     
     struct FStore {
         static let collectionName = "Users"
-        static let senderField = "sender"
-        static let nameField = "name"
+        static let senderField = "Email"
+        static let name = "Name"
+        static let sex = "Sex"
+        static let age = "Age"
+        static let height = "Height"
+        static let weight = "Weight"
+        static let ideal = "IdealWeight"
+        static let weeks = "WeeksGoal"
+        static let ex = "Activity"
+        static let streak = "Streak"
         static let dateField = "date"
     }
     

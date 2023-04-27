@@ -18,12 +18,12 @@ class SurveyViewController: UIViewController {
     var name : String?
     var sex : String?
     var age : String?
-    var height : String?
+    var height: String?
     var weight : String?
     var ideal : String?
     var weeks : String?
     var ex : String?
-    var streak : String?
+    var streak = "0"
     
     @IBOutlet weak var progressButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -83,7 +83,27 @@ class SurveyViewController: UIViewController {
                        name = nameField.text       //set name
                    }
         else {
+            
+            switch questionsBrain.getQuestionQ() {
+            case questionsBrain.questions[1].q:
+                pickerView.selectRow(0, inComponent: 0, animated: false)
+            case questionsBrain.questions[2].q:
+                pickerView.selectRow(17, inComponent: 0, animated: false)
+            case questionsBrain.questions[3].q:
+                pickerView.selectRow(50, inComponent: 0, animated: false)
+            case questionsBrain.questions[4].q:
+                pickerView.selectRow(50, inComponent: 0, animated: false)
+            case questionsBrain.questions[5].q:
+                pickerView.selectRow(50, inComponent: 0, animated: false)
+            case questionsBrain.questions[6].q:
+                pickerView.selectRow(5, inComponent: 0, animated: false)
+            case questionsBrain.questions[7].q:
+                pickerView.selectRow(0, inComponent: 0, animated: false)
+            default: print("error at getting question")
+                
+            }
             pickerView.isHidden = false
+//            pickerView.selectRow(0, inComponent: 0, animated: true)
             pickerView.reloadAllComponents()
         }
     }
@@ -95,8 +115,6 @@ class SurveyViewController: UIViewController {
         else if questionsBrain.getQuestionNumber() == questionsBrain.QuestionsCount - 1 {
             progressButton.isHidden = false
             backButton.isHidden = false
-            print(name!)
-            print(sex!)
         }
         else {
             backButton.isHidden = false
@@ -105,7 +123,27 @@ class SurveyViewController: UIViewController {
     }
     
     @IBAction func progressPressed(_ sender: Any) {
-        
+        if let name=name, let sex=sex, let age=age, let height=height, let weight=weight, let ideal=ideal, let weeks=weeks, let ex=ex, let uid = Auth.auth().currentUser?.email {
+            db.collection(K.FStore.collectionName).addDocument(data: [
+                K.FStore.senderField: uid,
+                K.FStore.name: name,
+                K.FStore.sex: sex,
+                K.FStore.age: age,
+                K.FStore.height: height,
+                K.FStore.weight: weight,
+                K.FStore.ideal: ideal,
+                K.FStore.weeks: weeks,
+                K.FStore.ex: ex,
+                K.FStore.streak: streak,
+                K.FStore.dateField: Date().timeIntervalSince1970
+            ]) { error in
+                if let e = error {
+                    print("There was an issue saving data to firestore, \(e.localizedDescription)")
+                } else {
+                    print("Succesfully saved data.")
+                }
+            }
+        }
     }
     
     @IBAction func logoutPressed(_ sender: UIButton) {

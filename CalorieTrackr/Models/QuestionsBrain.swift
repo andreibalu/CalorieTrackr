@@ -18,17 +18,17 @@ struct QuestionsBrain{
                         Questions(q: "How many times do you exercise every week?")
     ]
     
-    let sex = ["Male", "Female", "Other", "Dino"]
+    let sex = ["","Male", "Female", "Other", "Dino"]
     var age : [String] {
         let s = 1...99
         return s.map { String($0) }
     }
-    var weight : [String] {
-        let s = 30...160
-        return s.map { String($0) }
-    }
     var height : [String] {
         let s = 130...210
+        return s.map { String($0) }
+    }
+    var weight : [String] {
+        let s = 30...160
         return s.map { String($0) }
     }
     var ideal : [String] {
