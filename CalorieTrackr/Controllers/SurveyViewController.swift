@@ -40,9 +40,6 @@ class SurveyViewController: UIViewController {
         pickerView.delegate = self
         
         navigationItem.hidesBackButton = true
-        //        pickerViewSex.isHidden = true
-        //        nameField.isHidden = true
-        //        progressButton.isHidden = true
         updateUI()
     }
     
@@ -56,10 +53,6 @@ class SurveyViewController: UIViewController {
     }
     
     @IBAction func nextPressed(_ sender: UIButton) {
-        //        if questionsBrain.getQuestionQ() == questionsBrain.questions[0].q {
-        //            name = nameField.text
-        //        }
-        
         let currQ = questionsBrain.getQuestionQ()
         switch currQ {
         case questionsBrain.questions[0].q:
@@ -92,31 +85,6 @@ class SurveyViewController: UIViewController {
         
         questionsBrain.nextQuestion()
         updateUI()
-    }
-    
-    func hideUI(){
-        pickerView.isHidden = true
-        nameField.isHidden = true
-        backButton.isHidden = true
-        nextButton.isHidden = true
-        progressButton.isHidden = true
-        
-    }
-    
-    func updateUI() {
-        hideUI()
-        questionLogic()
-        buttonLogic()
-        
-    }
-    
-    func buttonLogic(){
-        let isFirstQuestion = questionsBrain.getQuestionNumber() == 0
-        let isLastQuestion = questionsBrain.getQuestionNumber() == questionsBrain.QuestionsCount-1
-        
-        nextButton.isHidden = isLastQuestion
-        progressButton.isHidden = !isLastQuestion
-        backButton.isHidden = isFirstQuestion
     }
     
     @IBAction func progressPressed(_ sender: Any) {
@@ -261,6 +229,20 @@ extension SurveyViewController : UIPickerViewDataSource, UIPickerViewDelegate {
         }
     }
     
+    func updateUI() {
+        hideUI()
+        questionLogic()
+        buttonLogic()
+    }
+    
+    func hideUI(){
+        pickerView.isHidden = true
+        nameField.isHidden = true
+        backButton.isHidden = true
+        nextButton.isHidden = true
+        progressButton.isHidden = true
+    }
+    
     func questionLogic(){
         questionLabel.text = questionsBrain.getQuestionQ()
         if questionsBrain.getQuestionQ() == questionsBrain.questions[0].q {
@@ -273,6 +255,15 @@ extension SurveyViewController : UIPickerViewDataSource, UIPickerViewDelegate {
             pickerView.isHidden = false
             pickerView.reloadAllComponents()
         }
+    }
+    
+    func buttonLogic(){
+        let isFirstQuestion = questionsBrain.getQuestionNumber() == 0
+        let isLastQuestion = questionsBrain.getQuestionNumber() == questionsBrain.QuestionsCount-1
+        
+        nextButton.isHidden = isLastQuestion
+        progressButton.isHidden = !isLastQuestion
+        backButton.isHidden = isFirstQuestion
     }
 }
 
