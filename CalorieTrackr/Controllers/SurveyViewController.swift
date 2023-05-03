@@ -110,49 +110,13 @@ class SurveyViewController: UIViewController {
         
     }
     
-    func questionLogic(){
-        questionLabel.text = questionsBrain.getQuestionQ()
-        if questionsBrain.getQuestionQ() == questionsBrain.questions[0].q {
-            nameField.isHidden = false
-            name = nameField.text       //set name
-        }
-        else {
-            pickerView.reloadAllComponents()
-            switch questionsBrain.getQuestionQ() {
-            case questionsBrain.questions[1].q:
-                pickerView.selectRow(0, inComponent: 0, animated: false)
-            case questionsBrain.questions[2].q:
-                pickerView.selectRow(17, inComponent: 0, animated: false)
-            case questionsBrain.questions[3].q:
-                pickerView.selectRow(50, inComponent: 0, animated: false)
-            case questionsBrain.questions[4].q:
-                pickerView.selectRow(50, inComponent: 0, animated: false)
-            case questionsBrain.questions[5].q:
-                pickerView.selectRow(50, inComponent: 0, animated: false)
-            case questionsBrain.questions[6].q:
-                pickerView.selectRow(5, inComponent: 0, animated: false)
-            case questionsBrain.questions[7].q:
-                pickerView.selectRow(0, inComponent: 0, animated: false)
-            default: print("error at getting question")
-                
-            }
-            pickerView.isHidden = false
-            pickerView.reloadAllComponents()
-        }
-    }
-    
     func buttonLogic(){
-        if questionsBrain.getQuestionNumber() == 0 {
-            nextButton.isHidden = false
-        }
-        else if questionsBrain.getQuestionNumber() == questionsBrain.QuestionsCount - 1 {
-            progressButton.isHidden = false
-            backButton.isHidden = false
-        }
-        else {
-            backButton.isHidden = false
-            nextButton.isHidden = false
-        }
+        let isFirstQuestion = questionsBrain.getQuestionNumber() == 0
+        let isLastQuestion = questionsBrain.getQuestionNumber() == questionsBrain.QuestionsCount-1
+        
+        nextButton.isHidden = isLastQuestion
+        progressButton.isHidden = !isLastQuestion
+        backButton.isHidden = isFirstQuestion
     }
     
     @IBAction func progressPressed(_ sender: Any) {
@@ -268,6 +232,46 @@ extension SurveyViewController : UIPickerViewDataSource, UIPickerViewDelegate {
             ex = questionsBrain.ex[row]
         default:
             print("error")
+        }
+    }
+    
+    func selectPickerViewRow() {
+        let defaultRow = getDefaultPickerViewRow()
+        pickerView.selectRow(defaultRow, inComponent: 0, animated: false)
+    }
+    
+    func getDefaultPickerViewRow() -> Int {
+        switch questionsBrain.getQuestionQ() {
+        case questionsBrain.questions[1].q:
+            return 0
+        case questionsBrain.questions[2].q:
+            return 17
+        case questionsBrain.questions[3].q:
+            return 50
+        case questionsBrain.questions[4].q:
+            return 50
+        case questionsBrain.questions[5].q:
+            return 50
+        case questionsBrain.questions[6].q:
+            return 5
+        case questionsBrain.questions[7].q:
+            return 0
+        default:
+            return 0
+        }
+    }
+    
+    func questionLogic(){
+        questionLabel.text = questionsBrain.getQuestionQ()
+        if questionsBrain.getQuestionQ() == questionsBrain.questions[0].q {
+            nameField.isHidden = false
+            name = nameField.text       //set name
+        }
+        else {
+            pickerView.reloadAllComponents()
+            selectPickerViewRow()
+            pickerView.isHidden = false
+            pickerView.reloadAllComponents()
         }
     }
 }
