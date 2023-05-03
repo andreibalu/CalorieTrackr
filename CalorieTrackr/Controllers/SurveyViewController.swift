@@ -56,6 +56,9 @@ class SurveyViewController: UIViewController {
     }
     
     @IBAction func nextPressed(_ sender: UIButton) {
+        if questionsBrain.getQuestionQ() == questionsBrain.questions[0].q {
+            name = nameField.text
+        }
         questionsBrain.nextQuestion()
         updateUI()
     }
@@ -124,7 +127,8 @@ class SurveyViewController: UIViewController {
     
     @IBAction func progressPressed(_ sender: Any) {
         if let name=name, let sex=sex, let age=age, let height=height, let weight=weight, let ideal=ideal, let weeks=weeks, let ex=ex, let uid = Auth.auth().currentUser?.email {
-            db.collection(K.FStore.collectionName).addDocument(data: [
+            let docRef = db.collection(K.FStore.collectionName).document(uid)
+            docRef.setData([
                 K.FStore.senderField: uid,
                 K.FStore.name: name,
                 K.FStore.sex: sex,
@@ -136,11 +140,15 @@ class SurveyViewController: UIViewController {
                 K.FStore.ex: ex,
                 K.FStore.streak: streak,
                 K.FStore.dateField: Date().timeIntervalSince1970
-            ]) { error in
+            ], merge: true) { error in
                 if let e = error {
-                    print("There was an issue saving data to firestore, \(e.localizedDescription)")
+                    let alert = UIAlertController(title: "Error", message: "There was an issue saving data to firestore, \(e.localizedDescription)", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 } else {
-                    print("Succesfully saved data.")
+                    let alert = UIAlertController(title: "Success", message: "Data was successfully saved.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
                 }
             }
         }
