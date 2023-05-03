@@ -40,9 +40,9 @@ class SurveyViewController: UIViewController {
         pickerView.delegate = self
         
         navigationItem.hidesBackButton = true
-//        pickerViewSex.isHidden = true
-//        nameField.isHidden = true
-//        progressButton.isHidden = true
+        //        pickerViewSex.isHidden = true
+        //        nameField.isHidden = true
+        //        progressButton.isHidden = true
         updateUI()
     }
     
@@ -56,9 +56,40 @@ class SurveyViewController: UIViewController {
     }
     
     @IBAction func nextPressed(_ sender: UIButton) {
-        if questionsBrain.getQuestionQ() == questionsBrain.questions[0].q {
+        //        if questionsBrain.getQuestionQ() == questionsBrain.questions[0].q {
+        //            name = nameField.text
+        //        }
+        
+        let currQ = questionsBrain.getQuestionQ()
+        switch currQ {
+        case questionsBrain.questions[0].q:
             name = nameField.text
+            print(name!)
+        case questionsBrain.questions[1].q:
+            sex = questionsBrain.sex[pickerView.selectedRow(inComponent: 0)]
+            print(sex!)
+        case questionsBrain.questions[2].q:
+            age = questionsBrain.age[pickerView.selectedRow(inComponent: 0)]
+            print(age!)
+        case questionsBrain.questions[3].q:
+            height = questionsBrain.height[pickerView.selectedRow(inComponent: 0)]
+            print(height!)
+        case questionsBrain.questions[4].q:
+            weight = questionsBrain.weight[pickerView.selectedRow(inComponent: 0)]
+            print(weight!)
+        case questionsBrain.questions[5].q:
+            ideal = questionsBrain.ideal[pickerView.selectedRow(inComponent: 0)]
+            print(ideal!)
+        case questionsBrain.questions[6].q:
+            weeks = questionsBrain.weeks[pickerView.selectedRow(inComponent: 0)]
+            print(weeks!)
+        case questionsBrain.questions[7].q:
+            ex = questionsBrain.ex[pickerView.selectedRow(inComponent: 0)]
+            print(ex!)
+        default:
+            print("error at preselecting")
         }
+        
         questionsBrain.nextQuestion()
         updateUI()
     }
@@ -82,11 +113,11 @@ class SurveyViewController: UIViewController {
     func questionLogic(){
         questionLabel.text = questionsBrain.getQuestionQ()
         if questionsBrain.getQuestionQ() == questionsBrain.questions[0].q {
-                       nameField.isHidden = false
-                       name = nameField.text       //set name
-                   }
+            nameField.isHidden = false
+            name = nameField.text       //set name
+        }
         else {
-            
+            pickerView.reloadAllComponents()
             switch questionsBrain.getQuestionQ() {
             case questionsBrain.questions[1].q:
                 pickerView.selectRow(0, inComponent: 0, animated: false)
@@ -106,7 +137,6 @@ class SurveyViewController: UIViewController {
                 
             }
             pickerView.isHidden = false
-//            pickerView.selectRow(0, inComponent: 0, animated: true)
             pickerView.reloadAllComponents()
         }
     }
@@ -126,6 +156,12 @@ class SurveyViewController: UIViewController {
     }
     
     @IBAction func progressPressed(_ sender: Any) {
+        
+        if questionsBrain.getQuestionQ() == questionsBrain.questions[7].q {
+            ex = questionsBrain.ex[pickerView.selectedRow(inComponent: 0)]
+            print(ex!)
+        }
+        
         if let name=name, let sex=sex, let age=age, let height=height, let weight=weight, let ideal=ideal, let weeks=weeks, let ex=ex, let uid = Auth.auth().currentUser?.email {
             let docRef = db.collection(K.FStore.collectionName).document(uid)
             docRef.setData([
@@ -232,7 +268,7 @@ extension SurveyViewController : UIPickerViewDataSource, UIPickerViewDelegate {
             ex = questionsBrain.ex[row]
         default:
             print("error")
-        }      //set sex
+        }
     }
 }
 
