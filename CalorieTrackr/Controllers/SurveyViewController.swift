@@ -60,6 +60,11 @@ class SurveyViewController: UIViewController {
             print(name!)
         case questionsBrain.questions[1].q:
             sex = questionsBrain.sex[pickerView.selectedRow(inComponent: 0)]
+            if sex == "" {
+                self.showAlert(title: "Error", message: "Select an option.")
+                print("selected no sex")
+                questionsBrain.prevQuestion()
+            }
             print(sex!)
         case questionsBrain.questions[2].q:
             age = questionsBrain.age[pickerView.selectedRow(inComponent: 0)]
@@ -110,13 +115,10 @@ class SurveyViewController: UIViewController {
                 K.FStore.dateField: Date().timeIntervalSince1970
             ], merge: true) { error in
                 if let e = error {
-                    let alert = UIAlertController(title: "Error", message: "There was an issue saving data to firestore, \(e.localizedDescription)", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    self.showAlert(title: "Error", message: "There was an issue saving data to firestore, \(e.localizedDescription)")
                 } else {
-                    let alert = UIAlertController(title: "Success", message: "Data was successfully saved.", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
+                    self.showAlert(title: "Success", message: "Data was successfully saved.")
+
                 }
             }
         }
@@ -264,6 +266,12 @@ extension SurveyViewController : UIPickerViewDataSource, UIPickerViewDelegate {
         nextButton.isHidden = isLastQuestion
         progressButton.isHidden = !isLastQuestion
         backButton.isHidden = isFirstQuestion
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
 }
 
