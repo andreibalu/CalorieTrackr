@@ -34,6 +34,7 @@
 		F085EC7D29F43BE40077A979 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F0996A1A29F57D070001732C /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
 		F0D04DAD2A0D6BDC00A5862F /* TabBarHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarHomeController.swift; sourceTree = "<group>"; };
+		F0D04DAF2A0D9E0600A5862F /* CalorieTrackr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalorieTrackr.entitlements; sourceTree = "<group>"; };
 		F0D407DC29F406A700DC4D82 /* CalorieTrackr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CalorieTrackr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0D407DF29F406A700DC4D82 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F0D407E129F406A700DC4D82 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +101,7 @@
 		F0D407DE29F406A700DC4D82 /* CalorieTrackr */ = {
 			isa = PBXGroup;
 			children = (
+				F0D04DAF2A0D9E0600A5862F /* CalorieTrackr.entitlements */,
 				F0D407DF29F406A700DC4D82 /* AppDelegate.swift */,
 				F0D407E129F406A700DC4D82 /* SceneDelegate.swift */,
 				F0D407F529F40BF700DC4D82 /* Models */,
@@ -120,9 +122,9 @@
 				F0D407E329F406A700DC4D82 /* WelcomeViewController.swift */,
 				F0D407F829F4196700DC4D82 /* LoginViewController.swift */,
 				F0D407FA29F4197900DC4D82 /* RegisterViewController.swift */,
-				F085EC7D29F43BE40077A979 /* HomeViewController.swift */,
 				F0996A1A29F57D070001732C /* SurveyViewController.swift */,
 				F0D04DAD2A0D6BDC00A5862F /* TabBarHomeController.swift */,
+				F085EC7D29F43BE40077A979 /* HomeViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -418,6 +420,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CalorieTrackr/CalorieTrackr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WR23UX8DY4;
@@ -447,6 +450,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = CalorieTrackr/CalorieTrackr.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WR23UX8DY4;
