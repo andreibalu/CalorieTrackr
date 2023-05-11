@@ -52,7 +52,7 @@ class LoginViewController: UIViewController {
                     self.showAlert(title: "Error", message: "An unknown error occurred.")
                 }
             } else {
-                self.performSegue(withIdentifier: K.loginSegue, sender: self)
+//                self.performSegue(withIdentifier: K.loginSegue, sender: self)
             }
         }
     }

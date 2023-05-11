@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Meals-->
+        <scene sceneID="08F-g9-Vre">
+            <objects>
+                <viewController id="M3e-zS-16F" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="VrE-nN-wbX">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="fqp-CS-OHg"/>
+                        <color key="backgroundColor" systemColor="systemBrownColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Meals" image="fork.knife" catalog="system" id="Vhc-VB-SEb"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EAM-bd-fRY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1680" y="339"/>
+        </scene>
+        <!--Home-->
+        <scene sceneID="QIh-Tr-NV8">
+            <objects>
+                <viewController id="pz3-hR-mED" customClass="HomeViewController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Bn6-a3-TI9">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6Sa-kd-YmO">
+                                <rect key="frame" x="152" y="62" width="96" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                <state key="normal" title="Add meal">
+                                    <color key="titleColor" name="ColorNavy"/>
+                                </state>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="RBJ-c6-Kul"/>
+                        <color key="backgroundColor" name="ColorCrem"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" id="f49-lG-hjA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="025-Ge-yWH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1681" y="-328"/>
+        </scene>
+        <!--Tab Bar Home Controller-->
+        <scene sceneID="PC3-Dr-ur3">
+            <objects>
+                <tabBarController storyboardIdentifier="TabViewController" id="DzI-fB-LmK" customClass="TabBarHomeController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" itemPositioning="centered" id="4ly-39-Cqz">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" name="ColorNavy"/>
+                        <color key="selectedImageTintColor" name="ColorPurple"/>
+                    </tabBar>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="initialIndex">
+                            <integer key="value" value="0"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <segue destination="pz3-hR-mED" kind="relationship" relationship="viewControllers" id="iB8-65-hJd"/>
+                        <segue destination="M3e-zS-16F" kind="relationship" relationship="viewControllers" id="mmg-kk-p7L"/>
+                        <segue destination="aRf-je-8o1" kind="relationship" relationship="viewControllers" id="Acy-xT-sLX"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nmq-a4-CdZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="775" y="-25"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="fzo-hn-hXh">
+            <objects>
+                <viewController id="aRf-je-8o1" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="PAW-Ou-A9h">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="py6-nK-VeF"/>
+                        <color key="backgroundColor" systemColor="systemGray3Color"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="gearshape.fill" catalog="system" id="86Y-cL-d9L"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HF9-7C-VcI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1680" y="1043"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="fork.knife" catalog="system" width="94" height="128"/>
+        <image name="gearshape.fill" catalog="system" width="128" height="123"/>
+        <image name="house.fill" catalog="system" width="128" height="104"/>
+        <namedColor name="ColorCrem">
+            <color red="0.99199998378753662" green="0.88599997758865356" blue="0.95300000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ColorNavy">
+            <color red="0.16500000655651093" green="0.18400000035762787" blue="0.31000000238418579" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ColorPurple">
+            <color red="0.5690000057220459" green="0.49799999594688416" blue="0.70200002193450928" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="systemBrownColor">
+            <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray3Color">
+            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

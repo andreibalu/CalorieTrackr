@@ -250,6 +250,7 @@
                                 </state>
                                 <connections>
                                     <action selector="loginPressed:" destination="d4Z-hA-m02" eventType="touchUpInside" id="79F-Hw-4tC"/>
+                                    <segue destination="FZ1-CK-Scz" kind="show" id="cus-eI-BWZ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -260,63 +261,21 @@
                     <connections>
                         <outlet property="emailTextField" destination="MTl-1a-ROz" id="BgY-Ro-QVa"/>
                         <outlet property="passwordTextField" destination="dMe-yy-4aN" id="x2L-8s-ydG"/>
-                        <segue destination="BYZ-38-t0r" kind="show" identifier="LoginToApp" id="vm6-Bg-Udv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eN7-o4-ACg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1303" y="708"/>
         </scene>
-        <!--Home View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <!--TabViewController-->
+        <scene sceneID="tIg-4B-hSK">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="HomeViewController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="CalorieTrackr" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJR-Ny-jtA">
-                                <rect key="frame" x="146" y="94" width="100" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Home logged in page ( stats)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fsi-Js-a5V">
-                                <rect key="frame" x="5" y="207" width="383" height="37"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="31"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="qXx-Jd-Qq9">
-                        <barButtonItem key="rightBarButtonItem" id="wgW-0z-JEp">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Pgp-hd-6Oc">
-                                <rect key="frame" x="269.33333333333331" y="5" width="107.66666666666669" height="34.333333333333336"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" image="rectangle.portrait.and.arrow.right.fill" catalog="system">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Logout"/>
-                                    </attributedString>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="logoutPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0h0-IM-7pB"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="titleLabel" destination="CJR-Ny-jtA" id="xTl-5S-aYk"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="HomeScreen" referencedIdentifier="TabViewController" id="FZ1-CK-Scz" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="FIH-G1-L2J"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kUN-dw-375" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="407" y="708"/>
+            <point key="canvasLocation" x="-635" y="619"/>
         </scene>
     </scenes>
     <resources>
