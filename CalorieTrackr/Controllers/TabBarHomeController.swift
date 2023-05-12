@@ -14,8 +14,5 @@ class TabBarHomeController: UITabBarController{
         super.viewDidLoad()
         selectedIndex = initialIndex
         navigationItem.hidesBackButton = true
-        
-        
-
     }
 }

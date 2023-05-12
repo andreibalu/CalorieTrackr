@@ -22,7 +22,5 @@ class WelcomeViewController: UIViewController {
             char += 1
         }
     }
-
-
 }
 

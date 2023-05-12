@@ -56,6 +56,7 @@
         <scene sceneID="PC3-Dr-ur3">
             <objects>
                 <tabBarController storyboardIdentifier="TabViewController" id="DzI-fB-LmK" customClass="TabBarHomeController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="813-ga-zsb"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" itemPositioning="centered" id="4ly-39-Cqz">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -76,15 +77,26 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmq-a4-CdZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="775" y="-25"/>
+            <point key="canvasLocation" x="492" y="-25"/>
         </scene>
         <!--Settings-->
         <scene sceneID="fzo-hn-hXh">
             <objects>
-                <viewController id="aRf-je-8o1" sceneMemberID="viewController">
+                <viewController id="aRf-je-8o1" customClass="SettingsViewController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="PAW-Ou-A9h">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gas-pz-wbo">
+                                <rect key="frame" x="46" y="687" width="108" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" image="rectangle.portrait.and.arrow.right.fill" catalog="system" title="Logout"/>
+                                <connections>
+                                    <action selector="logoutPressed:" destination="aRf-je-8o1" eventType="touchUpInside" id="hJ0-BE-Ab9"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="py6-nK-VeF"/>
                         <color key="backgroundColor" systemColor="systemGray3Color"/>
                     </view>
@@ -99,6 +111,7 @@
         <image name="fork.knife" catalog="system" width="94" height="128"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="rectangle.portrait.and.arrow.right.fill" catalog="system" width="128" height="108"/>
         <namedColor name="ColorCrem">
             <color red="0.99199998378753662" green="0.88599997758865356" blue="0.95300000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
