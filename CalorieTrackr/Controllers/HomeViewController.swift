@@ -13,8 +13,6 @@ import HealthKit
 
 class HomeViewController: UIViewController {
     
-    @IBOutlet weak var caloriesBurned: UILabel!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var circleView: UIView!
     var activeEnergyBurned: Double = 0.0
     
@@ -22,12 +20,32 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         calculateCaloriesFromHealth()
+        
+        circleView.layer.borderWidth = 0.0 // Set border width to 0
+        circleView.layer.borderColor = UIColor.clear.cgColor // Set border color to clear color
+        circleView.layer.cornerRadius = circleView.frame.size.width / 2.0
+        circleView.clipsToBounds = true
     }
     
     // Use the activeEnergyBurned variable for further processing or display
     func handleActiveEnergyBurnedValue(_ value: Double) {
         print("Active Energy Burned: \(value)")
-        caloriesBurned.text = "Ai ars " + String(format:"%.0f",activeEnergyBurned)
+        
+        let currentValue = activeEnergyBurned
+        let targetValue = 1500.0
+        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: circleView.frame.size.width, height: circleView.frame.size.height))
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 18.0)
+        label.textColor = UIColor.black
+        label.text = "You've burned \(String(Int(currentValue))) calories"
+        circleView.addSubview(label)
+        
+    }
+    //Makes sure the view makes a circle
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        circleView.layer.cornerRadius = circleView.frame.size.width / 2.0
     }
     
     func calculateCaloriesFromHealth(){
@@ -74,6 +92,51 @@ class HomeViewController: UIViewController {
             }
         }
         healthStore.execute(query)
+    }
+    
+    func updateCircleProgress(currentValue: Double, targetValue: Double) {
+        let progress = currentValue / targetValue
+        
+        let circlePath = UIBezierPath(
+            arcCenter: CGPoint(x: circleView.frame.size.width / 2.0, y: circleView.frame.size.height / 2.0),
+            radius: (circleView.frame.size.width - 4.0) / 2.0,
+            startAngle: -CGFloat.pi / 2.0,
+            endAngle: CGFloat(progress * 2.0 * Double.pi) - CGFloat.pi / 2.0,
+            clockwise: true
+        )
+        
+        let shapeLayer = CAShapeLayer()
+        shapeLayer.path = circlePath.cgPath
+        shapeLayer.strokeColor = UIColor.green.cgColor
+        shapeLayer.fillColor = UIColor.clear.cgColor
+        shapeLayer.lineWidth = 10.0 // Set a thicker line width
+        shapeLayer.lineCap = .round
+        
+        let animation = CABasicAnimation(keyPath: "strokeEnd")
+        animation.fromValue = 0.0
+        animation.toValue = progress
+        animation.duration = 1.0 // Set the duration of the animation
+        
+        shapeLayer.add(animation, forKey: "progressAnimation")
+        
+        let remainingPath = UIBezierPath(
+            arcCenter: CGPoint(x: circleView.frame.size.width / 2.0, y: circleView.frame.size.height / 2.0),
+            radius: (circleView.frame.size.width - 4.0) / 2.0,
+            startAngle: CGFloat(progress * 2.0 * Double.pi) - CGFloat.pi / 2.0,
+            endAngle: -CGFloat.pi / 2.0,
+            clockwise: true
+        )
+        
+        let remainingShapeLayer = CAShapeLayer()
+        remainingShapeLayer.path = remainingPath.cgPath
+        remainingShapeLayer.strokeColor = UIColor.lightGray.cgColor // Customize the color for the remaining progress
+        remainingShapeLayer.fillColor = UIColor.clear.cgColor
+        remainingShapeLayer.lineWidth = 10.0 // Set a thicker line width
+        remainingShapeLayer.lineCap = .round
+        
+        circleView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
+        circleView.layer.addSublayer(remainingShapeLayer)
+        circleView.layer.addSublayer(shapeLayer)
     }
 }
 
