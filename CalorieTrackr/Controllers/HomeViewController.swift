@@ -19,7 +19,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        calculateCaloriesFromHealth()
+        healthAuthAndGetEnergy()
         
         circleView.layer.borderWidth = 0.0 // Set border width to 0
         circleView.layer.borderColor = UIColor.clear.cgColor // Set border color to clear color
@@ -32,8 +32,9 @@ class HomeViewController: UIViewController {
         print("Active Energy Burned: \(value)")
         
         let currentValue = activeEnergyBurned
-        let targetValue = 1500.0
+        let targetValue = 1500.0            //must replace with user's target, calculated in survey logic feature
         updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
+        
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: circleView.frame.size.width, height: circleView.frame.size.height))
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 18.0)
@@ -48,7 +49,7 @@ class HomeViewController: UIViewController {
         circleView.layer.cornerRadius = circleView.frame.size.width / 2.0
     }
     
-    func calculateCaloriesFromHealth(){
+    func healthAuthAndGetEnergy(){
         if HKHealthStore.isHealthDataAvailable() {
             print("Can read health")
             let healthStore = HKHealthStore()
