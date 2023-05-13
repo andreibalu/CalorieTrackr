@@ -25,12 +25,19 @@ class SettingsViewController: UIViewController {
         //
     }
     @IBAction func logoutPressed(_ sender: UIButton) {
-        print("apasat")
-        do {
-            try Auth.auth().signOut()
-            tabBarDelegate?.logoutAndNavigateToWelcome()
-        } catch let signOutError as NSError {
-            print("Error signing out: %@", signOutError)
+        let alertController = UIAlertController(title: "Confirm Logout", message: "Are you sure you want to log out?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "Log Out", style: .destructive) { (_) in
+            do {
+                try Auth.auth().signOut()
+                self.tabBarDelegate?.logoutAndNavigateToWelcome()
+            } catch let error as NSError {
+                print("Error signing out: %@", error.localizedDescription)
+            }
         }
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
 }
