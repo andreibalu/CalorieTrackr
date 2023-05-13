@@ -21,49 +21,67 @@ import FirebaseAuth
 import HealthKit
 
 class HomeViewController: UIViewController {
-    
+
+    @IBOutlet weak var caloriesBurned: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     var activeEnergyBurned: Double = 0.0
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         if HKHealthStore.isHealthDataAvailable() {
-            print("yes")
+            print("Can read health")
             let healthStore = HKHealthStore()
-            let allTypes = Set([HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!])
-            
-            healthStore.requestAuthorization(toShare: allTypes, read: allTypes) { (success, error) in
+            let energyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!
+
+            healthStore.requestAuthorization(toShare: nil, read: [energyType]) { (success, error) in
                 if !success {
-                    let alert = UIAlertController(title: "HealthKit error", message: error?.localizedDescription, preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Auth HealthKit Error", message: error?.localizedDescription, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
-                }
-                else {
-                    let calendar = Calendar.current
-                    let now = Date()
-                    let startOfDay = calendar.startOfDay(for: now)
-                    let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictEndDate)
-                    let query = HKStatisticsQuery(quantityType: HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)!, quantitySamplePredicate: predicate, options: .cumulativeSum) { [weak self] (query, result, error) in
-                        guard let self = self else { return }
-                        if let result = result {
-                            self.activeEnergyBurned = result.sumQuantity()?.doubleValue(for: HKUnit.kilocalorie()) ?? 0.0
-                        }
-                    }
-                    healthStore.execute(query)
-                    print(self.activeEnergyBurned)
+                } else {
+                    self.fetchActiveEnergyBurned(from: healthStore, energyType: energyType)
                 }
             }
-            
-            print(activeEnergyBurned)
-            
-            
-            //             Disabling nav controller v
+        }
+    }
+    
+    //catch calories
+    func fetchActiveEnergyBurned(from healthStore: HKHealthStore, energyType: HKObjectType) {
+        let calendar = Calendar.current
+        let now = Date()
+        let startDate = calendar.startOfDay(for: now)
+        let endDate = calendar.date(byAdding: .day, value: 1, to: startDate)
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+
+        let query = HKSampleQuery(sampleType: energyType as! HKSampleType, predicate: predicate, limit: HKObjectQueryNoLimit, sortDescriptors: nil) { (query, results, error) in
+            if let error = error {
+                let alert = UIAlertController(title: "Query from HealthKit Error", message: error.localizedDescription, preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+
+            if let samples = results as? [HKQuantitySample] {
+                let totalEnergyBurned = samples.reduce(0.0) { $0 + $1.quantity.doubleValue(for: HKUnit.kilocalorie()) }
+
+                DispatchQueue.main.async {
+                    self.activeEnergyBurned = totalEnergyBurned
+                    self.handleActiveEnergyBurnedValue(self.activeEnergyBurned)
+                }
+            }
+        }
+        healthStore.execute(query)
+    }
+
+    // Use the activeEnergyBurned variable for further processing or display
+    func handleActiveEnergyBurnedValue(_ value: Double) {
+        print("Active Energy Burned: \(value)")
+        caloriesBurned.text = "Ai ars " + String(format:"%.0f",activeEnergyBurned)
+    }
+}
+
+//             Disabling nav controller v
 //            guard let navigationController = navigationController else { return }
 //            let viewControllers = navigationController.viewControllers.filter { $0 != self }
 //            navigationController.setViewControllers(viewControllers, animated: false)
-        }
-        
-    }
-    
-}
 
