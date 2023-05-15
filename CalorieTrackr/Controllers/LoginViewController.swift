@@ -11,7 +11,7 @@ import FirebaseFirestore
 import FirebaseAuth
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var emailTextField: UITextField!
     
@@ -34,25 +34,27 @@ class LoginViewController: UIViewController {
             showAlert(title: "Error", message: "Please enter a valid email address.")
             return
         }
-        
-        Auth.auth().signIn(withEmail: email, password: pass) { authResult, error in
-            if let error = error as NSError?, let errorCode = AuthErrorCode.Code(rawValue: error.code) {
-                switch errorCode {
-                case .invalidEmail:
-                    self.showAlert(title: "Error", message: "Invalid email address.")
-                case .wrongPassword:
-                    self.showAlert(title: "Error", message: "Wrong password.")
-                case .userDisabled:
-                    self.showAlert(title: "Error", message: "This user has been disabled.")
-                case .userNotFound:
-                    self.showAlert(title: "Error", message: "User not found.")
-                case .internalError:
-                    self.showAlert(title: "Error", message: "An internal error has occured.")
-                default:
-                    self.showAlert(title: "Error", message: "An unknown error occurred.")
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            Auth.auth().signIn(withEmail: email, password: pass) { authResult, error in
+                if let error = error as NSError?, let errorCode = AuthErrorCode.Code(rawValue: error.code) {
+                    switch errorCode {
+                    case .invalidEmail:
+                        self.showAlert(title: "Error", message: "Invalid email address.")
+                    case .wrongPassword:
+                        self.showAlert(title: "Error", message: "Wrong password.")
+                    case .userDisabled:
+                        self.showAlert(title: "Error", message: "This user has been disabled.")
+                    case .userNotFound:
+                        self.showAlert(title: "Error", message: "User not found.")
+                    case .internalError:
+                        self.showAlert(title: "Error", message: "An internal error has occured.")
+                    default:
+                        self.showAlert(title: "Error", message: "An unknown error occurred.")
+                    }
+                } else {
+                    // self.performSegue(withIdentifier: K.loginSegue, sender: self)
+                    print("sign in success")
                 }
-            } else {
-//                self.performSegue(withIdentifier: K.loginSegue, sender: self)
             }
         }
     }

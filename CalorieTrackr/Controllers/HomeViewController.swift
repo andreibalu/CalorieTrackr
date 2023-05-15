@@ -13,8 +13,17 @@ import HealthKit
 
 class HomeViewController: UIViewController {
     
+    let db = Firestore.firestore()
+    
+    
     @IBOutlet weak var circleView: UIView!
+    @IBOutlet weak var muscleImage: UIImageView!
+    @IBOutlet weak var streakLabel: UILabel!
+    @IBOutlet weak var targetLabel: UILabel!
+    @IBOutlet weak var messageLabel: UILabel!
+    
     var activeEnergyBurned: Double = 0.0
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +34,26 @@ class HomeViewController: UIViewController {
         circleView.layer.borderColor = UIColor.clear.cgColor // Set border color to clear color
         circleView.layer.cornerRadius = circleView.frame.size.width / 2.0
         circleView.clipsToBounds = true
+        muscleImage.image = UIImage(imageLiteralResourceName: "muscleImage")
+        
+        if let currentUser = Auth.auth().currentUser?.email{
+            print(currentUser as Any)
+            let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                userDocumentRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        if let fieldValue = document.data()?[K.FStore.streak] as? String {
+                            self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(fieldValue) days", duration: 1)
+                            // self.streakLabel.text = "Streak: \(fieldValue) days"
+                        }
+                    } else {
+                        print("Error at retrieving data from database \(String(describing: error?.localizedDescription))")
+                    }
+                }
+                
+            }
+        }
+        
     }
     
     // Use the activeEnergyBurned variable for further processing or display
@@ -39,8 +68,9 @@ class HomeViewController: UIViewController {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 18.0)
         label.textColor = UIColor.black
+        //        animateLabelChange(label: label, newText: "You've burned \(String(Int(currentValue))) calories", duration: 1)
         label.text = "You've burned \(String(Int(currentValue))) calories"
-        circleView.addSubview(label)
+        
         
     }
     //Makes sure the view makes a circle
@@ -138,6 +168,12 @@ class HomeViewController: UIViewController {
         circleView.layer.sublayers?.forEach { $0.removeFromSuperlayer() }
         circleView.layer.addSublayer(remainingShapeLayer)
         circleView.layer.addSublayer(shapeLayer)
+    }
+    
+    func animateLabelChange(label: UILabel, newText: String, duration: TimeInterval) {
+        UIView.transition(with: label, duration: duration, options: .transitionCrossDissolve, animations: {
+            label.text = newText
+        }, completion: nil)
     }
 }
 
