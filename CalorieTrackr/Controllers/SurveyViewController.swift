@@ -24,6 +24,7 @@ class SurveyViewController: UIViewController {
     var weeks : String?
     var ex : String?
     var streak = "0"
+    var target = "0"
     
     @IBOutlet weak var progressButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
@@ -112,6 +113,7 @@ class SurveyViewController: UIViewController {
                 K.FStore.weeks: weeks,
                 K.FStore.ex: ex,
                 K.FStore.streak: streak,
+                K.FStore.target: target,
                 K.FStore.dateField: Date().timeIntervalSince1970
             ], merge: true) { error in
                 if let e = error {

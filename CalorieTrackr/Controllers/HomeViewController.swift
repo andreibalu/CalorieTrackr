@@ -34,7 +34,7 @@ class HomeViewController: UIViewController {
         circleView.layer.borderColor = UIColor.clear.cgColor // Set border color to clear color
         circleView.layer.cornerRadius = circleView.frame.size.width / 2.0
         circleView.clipsToBounds = true
-        muscleImage.image = UIImage(imageLiteralResourceName: "muscleImage")
+        muscleImage.image = UIImage(imageLiteralResourceName: K.Images.muscle)
         
         if let currentUser = Auth.auth().currentUser?.email{
             print(currentUser as Any)
@@ -42,9 +42,12 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
                 userDocumentRef.getDocument { (document, error) in
                     if let document = document, document.exists {
-                        if let fieldValue = document.data()?[K.FStore.streak] as? String {
-                            self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(fieldValue) days", duration: 1)
+                        if let streakValue = document.data()?[K.FStore.streak] as? String {
+                            self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(streakValue) days", duration: 1)
                             // self.streakLabel.text = "Streak: \(fieldValue) days"
+                        }
+                        if let targetValue = document.data()?[K.FStore.target] as? String {
+                            self.animateLabelChange(label: self.targetLabel, newText: "Target: \(targetValue) calories", duration: 1)
                         }
                     } else {
                         print("Error at retrieving data from database \(String(describing: error?.localizedDescription))")

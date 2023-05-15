@@ -25,6 +25,7 @@ struct K {
         static let weeks = "WeeksGoal"
         static let ex = "Activity"
         static let streak = "Streak"
+        static let target = "Target"
         static let dateField = "date"
     }
     
@@ -37,6 +38,10 @@ struct K {
         static let pickerIdeal = "pickerViewIdeal"
         static let pickerWeeks = "pickerViewWeeks"
         static let pickerEx = "pickerViewEx"
+    }
+    
+    struct Images{
+        static let muscle = "muscleImage"
     }
     
     static let appName = "CalorieTrackr"
