@@ -44,6 +44,20 @@ struct K {
         static let muscle = "muscleImage"
     }
     
+    struct Sex{
+        static let male = "Male"
+        static let female = "Female"
+        static let other = "Other"
+    }
+    
+    struct ActivityLevel{
+        static let sedentary = "1.2"
+        static let light = "1.375"
+        static let moderate = "1.55"
+        static let high = "1.725"
+        static let very = "1.9"
+    }
+    
     static let appName = "CalorieTrackr"
     static let registerSegue = "RegisterToSurvey"
     static let loginSegue = "LoginToApp"

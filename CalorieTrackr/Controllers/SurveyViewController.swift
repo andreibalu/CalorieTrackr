@@ -99,8 +99,9 @@ class SurveyViewController: UIViewController {
             ex = questionsBrain.ex[pickerView.selectedRow(inComponent: 0)]
             print(ex!)
         }
-        
+                
         if let name=name, let sex=sex, let age=age, let height=height, let weight=weight, let ideal=ideal, let weeks=weeks, let ex=ex, let uid = Auth.auth().currentUser?.email {
+            let target = BmiBrain(sex: sex, age: age, height: height, weight: weight, ideal: ideal, weeks: weeks, ex: ex).BMR
             let docRef = db.collection(K.FStore.collectionName).document(uid)
             docRef.setData([
                 K.FStore.senderField: uid,
