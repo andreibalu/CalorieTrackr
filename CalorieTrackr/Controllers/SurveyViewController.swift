@@ -101,7 +101,7 @@ class SurveyViewController: UIViewController {
         }
                 
         if let name=name, let sex=sex, let age=age, let height=height, let weight=weight, let ideal=ideal, let weeks=weeks, let ex=ex, let uid = Auth.auth().currentUser?.email {
-            let target = BmiBrain(sex: sex, age: age, height: height, weight: weight, ideal: ideal, weeks: weeks, ex: ex).BMR
+            let target = BmiBrain(sex: sex, age: age, height: height, weight: weight, ideal: ideal, weeks: weeks, ex: ex).getTarget()
             let docRef = db.collection(K.FStore.collectionName).document(uid)
             docRef.setData([
                 K.FStore.senderField: uid,
@@ -114,7 +114,7 @@ class SurveyViewController: UIViewController {
                 K.FStore.weeks: weeks,
                 K.FStore.ex: ex,
                 K.FStore.streak: streak,
-                K.FStore.target: target,
+                K.FStore.target: target,    // not good
                 K.FStore.dateField: Date().timeIntervalSince1970
             ], merge: true) { error in
                 if let e = error {

@@ -54,17 +54,7 @@ struct BmiBrain {
             return 0.0
         }
     }
-    
-//    var BMR : String{
-//        if sex == K.Sex.male {
-//            return String(Int(10 * weightD + 6.25 * heightD - 5 * ageD + 5))
-//
-//        }
-//        else {
-//            return String(Int(10 * weightD + 6.25 * heightD - 5 * ageD - 161))
-//        }
-//    }
-//
+
     var BMR : String{
         switch exD {
         case 0 :
@@ -79,6 +69,22 @@ struct BmiBrain {
             return String(Int((10 * weightD + 6.25 * heightD - 5 * ageD + 5 + sexD) * 1.9))
         default:
             return "error at calculating bmr based on exercises per week"
+        }
+    }
+    func getTarget() -> String {
+        var diffD = idealD - weightD
+        if diffD > 0 { // gain weight
+            let kgPerWeek = diffD / weeksD  //weight gain per week
+            //considering 1kg_gain/week -> 500cals/day
+            let calsPerDay = kgPerWeek * 500
+            return String(Double(BMR)! + calsPerDay)
+        }
+        else {
+            diffD.negate()
+            let kgPerWeek = diffD / weeksD
+            //considering 1kg_loss/week -> 1000cals/day
+            let calsPerDay = kgPerWeek * 1000
+            return String(Double(BMR)! - calsPerDay)
         }
     }
 }
