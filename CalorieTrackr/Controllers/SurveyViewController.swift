@@ -120,10 +120,6 @@ class SurveyViewController: UIViewController {
                 if let e = error {
                     self.showAlert(title: "Error", message: "There was an issue saving data to firestore, \(e.localizedDescription)")
                 } else {
-//                    let alertMessage = "Data was successfully saved. Your target is \(target) calories."
-//                    self.showAlert(title: "Success", message: alertMessage)
-//                    self.performSegue(withIdentifier: "segueStory", sender: self)
-                    
                     let alertController = UIAlertController(title: "Your target will be \(target) calories.", message: "Are you sure you want to continue?", preferredStyle: .alert)
                     let cancelAction = UIAlertAction(title: "Go back", style: .cancel, handler: nil)
                     let confirmAction = UIAlertAction(title: "Proceed", style: .destructive) { (_) in
