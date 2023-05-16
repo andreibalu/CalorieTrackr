@@ -99,7 +99,7 @@ class SurveyViewController: UIViewController {
             ex = questionsBrain.ex[pickerView.selectedRow(inComponent: 0)]
             print(ex!)
         }
-                
+
         if let name=name, let sex=sex, let age=age, let height=height, let weight=weight, let ideal=ideal, let weeks=weeks, let ex=ex, let uid = Auth.auth().currentUser?.email {
             let target = BmiBrain(sex: sex, age: age, height: height, weight: weight, ideal: ideal, weeks: weeks, ex: ex).getTarget()
             let docRef = db.collection(K.FStore.collectionName).document(uid)
@@ -114,14 +114,15 @@ class SurveyViewController: UIViewController {
                 K.FStore.weeks: weeks,
                 K.FStore.ex: ex,
                 K.FStore.streak: streak,
-                K.FStore.target: target,    // not good
+                K.FStore.target: target,
                 K.FStore.dateField: Date().timeIntervalSince1970
             ], merge: true) { error in
                 if let e = error {
                     self.showAlert(title: "Error", message: "There was an issue saving data to firestore, \(e.localizedDescription)")
                 } else {
-                    self.showAlert(title: "Success", message: "Data was successfully saved.")
-
+                    let alertMessage = "Data was successfully saved. Your target is \(target) calories."
+                    self.showAlert(title: "Success", message: alertMessage)
+                    
                 }
             }
         }
