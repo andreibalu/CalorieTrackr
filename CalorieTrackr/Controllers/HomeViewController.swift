@@ -23,23 +23,22 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     
     var activeEnergyBurned: Double = 0.0
+    var target : Int = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         healthAuthAndGetEnergy()
+        circleProperties()
+        animateCircleAppearance()
         
-        circleView.layer.borderWidth = 0.0 // Set border width to 0
-        circleView.layer.borderColor = UIColor.clear.cgColor // Set border color to clear color
-        circleView.layer.cornerRadius = circleView.frame.size.width / 2.0
-        circleView.clipsToBounds = true
         muscleImage.image = UIImage(imageLiteralResourceName: K.Images.muscle)
         
         if let currentUser = Auth.auth().currentUser?.email{
             print(currentUser as Any)
             let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            DispatchQueue.main.asyncAfter(deadline: .now()) {  // maybe add a few secs if errors
                 userDocumentRef.getDocument { (document, error) in
                     if let document = document, document.exists {
                         if let streakValue = document.data()?[K.FStore.streak] as? String {
@@ -47,6 +46,8 @@ class HomeViewController: UIViewController {
                             // self.streakLabel.text = "Streak: \(fieldValue) days"
                         }
                         if let targetValue = document.data()?[K.FStore.target] as? String {
+                            self.target = Int(targetValue)!
+                            print("targetValue in auth \(targetValue) ")
                             self.animateLabelChange(label: self.targetLabel, newText: "Target: \(targetValue) calories", duration: 1)
                         }
                     } else {
@@ -61,18 +62,22 @@ class HomeViewController: UIViewController {
     
     // Use the activeEnergyBurned variable for further processing or display
     func handleActiveEnergyBurnedValue(_ value: Double) {
-        print("Active Energy Burned: \(value)")
+        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [self] Timer in
+            print("Active Energy Burned: \(value)")
+            
+            let currentValue = activeEnergyBurned
+            let targetValue = Double(target)
+            print("targetvalue pt cerc = \(targetValue)")//must replace with user's target, calculated in survey logic feature
+            updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
+            
+            let label = UILabel(frame: CGRect(x: 0, y: 0, width: circleView.frame.size.width, height: circleView.frame.size.height))
+            label.textAlignment = .center
+            label.font = UIFont.systemFont(ofSize: 18.0)
+            label.textColor = UIColor.black
+            label.text = "You've burned \(Int(currentValue)) calories"
+            circleView.addSubview(label)
+        }
         
-        let currentValue = activeEnergyBurned
-        let targetValue = 1500.0            //must replace with user's target, calculated in survey logic feature
-        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
-        
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: circleView.frame.size.width, height: circleView.frame.size.height))
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 18.0)
-        label.textColor = UIColor.black
-        label.text = "You've burned \(Int(currentValue)) calories"
-        circleView.addSubview(label)
     }
     //Makes sure the view makes a circle
     override func viewDidLayoutSubviews() {
@@ -171,6 +176,23 @@ class HomeViewController: UIViewController {
         circleView.layer.addSublayer(shapeLayer)
     }
     
+    func circleProperties() {
+        circleView.layer.borderWidth = 0.0 // Set border width to 0
+        circleView.layer.borderColor = UIColor.clear.cgColor // Set border color to clear color
+        circleView.layer.cornerRadius = circleView.frame.size.width / 2.0
+        circleView.clipsToBounds = true
+    }
+    
+    func animateCircleAppearance() {
+        circleView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0) // Set initial scale to 0
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+            UIView.animate(withDuration: 0.5) {
+                self.circleView.transform = .identity // Animate to the original scale
+            }
+        }
+    }
+
     func animateLabelChange(label: UILabel, newText: String, duration: TimeInterval) {
         UIView.transition(with: label, duration: duration, options: .transitionCrossDissolve, animations: {
             label.text = newText
