@@ -54,7 +54,7 @@ struct BmiBrain {
             return 0.0
         }
     }
-
+    
     var BMR : String{
         switch exD {
         case 0 :
@@ -77,14 +77,14 @@ struct BmiBrain {
             let kgPerWeek = diffD / weeksD  //weight gain per week
             //considering 1kg_gain/week -> 500cals/day
             let calsPerDay = kgPerWeek * 500
-            return String(Double(BMR)! + calsPerDay)
+            return String(format: "%.0f",Double(BMR)! + calsPerDay)
         }
         else {
             diffD.negate()
             let kgPerWeek = diffD / weeksD
             //considering 1kg_loss/week -> 1000cals/day
             let calsPerDay = kgPerWeek * 1000
-            return String(Double(BMR)! - calsPerDay)
+            return String(format: "%.0f",Double(BMR)! - calsPerDay)
         }
     }
 }

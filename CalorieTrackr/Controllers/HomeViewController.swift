@@ -71,10 +71,8 @@ class HomeViewController: UIViewController {
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 18.0)
         label.textColor = UIColor.black
-        //        animateLabelChange(label: label, newText: "You've burned \(String(Int(currentValue))) calories", duration: 1)
-        label.text = "You've burned \(String(Int(currentValue))) calories"
-        
-        
+        label.text = "You've burned \(Int(currentValue)) calories"
+        circleView.addSubview(label)
     }
     //Makes sure the view makes a circle
     override func viewDidLayoutSubviews() {
