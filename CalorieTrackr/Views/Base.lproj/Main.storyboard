@@ -142,6 +142,7 @@
                         <outlet property="pickerView" destination="lCb-Iq-TA8" id="buI-qs-U2h"/>
                         <outlet property="progressButton" destination="B5a-gL-ZRm" id="1VI-Mu-uBQ"/>
                         <outlet property="questionLabel" destination="hcb-JJ-Bqs" id="phQ-eu-Dlr"/>
+                        <segue destination="FZ1-CK-Scz" kind="show" identifier="segueStory" id="98B-Tb-FsZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lvX-KX-UW2" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -275,9 +276,12 @@
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kUN-dw-375" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-635" y="619"/>
+            <point key="canvasLocation" x="406" y="708"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="98B-Tb-FsZ"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="rectangle.portrait.and.arrow.right.fill" catalog="system" width="128" height="108"/>
         <namedColor name="AccentColor">
