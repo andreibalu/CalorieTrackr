@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		D45947E2172D930A5C34D9BC /* Pods_CalorieTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B36584155B619E98D4BAD6B /* Pods_CalorieTrackr.framework */; };
+		F02C19CD2A16C218003F6123 /* FoodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C19CC2A16C218003F6123 /* FoodService.swift */; };
+		F02C19CF2A16C33E003F6123 /* FoodItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C19CE2A16C33E003F6123 /* FoodItem.swift */; };
 		F056C61F2A0D655B0038714F /* HomeScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F056C61E2A0D655B0038714F /* HomeScreen.storyboard */; };
 		F085EC7E29F43BE40077A979 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F085EC7D29F43BE40077A979 /* HomeViewController.swift */; };
 		F0996A1B29F57D070001732C /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0996A1A29F57D070001732C /* SurveyViewController.swift */; };
@@ -33,6 +35,8 @@
 		29426FB05E56E52942784AC7 /* Pods-CalorieTrackr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalorieTrackr.debug.xcconfig"; path = "Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr.debug.xcconfig"; sourceTree = "<group>"; };
 		3AC08F3B86D4A1A522EBCF87 /* Pods-CalorieTrackr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalorieTrackr.release.xcconfig"; path = "Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr.release.xcconfig"; sourceTree = "<group>"; };
 		5B36584155B619E98D4BAD6B /* Pods_CalorieTrackr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CalorieTrackr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F02C19CC2A16C218003F6123 /* FoodService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodService.swift; sourceTree = "<group>"; };
+		F02C19CE2A16C33E003F6123 /* FoodItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodItem.swift; sourceTree = "<group>"; };
 		F056C61E2A0D655B0038714F /* HomeScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = HomeScreen.storyboard; sourceTree = "<group>"; };
 		F085EC7D29F43BE40077A979 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F0996A1A29F57D070001732C /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +156,8 @@
 				F0E7261A29F97EDC00C7404A /* Questions.swift */,
 				F0E7261C29F9800200C7404A /* QuestionsBrain.swift */,
 				F0FDE3352A12908500174273 /* BmiBrain.swift */,
+				F02C19CC2A16C218003F6123 /* FoodService.swift */,
+				F02C19CE2A16C33E003F6123 /* FoodItem.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -273,11 +279,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F02C19CF2A16C33E003F6123 /* FoodItem.swift in Sources */,
 				F0D407E429F406A700DC4D82 /* WelcomeViewController.swift in Sources */,
 				F0D407E029F406A700DC4D82 /* AppDelegate.swift in Sources */,
 				F0996A1B29F57D070001732C /* SurveyViewController.swift in Sources */,
 				F0E7261B29F97EDC00C7404A /* Questions.swift in Sources */,
 				F0D407E229F406A700DC4D82 /* SceneDelegate.swift in Sources */,
+				F02C19CD2A16C218003F6123 /* FoodService.swift in Sources */,
 				F0D407FB29F4197900DC4D82 /* RegisterViewController.swift in Sources */,
 				F0E7261D29F9800200C7404A /* QuestionsBrain.swift in Sources */,
 				F0D04DAE2A0D6BDC00A5862F /* TabBarHomeController.swift in Sources */,

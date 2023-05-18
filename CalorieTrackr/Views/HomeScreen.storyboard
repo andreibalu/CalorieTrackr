@@ -17,25 +17,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqD-Ux-jK8">
-                                <rect key="frame" x="159" y="130" width="75" height="35"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="dez-aV-otq">
+                                <rect key="frame" x="131" y="260" width="131" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                <connections>
-                                    <action selector="queryPressed:" destination="M3e-zS-16F" eventType="touchUpInside" id="Rw9-cX-58r"/>
-                                </connections>
-                            </button>
+                                <segments>
+                                    <segment title="Common"/>
+                                    <segment title="Branded"/>
+                                </segments>
+                            </segmentedControl>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Common/branded food" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jHJ-Au-6hw">
+                                <rect key="frame" x="98" y="154" width="197" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fqp-CS-OHg"/>
                         <color key="backgroundColor" systemColor="systemBrownColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Meals" image="fork.knife" catalog="system" id="Vhc-VB-SEb"/>
                     <navigationItem key="navigationItem" id="IdE-X3-cJ1"/>
+                    <connections>
+                        <outlet property="foodSegmentedControl" destination="dez-aV-otq" id="0cg-Mu-qID"/>
+                        <outlet property="foodTextField" destination="jHJ-Au-6hw" id="Zcq-tS-EKc"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAM-bd-fRY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2807" y="436"/>
+            <point key="canvasLocation" x="2806.8702290076335" y="435.91549295774649"/>
         </scene>
         <!--Item-->
         <scene sceneID="Rb4-cJ-EZy">
