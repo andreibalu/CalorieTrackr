@@ -9,18 +9,29 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Nu stiu-->
+        <!--Meals-->
         <scene sceneID="08F-g9-Vre">
             <objects>
-                <viewController id="M3e-zS-16F" sceneMemberID="viewController">
+                <viewController id="M3e-zS-16F" customClass="MealsViewController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VrE-nN-wbX">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZqD-Ux-jK8">
+                                <rect key="frame" x="159" y="130" width="75" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="queryPressed:" destination="M3e-zS-16F" eventType="touchUpInside" id="Rw9-cX-58r"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="fqp-CS-OHg"/>
                         <color key="backgroundColor" systemColor="systemBrownColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Meals" image="fork.knife" catalog="system" id="Vhc-VB-SEb"/>
-                    <navigationItem key="navigationItem" title="Nu stiu" id="IdE-X3-cJ1"/>
+                    <navigationItem key="navigationItem" id="IdE-X3-cJ1"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAM-bd-fRY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
