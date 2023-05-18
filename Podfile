@@ -6,5 +6,6 @@ target 'CalorieTrackr' do
   # Pods for CalorieTrackr
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
+  pod 'Alamofire'
 
 end
