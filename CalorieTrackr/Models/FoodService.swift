@@ -6,6 +6,7 @@
 //
 
 import Alamofire
+import CoreData
 
 class FoodService {
     
@@ -18,7 +19,7 @@ class FoodService {
     func searchFoodItems(query: String, completion: @escaping (Result<[FoodItem], Error>) -> Void) {
         let parameters: [String: Any] = ["query": query,"use_branded_foods": true]
         
-        AF.request("https://trackapi.nutritionix.com/v2/natural/nutrients", method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
+        AF.request(K.Api.url, method: .post, parameters: parameters, encoding: JSONEncoding.default, headers: headers)
             .responseJSON { response in
                 switch response.result {
                 case .success(let value):
@@ -30,7 +31,7 @@ class FoodService {
                                 let grams = item["serving_weight_grams"] as? Double,
                                 let proteins = item["nf_protein"] as? Double,
                                 let calories = item["nf_calories"] as? Double {
-                                items.append(FoodItem(name: name, calories: calories, proteins: proteins, grams: grams))
+                                items.append(FoodItem(name: name, calories: grams, proteins: calories, grams: proteins))
                             }
                         }
                         completion(.success(items))

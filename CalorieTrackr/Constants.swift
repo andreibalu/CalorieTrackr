@@ -61,7 +61,7 @@ struct K {
     struct Api{
         static let appid = "f78c03db"
         static let appkey = "768fa88c0628a45dce2a28a11565dd9c"
-        static let url = "https://trackapi.nutritionix.com/v2/search/instant"
+        static let url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
     }
     
     static let appName = "CalorieTrackr"

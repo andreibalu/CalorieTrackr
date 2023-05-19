@@ -7,9 +7,17 @@
 
 import Foundation
 
-struct FoodItem {
+struct FoodItem: Codable, Equatable {
     let name: String
     let calories: Double
     let proteins: Double
     let grams: Double
+    
+    static func ==(lhs: FoodItem, rhs: FoodItem) -> Bool {
+        return lhs.name == rhs.name &&
+               lhs.calories == rhs.calories &&
+               lhs.proteins == rhs.proteins &&
+               lhs.grams == rhs.grams
+    }
 }
+
