@@ -14,6 +14,7 @@
 		F085EC7E29F43BE40077A979 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F085EC7D29F43BE40077A979 /* HomeViewController.swift */; };
 		F0996A1B29F57D070001732C /* SurveyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0996A1A29F57D070001732C /* SurveyViewController.swift */; };
 		F09B37FC2A0E909B00115896 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F09B37FB2A0E909B00115896 /* SettingsViewController.swift */; };
+		F0A4F3E72A178B11005C8DB1 /* MealsModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0A4F3E62A178B11005C8DB1 /* MealsModalViewController.swift */; };
 		F0BB55E62A168FF70015527E /* MealsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0BB55E52A168FF70015527E /* MealsViewController.swift */; };
 		F0D04DAE2A0D6BDC00A5862F /* TabBarHomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D04DAD2A0D6BDC00A5862F /* TabBarHomeController.swift */; };
 		F0D407E029F406A700DC4D82 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0D407DF29F406A700DC4D82 /* AppDelegate.swift */; };
@@ -41,6 +42,7 @@
 		F085EC7D29F43BE40077A979 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		F0996A1A29F57D070001732C /* SurveyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SurveyViewController.swift; sourceTree = "<group>"; };
 		F09B37FB2A0E909B00115896 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		F0A4F3E62A178B11005C8DB1 /* MealsModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsModalViewController.swift; sourceTree = "<group>"; };
 		F0BB55E52A168FF70015527E /* MealsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MealsViewController.swift; sourceTree = "<group>"; };
 		F0D04DAD2A0D6BDC00A5862F /* TabBarHomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarHomeController.swift; sourceTree = "<group>"; };
 		F0D04DAF2A0D9E0600A5862F /* CalorieTrackr.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CalorieTrackr.entitlements; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				F085EC7D29F43BE40077A979 /* HomeViewController.swift */,
 				F09B37FB2A0E909B00115896 /* SettingsViewController.swift */,
 				F0BB55E52A168FF70015527E /* MealsViewController.swift */,
+				F0A4F3E62A178B11005C8DB1 /* MealsModalViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				F02C19CD2A16C218003F6123 /* FoodService.swift in Sources */,
 				F0D407FB29F4197900DC4D82 /* RegisterViewController.swift in Sources */,
 				F0E7261D29F9800200C7404A /* QuestionsBrain.swift in Sources */,
+				F0A4F3E72A178B11005C8DB1 /* MealsModalViewController.swift in Sources */,
 				F0D04DAE2A0D6BDC00A5862F /* TabBarHomeController.swift in Sources */,
 				F0D407F929F4196700DC4D82 /* LoginViewController.swift in Sources */,
 				F085EC7E29F43BE40077A979 /* HomeViewController.swift in Sources */,
