@@ -9,11 +9,7 @@ import Foundation
 
 struct FoodItem {
     let name: String
-    let type: String
-
-    init(name: String, type: String) {
-        self.name = name
-        self.type = type
-    }
+    let calories: Double
+    let proteins: Double
+    let grams: Double
 }
-
