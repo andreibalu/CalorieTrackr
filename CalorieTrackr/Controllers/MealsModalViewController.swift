@@ -89,7 +89,17 @@ class MealsModalViewController: UIViewController {
     
     @IBAction func addPressed(_ sender: UIButton) {
         let food = FoodItem(name: queryName, calories: queryGrams, proteins: queryCalories, grams: queryProteins)
-        presentAddToMealActionSheet(for: food)
+        if foodTextField.text != ""{
+            if food.name != "" {
+                presentAddToMealActionSheet(for: food)
+            }
+            else {
+                showAlert(title: "\(foodTextField.text!) doesn't look tasty", message: "Try adding something else")
+            }
+        }
+        else {
+            showAlert(title: "Try searching for a food", message: "Something like apples, bananas..")
+        }
     }
     
     private func presentAddToMealActionSheet(for foodItem: FoodItem) {
@@ -107,6 +117,12 @@ class MealsModalViewController: UIViewController {
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         
         present(alertController, animated: true)
+    }
+    
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        present(alert, animated: true, completion: nil)
     }
     
     func resetvars() {
