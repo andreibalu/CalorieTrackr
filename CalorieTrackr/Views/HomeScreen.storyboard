@@ -17,8 +17,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="769"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rvd-MX-CcS">
-                                <rect key="frame" x="264" y="114" width="94" height="35"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total calories: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENa-Us-HH5">
+                                <rect key="frame" x="141" y="728" width="110" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ui8-9V-Wcb">
+                                <rect key="frame" x="0.0" y="103" width="393" height="617"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ndu-ey-LOK">
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1500"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1500" id="yd9-8V-zLu"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ndu-ey-LOK" firstAttribute="leading" secondItem="Ui8-9V-Wcb" secondAttribute="leading" id="63N-Pv-jpY"/>
+                                    <constraint firstItem="ndu-ey-LOK" firstAttribute="top" secondItem="Ui8-9V-Wcb" secondAttribute="top" id="d8F-hR-tdu"/>
+                                    <constraint firstAttribute="bottom" secondItem="ndu-ey-LOK" secondAttribute="bottom" id="jg9-ys-cbr"/>
+                                    <constraint firstAttribute="trailing" secondItem="ndu-ey-LOK" secondAttribute="trailing" id="tS4-XR-qCn"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fqp-CS-OHg"/>
+                        <color key="backgroundColor" name="ColorPurple"/>
+                        <constraints>
+                            <constraint firstItem="ENa-Us-HH5" firstAttribute="top" secondItem="Ui8-9V-Wcb" secondAttribute="bottom" constant="8" id="Bjp-96-hmg"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ENa-Us-HH5" secondAttribute="trailing" constant="126" id="BtF-Za-Tf4"/>
+                            <constraint firstAttribute="bottomMargin" secondItem="ENa-Us-HH5" secondAttribute="bottom" constant="20" id="HDe-ms-GRm"/>
+                            <constraint firstItem="ENa-Us-HH5" firstAttribute="leading" secondItem="VrE-nN-wbX" secondAttribute="leadingMargin" constant="125" id="IGa-L5-5xM"/>
+                            <constraint firstAttribute="trailing" secondItem="Ui8-9V-Wcb" secondAttribute="trailing" id="IO4-EA-db0"/>
+                            <constraint firstItem="Ui8-9V-Wcb" firstAttribute="top" secondItem="VrE-nN-wbX" secondAttribute="top" constant="103" id="V2K-eY-vbc"/>
+                            <constraint firstItem="ENa-Us-HH5" firstAttribute="top" secondItem="Ui8-9V-Wcb" secondAttribute="bottom" constant="8" id="XqK-Pg-ekz"/>
+                            <constraint firstItem="ndu-ey-LOK" firstAttribute="height" secondItem="VrE-nN-wbX" secondAttribute="height" multiplier="1.95059" id="fyg-Gs-N1R"/>
+                            <constraint firstItem="Ui8-9V-Wcb" firstAttribute="leading" secondItem="VrE-nN-wbX" secondAttribute="leading" id="l3o-wV-ZeA"/>
+                            <constraint firstItem="ndu-ey-LOK" firstAttribute="width" secondItem="VrE-nN-wbX" secondAttribute="width" id="u34-8T-hlD"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Meals" image="fork.knife" catalog="system" id="Vhc-VB-SEb"/>
+                    <navigationItem key="navigationItem" id="IdE-X3-cJ1">
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="Mam-dd-mr0">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="rvd-MX-CcS">
+                                <rect key="frame" x="283" y="4.6666666666666679" width="94" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add food"/>
@@ -28,62 +71,9 @@
                                     </segue>
                                 </connections>
                             </button>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hpX-rr-3LK">
-                                <rect key="frame" x="0.0" y="157" width="393" height="551"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cJI-hF-xcB">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="551"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KyH-jL-3Qd">
-                                                <rect key="frame" x="25" y="8" width="42" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="hol-Ec-HSK">
-                                                <rect key="frame" x="25" y="37" width="343" height="233"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </tableView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mrZ-8S-zvE">
-                                                <rect key="frame" x="25" y="295" width="42" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="X7s-ca-cXu">
-                                                <rect key="frame" x="25" y="324" width="343" height="233"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                            </tableView>
-                                        </subviews>
-                                        <color key="backgroundColor" name="ColorCrem"/>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstItem="cJI-hF-xcB" firstAttribute="top" secondItem="hpX-rr-3LK" secondAttribute="top" id="ElG-c6-BWG"/>
-                                    <constraint firstItem="cJI-hF-xcB" firstAttribute="leading" secondItem="hpX-rr-3LK" secondAttribute="leading" id="QK5-s7-jmB"/>
-                                    <constraint firstAttribute="trailing" secondItem="cJI-hF-xcB" secondAttribute="trailing" id="cVf-Nb-b2j"/>
-                                    <constraint firstAttribute="bottom" secondItem="cJI-hF-xcB" secondAttribute="bottom" id="jbM-yA-Vdc"/>
-                                </constraints>
-                                <viewLayoutGuide key="contentLayoutGuide" id="O8k-Nt-5Sa"/>
-                                <viewLayoutGuide key="frameLayoutGuide" id="I95-CM-WUj"/>
-                            </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Total calories: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ENa-Us-HH5">
-                                <rect key="frame" x="141" y="728" width="110" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="fqp-CS-OHg"/>
-                        <color key="backgroundColor" name="ColorPurple"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="Meals" image="fork.knife" catalog="system" id="Vhc-VB-SEb"/>
-                    <navigationItem key="navigationItem" id="IdE-X3-cJ1"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <size key="freeformSize" width="393" height="852"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAM-bd-fRY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -250,8 +240,8 @@
                                     <action selector="logoutPressed:" destination="aRf-je-8o1" eventType="touchUpInside" id="hJ0-BE-Ab9"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7E-nc-eR3">
-                                <rect key="frame" x="46" y="172" width="151" height="35"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" reversesTitleShadowWhenHighlighted="YES" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S7E-nc-eR3">
+                                <rect key="frame" x="46" y="618" width="151" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="tinted" title="account settings"/>
@@ -264,11 +254,12 @@
                         <color key="backgroundColor" systemColor="systemGray3Color"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="gearshape.fill" catalog="system" id="86Y-cL-d9L"/>
-                    <navigationItem key="navigationItem" title="Settings" id="vUy-Zi-9fy"/>
+                    <navigationItem key="navigationItem" id="vUy-Zi-9fy"/>
+                    <nil key="simulatedTopBarMetrics"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HF9-7C-VcI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2807" y="1175"/>
+            <point key="canvasLocation" x="2805" y="2211"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="JHz-sv-lEg">
