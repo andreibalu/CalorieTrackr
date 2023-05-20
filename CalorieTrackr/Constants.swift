@@ -58,6 +58,20 @@ struct K {
         static let very = "1.9"
     }
     
+    struct Api{
+        static let appid = "f78c03db"
+        static let appkey = "768fa88c0628a45dce2a28a11565dd9c"
+        static let url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
+        static let array = "foods"
+        struct food{
+            static let name = "food_name"
+            static let proteins = "nf_protein"
+            static let grams = "serving_weight_grams"
+            static let calories = "nf_calories"
+        }
+    }
+    
+    static let foodJson = "meals.json"
     static let appName = "CalorieTrackr"
     static let registerSegue = "RegisterToSurvey"
     static let loginSegue = "LoginToApp"
