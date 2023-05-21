@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="67" id="KGk-i7-Jjw" customClass="FoodCell" customModule="CalorieTrackr" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="325" height="67"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="325" height="67"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="frJ-SX-b56">
+                        <rect key="frame" x="10" y="10" width="305" height="50"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvs-LQ-vzZ">
+                                <rect key="frame" x="0.0" y="0.0" width="245" height="50"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztb-MY-ZGd">
+                                        <rect key="frame" x="10" y="10" width="225" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="ztb-MY-ZGd" firstAttribute="top" secondItem="lvs-LQ-vzZ" secondAttribute="top" constant="10" id="IXw-J5-3na"/>
+                                    <constraint firstAttribute="trailing" secondItem="ztb-MY-ZGd" secondAttribute="trailing" constant="10" id="XsD-mN-OZt"/>
+                                    <constraint firstAttribute="bottom" secondItem="ztb-MY-ZGd" secondAttribute="bottom" constant="10" id="ZLu-VY-7Z5"/>
+                                    <constraint firstItem="ztb-MY-ZGd" firstAttribute="leading" secondItem="lvs-LQ-vzZ" secondAttribute="leading" constant="10" id="gUe-OG-QTK"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4l-nP-Ulk">
+                                <rect key="frame" x="265" y="0.0" width="40" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="40" id="24d-Lf-f1C"/>
+                                    <constraint firstAttribute="height" constant="40" id="Wqz-dU-fra"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                            </button>
+                        </subviews>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="frJ-SX-b56" secondAttribute="trailing" constant="10" id="1uq-6g-Pct"/>
+                    <constraint firstAttribute="bottom" secondItem="frJ-SX-b56" secondAttribute="bottom" constant="10" id="6Nn-62-kSk"/>
+                    <constraint firstItem="frJ-SX-b56" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="Sxl-ki-voT"/>
+                    <constraint firstItem="frJ-SX-b56" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="cPK-Db-RFd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <point key="canvasLocation" x="-0.76335877862595414" y="3.1690140845070425"/>
+        </tableViewCell>
+    </objects>
+</document>
