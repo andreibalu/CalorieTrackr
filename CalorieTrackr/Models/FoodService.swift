@@ -66,12 +66,15 @@ class FoodService {
         print("Removed \(foodItem.name) from file.")
     }
     
-    func getFoodsNumber() -> Int {
+    //count all foods from a meal
+    func getFoodsCountFromMeal(meal: String) -> Int {
         let meals = getMealsFromFile()
-        let foodCount = meals.values.reduce(0) { $0 + $1.count }
-        return foodCount
+        guard let foods = meals[meal] else {
+            print("No foods found for \(meal).")
+            return 0
+        }
+        return foods.count
     }
-
     
     //to print the foods of a meal -> ex: breakfast meals
     func printOneMeal(from meal: String) {
@@ -86,6 +89,34 @@ class FoodService {
             print("Name: \(food.name), Calories: \(food.calories), Proteins: \(food.proteins), Grams: \(food.grams)")
         }
     }
+    
+    //get all foods from a meal
+    func getFoodsFromMeal(meal: String) -> [FoodItem] {
+        let meals = getMealsFromFile()
+        
+        guard let foods = meals[meal] else {
+            print("No foods found for \(meal).")
+            return []
+        }
+        
+        return foods
+    }
+
+    //get sum of calories
+    func getTotalCaloriesFromMealFile() -> Double {
+        let meals = getMealsFromFile()
+        
+        var totalCalories: Double = 0.0
+        
+        for (_, foods) in meals {
+            for food in foods {
+                totalCalories += food.calories
+            }
+        }
+        
+        return totalCalories
+    }
+
     
     //return the whole file content
     func getMealsFromFile() -> [String: [FoodItem]] {

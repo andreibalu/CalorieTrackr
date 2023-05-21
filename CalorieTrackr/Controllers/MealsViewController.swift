@@ -9,7 +9,6 @@ import UIKit
 
 class MealsViewController: UIViewController {
 
-    private var foodService: FoodService!
     private var foodItems = [FoodItem]()
     var foodItems1 :[FoodItem] = [
         FoodItem(name: "apple1", calories: 100.0, proteins: 120.0, grams: 130.0),
@@ -25,6 +24,7 @@ class MealsViewController: UIViewController {
         FoodItem(name: "apple3", calories: 100.0, proteins: 120.0, grams: 130.0),
         FoodItem(name: "banana3", calories: 120.0, proteins: 30.0, grams: 330.0)
     ]
+    private var foodService = FoodService()
 
     @IBOutlet weak var tableViewDinner: UITableView!
     @IBOutlet weak var tableViewLunch: UITableView!
@@ -33,6 +33,7 @@ class MealsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         foodService = FoodService()
+
         
         tableViewBreak.dataSource = self
         tableViewBreak.backgroundColor = UIColor.clear
@@ -44,23 +45,26 @@ class MealsViewController: UIViewController {
         tableViewBreak.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
         tableViewLunch.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
         tableViewDinner.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+            super.viewWillAppear(animated)
         tableViewBreak.reloadData()
         tableViewLunch.reloadData()
         tableViewDinner.reloadData()
-    }
+        }
 }
 
 extension MealsViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == tableViewBreak {
-            return foodItems1.count
+            return self.foodService.getFoodsCountFromMeal(meal: K.Api.food.breakfast)
         }
         else if tableView == tableViewLunch {
-            return foodItems2.count
+            return self.foodService.getFoodsCountFromMeal(meal: K.Api.food.lunch)
         }
         else if tableView == tableViewDinner {
-            return foodItems3.count
+            return self.foodService.getFoodsCountFromMeal(meal: K.Api.food.dinner)
         }
         return 0
     }
@@ -68,20 +72,23 @@ extension MealsViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == tableViewBreak {
             let cell = tableViewBreak.dequeueReusableCell(withIdentifier: K.foodCell.cellIdentifier, for: indexPath) as! FoodCell
-            cell.label.text = foodItems1[indexPath.row].name + " -> " + String(Int(foodItems1[indexPath.row].calories))
+            let food = foodService.getFoodsFromMeal(meal: K.Api.food.breakfast)
             cell.backgroundColor = UIColor.clear
+            cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
             return cell
         }
         else if tableView ==  tableViewLunch {
             let cell = tableViewLunch.dequeueReusableCell(withIdentifier: K.foodCell.cellIdentifier , for: indexPath) as! FoodCell
-            cell.label.text = foodItems2[indexPath.row].name + " -> " + String(Int(foodItems2[indexPath.row].calories))
+            let food = foodService.getFoodsFromMeal(meal: K.Api.food.lunch)
             cell.backgroundColor = UIColor.clear
+            cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
             return cell
         }
         else {
             let cell = tableViewDinner.dequeueReusableCell(withIdentifier: K.foodCell.cellIdentifier , for: indexPath) as! FoodCell
-            cell.label.text = foodItems3[indexPath.row].name + " -> " + String(Int(foodItems3[indexPath.row].calories))
+            let food = foodService.getFoodsFromMeal(meal: K.Api.food.dinner)
             cell.backgroundColor = UIColor.clear
+            cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
             return cell
         }
     }
