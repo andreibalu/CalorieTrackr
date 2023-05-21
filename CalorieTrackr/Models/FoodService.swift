@@ -36,7 +36,7 @@ class FoodService {
                                let grams = item[K.Api.food.grams] as? Double,
                                let proteins = item[K.Api.food.proteins] as? Double,
                                let calories = item[K.Api.food.calories] as? Double {
-                                items.append(FoodItem(name: name, calories: grams, proteins: calories, grams: proteins))
+                                items.append(FoodItem(name: name, calories: calories, proteins: proteins, grams: grams))
                             }
                         }
                         completion(.success(items))

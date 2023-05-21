@@ -65,8 +65,8 @@ struct K {
         static let array = "foods"
         struct food{
             static let name = "food_name"
-            static let proteins = "nf_protein"
             static let grams = "serving_weight_grams"
+            static let proteins = "nf_protein"
             static let calories = "nf_calories"
         }
     }
