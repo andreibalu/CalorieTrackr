@@ -47,25 +47,7 @@ class FoodService {
             }
     }
     
-    func getMealsFromFile() -> [String: [FoodItem]] {
-        guard let data = try? Data(contentsOf: mealsFileURL),
-              let meals = try? JSONDecoder().decode([String: [FoodItem]].self, from: data) else {
-            print("No meals found or couldn't decode the file.")
-            return [:]
-        }
-        return meals
-    }
-    
-    func saveMealsToFile(meals: [String: [FoodItem]]) {
-        guard let data = try? JSONEncoder().encode(meals) else { return }
-        try? data.write(to: mealsFileURL)
-    }
-    
-    func clearMealsFile() {
-        let emptyMeals: [String: [FoodItem]] = [:]
-        saveMealsToFile(meals: emptyMeals)
-    }
-    
+    //add a food to a specific meal
     func addToMeal(meal: String, foodItem: FoodItem) {
         print("Adding \(foodItem.name) to \(meal)")
         
@@ -75,25 +57,50 @@ class FoodService {
         saveMealsToFile(meals: meals)
     }
     
+    //delete a specific food from a specific meal
     func removeFoodItemFromMeal(meal: String, foodItem: FoodItem) {
         var meals = getMealsFromFile()
         
-        // Filter out the specified food item
         meals[meal] = meals[meal]?.filter { $0 != foodItem }
-        
         saveMealsToFile(meals: meals)
+        print("Removed \(foodItem.name) from file.")
     }
     
-    func printFoods(from meal: String) {
+    //to print the foods of a meal -> ex: breakfast meals
+    func printOneMeal(from meal: String) {
         let meals = getMealsFromFile()
         
         guard let foods = meals[meal] else {
-            print("No foods found for \(meal)")
+            print("No foods found for \(meal).")
             return
         }
         
         for food in foods {
             print("Name: \(food.name), Calories: \(food.calories), Proteins: \(food.proteins), Grams: \(food.grams)")
         }
+    }
+    
+    //return the whole file content
+    func getMealsFromFile() -> [String: [FoodItem]] {
+        guard let data = try? Data(contentsOf: mealsFileURL),
+              let meals = try? JSONDecoder().decode([String: [FoodItem]].self, from: data) else {
+            print("No meals found or couldn't decode the file.")
+            return [:]
+        }
+        return meals
+    }
+    
+    //empty the file
+    func emptyMealsFile() {
+        let emptyMeals: [String: [FoodItem]] = [:]
+        saveMealsToFile(meals: emptyMeals)
+        print("Emptied meals file.")
+    }
+    
+    //saves new content to meals file
+    func saveMealsToFile(meals: [String: [FoodItem]]) {
+        guard let data = try? JSONEncoder().encode(meals) else { return }
+        try? data.write(to: mealsFileURL)
+        print("Saved new content.")
     }
 }

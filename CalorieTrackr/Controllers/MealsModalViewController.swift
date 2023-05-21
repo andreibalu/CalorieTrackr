@@ -106,7 +106,6 @@ class MealsModalViewController: UIViewController {
         let alertController = UIAlertController(title: "Add to Meal", message: "Select a meal to add to", preferredStyle: .actionSheet)
         alertController.addAction(UIAlertAction(title: "Breakfast", style: .default) { _ in
             self.foodService.addToMeal(meal: "Breakfast", foodItem: foodItem)
-            self.foodService.printFoods(from: "Breakfast")
         })
         alertController.addAction(UIAlertAction(title: "Lunch", style: .default) { _ in
             self.foodService.addToMeal(meal: "Lunch", foodItem: foodItem)
