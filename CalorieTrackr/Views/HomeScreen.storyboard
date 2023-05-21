@@ -113,7 +113,8 @@
                     <navigationItem key="navigationItem" id="IdE-X3-cJ1">
                         <nil key="title"/>
                         <barButtonItem key="leftBarButtonItem" style="plain" id="VvL-Nz-nSo">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="O1Q-mx-4Uz">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="O1Q-mx-4Uz">
+                                <rect key="frame" x="16" y="0.0" width="261.33333333333331" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.55686277149999996" green="0.1607843041" blue="0.14509806040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
@@ -125,7 +126,7 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" style="plain" id="Mam-dd-mr0">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="rvd-MX-CcS">
-                                <rect key="frame" x="238.66666666666663" y="5" width="93.666666666666686" height="34.333333333333336"/>
+                                <rect key="frame" x="283.33333333333331" y="5" width="93.666666666666686" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add food"/>
@@ -141,6 +142,7 @@
                         <outlet property="tableViewBreak" destination="0mp-Pa-9jw" id="k1Y-SK-T5D"/>
                         <outlet property="tableViewDinner" destination="Wua-yx-dWM" id="f97-pk-nL3"/>
                         <outlet property="tableViewLunch" destination="vM2-rB-nUt" id="oAE-Qo-TZg"/>
+                        <outlet property="totalCalories" destination="ENa-Us-HH5" id="kOU-wE-5Kd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAM-bd-fRY" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

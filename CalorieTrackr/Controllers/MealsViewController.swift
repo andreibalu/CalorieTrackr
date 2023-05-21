@@ -13,43 +13,21 @@ protocol MealsViewControllerDelegate: AnyObject { //for refreshing tables after 
 
 
 class MealsViewController: UIViewController {
-    
-    private var foodItems = [FoodItem]()
-    var foodItems1 :[FoodItem] = [
-        FoodItem(name: "apple1", calories: 100.0, proteins: 120.0, grams: 130.0),
-        FoodItem(name: "banana1", calories: 120.0, proteins: 30.0, grams: 330.0),
-        FoodItem(name: "apple1", calories: 100.0, proteins: 120.0, grams: 130.0),
-        FoodItem(name: "banana1", calories: 120.0, proteins: 30.0, grams: 330.0)
-    ]
-    var foodItems2 :[FoodItem] = [
-        FoodItem(name: "apple2", calories: 100.0, proteins: 120.0, grams: 130.0),
-        FoodItem(name: "banana2", calories: 120.0, proteins: 30.0, grams: 330.0)
-    ]
-    var foodItems3 :[FoodItem] = [
-        FoodItem(name: "apple3", calories: 100.0, proteins: 120.0, grams: 130.0),
-        FoodItem(name: "banana3", calories: 120.0, proteins: 30.0, grams: 330.0)
-    ]
     private var foodService = FoodService()
     
     @IBOutlet weak var tableViewDinner: UITableView!
     @IBOutlet weak var tableViewLunch: UITableView!
     @IBOutlet weak var tableViewBreak: UITableView!
+    @IBOutlet weak var totalCalories: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         foodService = FoodService()
         foodService.delegate = self
         
-        tableViewBreak.dataSource = self
-        tableViewBreak.backgroundColor = UIColor.clear
-        tableViewLunch.dataSource = self
-        tableViewLunch.backgroundColor = UIColor.clear
-        tableViewDinner.dataSource = self
-        tableViewDinner.backgroundColor = UIColor.clear
+        setUpTables()
+        totalCalories.text = String(Int(self.foodService.getTotalCaloriesFromMealFile()))
         
-        tableViewBreak.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
-        tableViewLunch.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
-        tableViewDinner.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -71,6 +49,19 @@ class MealsViewController: UIViewController {
         alertController.addAction(confirmAction)
         
         self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func setUpTables() {
+        tableViewBreak.dataSource = self
+        tableViewBreak.backgroundColor = UIColor.clear
+        tableViewLunch.dataSource = self
+        tableViewLunch.backgroundColor = UIColor.clear
+        tableViewDinner.dataSource = self
+        tableViewDinner.backgroundColor = UIColor.clear
+        
+        tableViewBreak.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
+        tableViewLunch.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
+        tableViewDinner.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
     }
 }
 
