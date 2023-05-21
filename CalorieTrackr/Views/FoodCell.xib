@@ -20,10 +20,10 @@
                         <rect key="frame" x="10" y="10" width="305" height="47"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lvs-LQ-vzZ">
-                                <rect key="frame" x="0.0" y="0.0" width="245" height="47"/>
+                                <rect key="frame" x="0.0" y="0.0" width="238.66666666666666" height="47"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ztb-MY-ZGd">
-                                        <rect key="frame" x="10" y="10" width="225" height="27"/>
+                                        <rect key="frame" x="10" y="10" width="218.66666666666666" height="27"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -37,9 +37,13 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w4l-nP-Ulk">
-                                <rect key="frame" x="265" y="0.0" width="40" height="47"/>
+                                <rect key="frame" x="258.66666666666669" y="0.0" width="46.333333333333314" height="47"/>
+                                <color key="tintColor" red="0.55686277149999996" green="0.1607843041" blue="0.14509806040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain"/>
+                                <buttonConfiguration key="configuration" style="plain" image="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="butonPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="ZMT-ki-Gt3"/>
+                                </connections>
                             </button>
                         </subviews>
                     </stackView>
@@ -59,4 +63,7 @@
             <point key="canvasLocation" x="-0.76335877862595414" y="3.1690140845070425"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="xmark" catalog="system" width="128" height="113"/>
+    </resources>
 </document>
