@@ -13,7 +13,7 @@ protocol MealsViewControllerDelegate: AnyObject { //for refreshing tables after 
 
 
 class MealsViewController: UIViewController {
-
+    
     private var foodItems = [FoodItem]()
     var foodItems1 :[FoodItem] = [
         FoodItem(name: "apple1", calories: 100.0, proteins: 120.0, grams: 130.0),
@@ -30,7 +30,7 @@ class MealsViewController: UIViewController {
         FoodItem(name: "banana3", calories: 120.0, proteins: 30.0, grams: 330.0)
     ]
     private var foodService = FoodService()
-
+    
     @IBOutlet weak var tableViewDinner: UITableView!
     @IBOutlet weak var tableViewLunch: UITableView!
     @IBOutlet weak var tableViewBreak: UITableView!
@@ -53,11 +53,25 @@ class MealsViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
+        super.viewWillAppear(animated)
         tableViewBreak.reloadData()
         tableViewLunch.reloadData()
         tableViewDinner.reloadData()
+    }
+    
+    @IBAction func deletePressed(_ sender: UIButton) {
+        let alertController = UIAlertController(title: "Deleting all foods registered", message: "Are you sure you want to continue?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Go back", style: .cancel, handler: nil)
+        let confirmAction = UIAlertAction(title: "Proceed", style: .destructive) { (_) in
+            do {
+                self.foodService.emptyMealsFile()
+            }
         }
+        alertController.addAction(cancelAction)
+        alertController.addAction(confirmAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
 }
 
 extension MealsViewController : UITableViewDataSource {
