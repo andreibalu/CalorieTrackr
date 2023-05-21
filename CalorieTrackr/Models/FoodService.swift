@@ -10,6 +10,8 @@ import CoreData
 
 class FoodService {
     
+    weak var delegate: MealsViewControllerDelegate?
+    
     private let mealsFileURL: URL = {
         let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         return directory.appendingPathComponent(K.foodJson)
@@ -49,10 +51,12 @@ class FoodService {
     
     //add a food to a specific meal
     func addToMeal(meal: String, foodItem: FoodItem) {
-        print("Adding \(foodItem.name) to \(meal)")
+        print("Adding \(foodItem.name) to \(meal) with \(foodItem.calories) calories, \(foodItem.grams)grams and \(foodItem.proteins) proteins")
         
         var meals = getMealsFromFile()
         meals[meal, default: []].append(foodItem)
+        
+        self.delegate?.didAddFoodItem()
         
         saveMealsToFile(meals: meals)
     }

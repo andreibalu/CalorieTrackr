@@ -111,9 +111,10 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Meals" image="fork.knife" catalog="system" id="Vhc-VB-SEb"/>
                     <navigationItem key="navigationItem" id="IdE-X3-cJ1">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="Mam-dd-mr0">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="Mam-dd-mr0">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="rvd-MX-CcS">
-                                <rect key="frame" x="283" y="4.6666666666666679" width="94" height="35"/>
+                                <rect key="frame" x="16" y="5" width="93.666666666666671" height="34.333333333333336"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Add food"/>
@@ -124,6 +125,12 @@
                                 </connections>
                             </button>
                         </barButtonItem>
+                        <button key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="O1Q-mx-4Uz">
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="tintColor" red="0.55686277149999996" green="0.1607843041" blue="0.14509806040000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Delete all foods"/>
+                        </button>
                     </navigationItem>
                     <connections>
                         <outlet property="tableViewBreak" destination="0mp-Pa-9jw" id="k1Y-SK-T5D"/>

@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol MealsViewControllerDelegate: AnyObject { //for refreshing tables after adding food to a meal
+    func didAddFoodItem()
+}
+
+
 class MealsViewController: UIViewController {
 
     private var foodItems = [FoodItem]()
@@ -33,7 +38,7 @@ class MealsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         foodService = FoodService()
-
+        foodService.delegate = self
         
         tableViewBreak.dataSource = self
         tableViewBreak.backgroundColor = UIColor.clear
@@ -92,6 +97,13 @@ extension MealsViewController : UITableViewDataSource {
             return cell
         }
     }
-    
-    
 }
+
+extension MealsViewController : MealsViewControllerDelegate {
+    func didAddFoodItem() {
+        tableViewBreak.reloadData()
+        tableViewLunch.reloadData()
+        tableViewDinner.reloadData()
+    }
+}
+

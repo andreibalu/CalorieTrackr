@@ -88,7 +88,7 @@ class MealsModalViewController: UIViewController {
     }
     
     @IBAction func addPressed(_ sender: UIButton) {
-        let food = FoodItem(name: queryName, calories: queryGrams, proteins: queryCalories, grams: queryProteins)
+        let food = FoodItem(name: queryName, calories: queryCalories, proteins: queryProteins, grams: queryGrams)
         if foodTextField.text != ""{
             if food.name != "" {
                 presentAddToMealActionSheet(for: food)
