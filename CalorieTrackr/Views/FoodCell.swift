@@ -9,6 +9,8 @@ import UIKit
 
 class FoodCell: UITableViewCell {
 
+    @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var label: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -19,5 +21,4 @@ class FoodCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }

@@ -10,7 +10,7 @@ import UIKit
 class MealsViewController: UIViewController {
 
     private var foodService: FoodService!
-//    private var foodItems = [FoodItem]()
+    private var foodItems = [FoodItem]()
     var foodItems1 :[FoodItem] = [
         FoodItem(name: "apple1", calories: 100.0, proteins: 120.0, grams: 130.0),
         FoodItem(name: "banana1", calories: 120.0, proteins: 30.0, grams: 330.0),
@@ -41,6 +41,10 @@ class MealsViewController: UIViewController {
         tableViewDinner.dataSource = self
         tableViewDinner.backgroundColor = UIColor.clear
         
+        tableViewBreak.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
+        tableViewLunch.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
+        tableViewDinner.register(UINib(nibName: "FoodCell", bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
+        
         tableViewBreak.reloadData()
         tableViewLunch.reloadData()
         tableViewDinner.reloadData()
@@ -63,20 +67,20 @@ extension MealsViewController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == tableViewBreak {
-            let cell = tableViewBreak.dequeueReusableCell(withIdentifier: "Reuse1" , for: indexPath)
-            cell.textLabel?.text = foodItems1[indexPath.row].name + " -> " + String(Int(foodItems1[indexPath.row].calories))
+            let cell = tableViewBreak.dequeueReusableCell(withIdentifier: K.foodCell.cellIdentifier, for: indexPath) as! FoodCell
+            cell.label.text = foodItems1[indexPath.row].name + " -> " + String(Int(foodItems1[indexPath.row].calories))
             cell.backgroundColor = UIColor.clear
             return cell
         }
         else if tableView ==  tableViewLunch {
-            let cell = tableViewLunch.dequeueReusableCell(withIdentifier: "Reuse2" , for: indexPath)
-            cell.textLabel?.text = foodItems2[indexPath.row].name + " -> " + String(Int(foodItems1[indexPath.row].calories))
+            let cell = tableViewLunch.dequeueReusableCell(withIdentifier: K.foodCell.cellIdentifier , for: indexPath) as! FoodCell
+            cell.label.text = foodItems2[indexPath.row].name + " -> " + String(Int(foodItems2[indexPath.row].calories))
             cell.backgroundColor = UIColor.clear
             return cell
         }
         else {
-            let cell = tableViewDinner.dequeueReusableCell(withIdentifier: "Reuse3" , for: indexPath)
-            cell.textLabel?.text = foodItems3[indexPath.row].name + " -> " + String(Int(foodItems1[indexPath.row].calories))
+            let cell = tableViewDinner.dequeueReusableCell(withIdentifier: K.foodCell.cellIdentifier , for: indexPath) as! FoodCell
+            cell.label.text = foodItems3[indexPath.row].name + " -> " + String(Int(foodItems3[indexPath.row].calories))
             cell.backgroundColor = UIColor.clear
             return cell
         }

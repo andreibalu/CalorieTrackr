@@ -71,6 +71,11 @@ struct K {
         }
     }
     
+    struct foodCell {
+        static let cellIdentifier = "Reuse"
+        static let cellNibName = "FoodCell"
+    }
+    
     static let foodJson = "meals.json"
     static let appName = "CalorieTrackr"
     static let registerSegue = "RegisterToSurvey"

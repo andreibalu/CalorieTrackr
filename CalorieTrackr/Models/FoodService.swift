@@ -66,6 +66,13 @@ class FoodService {
         print("Removed \(foodItem.name) from file.")
     }
     
+    func getFoodsNumber() -> Int {
+        let meals = getMealsFromFile()
+        let foodCount = meals.values.reduce(0) { $0 + $1.count }
+        return foodCount
+    }
+
+    
     //to print the foods of a meal -> ex: breakfast meals
     func printOneMeal(from meal: String) {
         let meals = getMealsFromFile()
