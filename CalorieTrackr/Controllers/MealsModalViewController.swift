@@ -12,12 +12,12 @@ class MealsModalViewController: UIViewController {
     @IBOutlet weak var resultTextView: UITextView!
     
     private var foodService: FoodService!
-    private var foodItems = [FoodItem]()
     
     var queryName = ""
     var queryCalories = 0.0
     var queryProteins = 0.0
     var queryGrams = 0.0
+    var queryID : UUID?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,13 +61,13 @@ class MealsModalViewController: UIViewController {
             totalProteins += item.proteins
             totalGrams += item.grams
             if self.queryName != "" {
-                self.queryName = self.queryName + "\\" + item.name
+                self.queryName = self.queryName + " + " + item.name
             }
             else {
                 self.queryName = item.name
             }
             let itemName = NSAttributedString(string: "\n\(item.name)\n", attributes: titleAttributes)
-            let itemDetails = NSAttributedString(string: "Calories: \(item.calories)\nProteins: \(item.proteins)g\nGrams: \(item.grams)g\n", attributes: itemAttributes)
+            let itemDetails = NSAttributedString(string: "Calories: \(Int(item.calories))\nProteins: \(String(format: "%.2f",item.proteins))g\nGrams: \(Int(item.grams))g\n", attributes: itemAttributes)
             resultText.append(itemName)
             resultText.append(itemDetails)
         }
@@ -75,7 +75,7 @@ class MealsModalViewController: UIViewController {
         self.queryGrams = totalGrams
         self.queryProteins = totalProteins
         let totalTitle = NSAttributedString(string: "\nTotal:\n", attributes: titleAttributes)
-        let totalDetails = NSAttributedString(string: "Calories: \(totalCalories)\nProteins: \(totalProteins)g\nGrams: \(totalGrams)g", attributes: itemAttributes)
+        let totalDetails = NSAttributedString(string: "Calories: \(Int(totalCalories))\nProteins: \(String(format: "%.2f",totalProteins))g\nGrams: \(Int(totalGrams))g", attributes: itemAttributes)
         resultText.append(totalTitle)
         resultText.append(totalDetails)
         DispatchQueue.main.async {
@@ -88,7 +88,7 @@ class MealsModalViewController: UIViewController {
     }
     
     @IBAction func addPressed(_ sender: UIButton) {
-        let food = FoodItem(name: queryName, calories: queryGrams, proteins: queryCalories, grams: queryProteins)
+        let food = FoodItem(id: UUID(),name: queryName, calories: queryCalories, proteins: queryProteins, grams: queryGrams)
         if foodTextField.text != ""{
             if food.name != "" {
                 presentAddToMealActionSheet(for: food)
@@ -104,15 +104,14 @@ class MealsModalViewController: UIViewController {
     
     private func presentAddToMealActionSheet(for foodItem: FoodItem) {
         let alertController = UIAlertController(title: "Add to Meal", message: "Select a meal to add to", preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: "Breakfast", style: .default) { _ in
-            self.foodService.addToMeal(meal: "Breakfast", foodItem: foodItem)
-            self.foodService.printFoods(from: "Breakfast")
+        alertController.addAction(UIAlertAction(title: K.Api.food.breakfast, style: .default) { _ in
+            self.foodService.addToMeal(meal: K.Api.food.breakfast, foodItem: foodItem)
         })
-        alertController.addAction(UIAlertAction(title: "Lunch", style: .default) { _ in
-            self.foodService.addToMeal(meal: "Lunch", foodItem: foodItem)
+        alertController.addAction(UIAlertAction(title: K.Api.food.lunch, style: .default) { _ in
+            self.foodService.addToMeal(meal: K.Api.food.lunch, foodItem: foodItem)
         })
-        alertController.addAction(UIAlertAction(title: "Dinner", style: .default) { _ in
-            self.foodService.addToMeal(meal: "Dinner", foodItem: foodItem)
+        alertController.addAction(UIAlertAction(title: K.Api.food.dinner, style: .default) { _ in
+            self.foodService.addToMeal(meal: K.Api.food.dinner, foodItem: foodItem)
         })
         alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
         

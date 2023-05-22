@@ -36,7 +36,7 @@ class FoodService {
                                let grams = item[K.Api.food.grams] as? Double,
                                let proteins = item[K.Api.food.proteins] as? Double,
                                let calories = item[K.Api.food.calories] as? Double {
-                                items.append(FoodItem(name: name, calories: calories, proteins: proteins, grams: grams))
+                                items.append(FoodItem(id: UUID(), name: name, calories: calories, proteins: proteins, grams: grams))
                             }
                         }
                         completion(.success(items))
@@ -47,6 +47,77 @@ class FoodService {
             }
     }
     
+    //add a food to a specific meal
+    func addToMeal(meal: String, foodItem: FoodItem) {
+        print("Adding \(foodItem.name) to \(meal) with \(foodItem.calories) calories, \(foodItem.grams)grams and \(foodItem.proteins) proteins")
+        
+        var meals = getMealsFromFile()
+        meals[meal, default: []].append(foodItem)
+                
+        saveMealsToFile(meals: meals)
+    }
+    
+    //delete a specific food from a specific meal
+    func removeFoodItemFromMeal(meal: String, foodItem: FoodItem) {
+        var meals = getMealsFromFile()
+
+        meals[meal] = meals[meal]?.filter { $0.id != foodItem.id }
+        saveMealsToFile(meals: meals)
+        print("Removed \(foodItem.name) from file.")
+    }
+    
+    //count all foods from a meal
+    func getFoodsCountFromMeal(meal: String) -> Int {
+        let meals = getMealsFromFile()
+        guard let foods = meals[meal] else {
+            print("No foods found for \(meal).")
+            return 0
+        }
+        return foods.count
+    }
+    
+    //optional func -- to print the foods of a meal -> ex: breakfast meals
+    func printOneMeal(from meal: String) {
+        let meals = getMealsFromFile()
+        
+        guard let foods = meals[meal] else {
+            print("No foods found for \(meal).")
+            return
+        }
+        
+        for food in foods {
+            print("Name: \(food.name), Calories: \(food.calories), Proteins: \(food.proteins), Grams: \(food.grams)")
+        }
+    }
+    
+    //get all foods from a meal
+    func getFoodsFromMeal(meal: String) -> [FoodItem] {
+        let meals = getMealsFromFile()
+        
+        guard let foods = meals[meal] else {
+            print("No foods found for \(meal).")
+            return []
+        }
+        
+        return foods
+    }
+
+    //get sum of calories
+    func getTotalCaloriesFromMealFile() -> Double {
+        let meals = getMealsFromFile()
+        
+        var totalCalories: Double = 0.0
+        
+        for (_, foods) in meals {
+            for food in foods {
+                totalCalories += food.calories
+            }
+        }
+        
+        return totalCalories
+    }
+
+    //return the whole file content
     func getMealsFromFile() -> [String: [FoodItem]] {
         guard let data = try? Data(contentsOf: mealsFileURL),
               let meals = try? JSONDecoder().decode([String: [FoodItem]].self, from: data) else {
@@ -56,44 +127,18 @@ class FoodService {
         return meals
     }
     
+    //optional func -- empty the file
+    func emptyMealsFile() {
+        let emptyMeals: [String: [FoodItem]] = [:]
+        saveMealsToFile(meals: emptyMeals)
+        print("Emptied meals file.")
+    }
+    
+    //writes new content to meals file
     func saveMealsToFile(meals: [String: [FoodItem]]) {
         guard let data = try? JSONEncoder().encode(meals) else { return }
         try? data.write(to: mealsFileURL)
-    }
-    
-    func clearMealsFile() {
-        let emptyMeals: [String: [FoodItem]] = [:]
-        saveMealsToFile(meals: emptyMeals)
-    }
-    
-    func addToMeal(meal: String, foodItem: FoodItem) {
-        print("Adding \(foodItem.name) to \(meal)")
-        
-        var meals = getMealsFromFile()
-        meals[meal, default: []].append(foodItem)
-        
-        saveMealsToFile(meals: meals)
-    }
-    
-    func removeFoodItemFromMeal(meal: String, foodItem: FoodItem) {
-        var meals = getMealsFromFile()
-        
-        // Filter out the specified food item
-        meals[meal] = meals[meal]?.filter { $0 != foodItem }
-        
-        saveMealsToFile(meals: meals)
-    }
-    
-    func printFoods(from meal: String) {
-        let meals = getMealsFromFile()
-        
-        guard let foods = meals[meal] else {
-            print("No foods found for \(meal)")
-            return
-        }
-        
-        for food in foods {
-            print("Name: \(food.name), Calories: \(food.calories), Proteins: \(food.proteins), Grams: \(food.grams)")
-        }
+        print("Saved new content.")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: K.Api.food.notif), object: nil)
     }
 }

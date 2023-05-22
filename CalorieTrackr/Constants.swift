@@ -64,11 +64,21 @@ struct K {
         static let url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
         static let array = "foods"
         struct food{
+            static let id = "id"
             static let name = "food_name"
             static let grams = "serving_weight_grams"
             static let proteins = "nf_protein"
             static let calories = "nf_calories"
+            static let breakfast = "Breakfast"
+            static let lunch = "Lunch"
+            static let dinner = "Dinner"
+            static let notif = "refresh"
         }
+    }
+    
+    struct foodCell {
+        static let cellIdentifier = "Reuse"
+        static let cellNibName = "FoodCell"
     }
     
     static let foodJson = "meals.json"

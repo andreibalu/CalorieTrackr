@@ -13,8 +13,8 @@ import HealthKit
 
 class HomeViewController: UIViewController {
     
-    let db = Firestore.firestore()
-    
+    private let db = Firestore.firestore()
+    private var foodService: FoodService!
     
     @IBOutlet weak var circleView: UIView!
     @IBOutlet weak var muscleImage: UIImageView!
@@ -22,16 +22,18 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
     
-    var activeEnergyBurned: Double = 0.0
-    var target : Int = 0
+    private var activeEnergyBurned: Double = 0.0
+    private var target : Int = 0
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        foodService = FoodService()
         
         healthAuthAndGetEnergy()
         circleProperties()
         animateCircleAppearance()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.handleActiveEnergyBurnedValue(_:)), name: NSNotification.Name(rawValue: K.Api.food.notif), object: nil)
         
         muscleImage.image = UIImage(imageLiteralResourceName: K.Images.muscle)
         
@@ -60,25 +62,43 @@ class HomeViewController: UIViewController {
         
     }
     
-    // Use the activeEnergyBurned variable for further processing or display
-    func handleActiveEnergyBurnedValue(_ value: Double) {
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    // Use the activeEnergyBurned variable after fetching it
+    @objc func handleActiveEnergyBurnedValue(_ value: Double) {
         Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [self] Timer in
-            print("Active Energy Burned: \(value)")
+            print("Active Energy Burned: \(value).")
             
-            let currentValue = activeEnergyBurned
+            let currentValue = self.foodService.getTotalCaloriesFromMealFile() - activeEnergyBurned
             let targetValue = Double(target)
             print("targetvalue pt cerc = \(targetValue)")//must replace with user's target, calculated in survey logic feature
             updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
             
-            let label = UILabel(frame: CGRect(x: 0, y: 0, width: circleView.frame.size.width, height: circleView.frame.size.height))
-            label.textAlignment = .center
-            label.font = UIFont.systemFont(ofSize: 18.0)
-            label.textColor = UIColor.black
-            label.text = "You've burned \(Int(currentValue)) calories"
-            circleView.addSubview(label)
+            let neededCalorieLabel = UILabel(frame: CGRect(x: 0, y: circleView.frame.size.height/2 - 30, width: circleView.frame.size.width, height: 20))
+            neededCalorieLabel.textAlignment = .center
+            neededCalorieLabel.font = UIFont.systemFont(ofSize: 18.0)
+            neededCalorieLabel.textColor = UIColor.black
+            print("You've eaten \(self.foodService.getTotalCaloriesFromMealFile()) calories.")
+            circleView.addSubview(neededCalorieLabel)
+            
+            let burnedCalorieLabel = UILabel(frame: CGRect(x: 0, y: circleView.frame.size.height/2, width: circleView.frame.size.width, height: 20))
+            burnedCalorieLabel.textAlignment = .center
+            burnedCalorieLabel.font = UIFont.systemFont(ofSize: 15.0)
+            burnedCalorieLabel.textColor = UIColor.red
+            if targetValue > currentValue {
+                neededCalorieLabel.text = "You still need \(Int(targetValue) - Int(currentValue)) calories."
+                burnedCalorieLabel.text = "You've burned \(Int(activeEnergyBurned)) calories today."
+            }
+            else if targetValue < currentValue{
+                neededCalorieLabel.text = "Extra \(Int(currentValue)-(Int(targetValue))) calories."
+                burnedCalorieLabel.text = "You've burned \(Int(activeEnergyBurned)) calories today."
+            }
+            circleView.addSubview(burnedCalorieLabel)
         }
-        
     }
+    
     //Makes sure the view makes a circle
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -104,7 +124,7 @@ class HomeViewController: UIViewController {
     }
     
     //today calories
-    func fetchActiveEnergyBurned(from healthStore: HKHealthStore, energyType: HKObjectType) {
+    @objc func fetchActiveEnergyBurned(from healthStore: HKHealthStore, energyType: HKObjectType) {
         let calendar = Calendar.current
         let now = Date()
         let startDate = calendar.startOfDay(for: now)
@@ -192,7 +212,7 @@ class HomeViewController: UIViewController {
             }
         }
     }
-
+    
     func animateLabelChange(label: UILabel, newText: String, duration: TimeInterval) {
         UIView.transition(with: label, duration: duration, options: .transitionCrossDissolve, animations: {
             label.text = newText
