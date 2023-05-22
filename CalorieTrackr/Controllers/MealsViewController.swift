@@ -90,7 +90,7 @@ extension MealsViewController : UITableViewDataSource {
             cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
             cell.deleteAction = { [] in
                 self.foodService.removeFoodItemFromMeal(meal: K.Api.food.breakfast, foodItem: food[indexPath.row])
-                        }
+            }
             return cell
         }
         else if tableView ==  tableViewLunch {
@@ -100,7 +100,7 @@ extension MealsViewController : UITableViewDataSource {
             cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
             cell.deleteAction = { [] in
                 self.foodService.removeFoodItemFromMeal(meal: K.Api.food.lunch, foodItem: food[indexPath.row])
-                        }
+            }
             return cell
         }
         else {
@@ -110,39 +110,26 @@ extension MealsViewController : UITableViewDataSource {
             cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
             cell.deleteAction = { [] in
                 self.foodService.removeFoodItemFromMeal(meal: K.Api.food.dinner, foodItem: food[indexPath.row])
-                        }
+            }
             return cell
         }
     }
 }
 
+//deselecting other tables when in a table
 extension MealsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if tableView == tableViewBreak {
-            tableViewLunch.indexPathsForSelectedRows?.forEach { indexPath in
-                tableViewLunch.deselectRow(at: indexPath, animated: true)
-            }
-            tableViewDinner.indexPathsForSelectedRows?.forEach { indexPath in
-                tableViewDinner.deselectRow(at: indexPath, animated: true)
-            }
-        } else if tableView == tableViewLunch {
-            tableViewBreak.indexPathsForSelectedRows?.forEach { indexPath in
-                tableViewBreak.deselectRow(at: indexPath, animated: true)
-            }
-            tableViewDinner.indexPathsForSelectedRows?.forEach { indexPath in
-                tableViewDinner.deselectRow(at: indexPath, animated: true)
-            }
-        } else if tableView == tableViewDinner {
-            tableViewBreak.indexPathsForSelectedRows?.forEach { indexPath in
-                tableViewBreak.deselectRow(at: indexPath, animated: true)
-            }
-            tableViewLunch.indexPathsForSelectedRows?.forEach { indexPath in
-                tableViewLunch.deselectRow(at: indexPath, animated: true)
+        let tableViews = [tableViewBreak, tableViewLunch, tableViewDinner]
+        
+        for table in tableViews {
+            if table != tableView {
+                table?.indexPathsForSelectedRows?.forEach{ indexPath in
+                    table?.deselectRow(at: indexPath, animated: true)
+                }
             }
         }
     }
 }
-
 
 extension MealsViewController : MealsViewControllerDelegate {
     func didAddFoodItem() {
