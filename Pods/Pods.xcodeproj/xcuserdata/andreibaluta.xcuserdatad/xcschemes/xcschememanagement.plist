@@ -88,16 +88,6 @@
 			<key>orderHint</key>
 			<integer>17</integer>
 		</dict>
-		<key>SwipeCellKit.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>18</integer>
-		</dict>
-		<key>SwipeCellKit.xcscheme_^#shared#^_</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>20</integer>
-		</dict>
 		<key>abseil.xcscheme</key>
 		<dict>
 			<key>isShown</key>
