@@ -76,7 +76,7 @@ class FoodService {
         return foods.count
     }
     
-    //to print the foods of a meal -> ex: breakfast meals
+    //optional func -- to print the foods of a meal -> ex: breakfast meals
     func printOneMeal(from meal: String) {
         let meals = getMealsFromFile()
         
@@ -117,7 +117,6 @@ class FoodService {
         return totalCalories
     }
 
-    
     //return the whole file content
     func getMealsFromFile() -> [String: [FoodItem]] {
         guard let data = try? Data(contentsOf: mealsFileURL),
@@ -128,14 +127,14 @@ class FoodService {
         return meals
     }
     
-    //empty the file
+    //optional func -- empty the file
     func emptyMealsFile() {
         let emptyMeals: [String: [FoodItem]] = [:]
         saveMealsToFile(meals: emptyMeals)
         print("Emptied meals file.")
     }
     
-    //saves new content to meals file
+    //writes new content to meals file
     func saveMealsToFile(meals: [String: [FoodItem]]) {
         guard let data = try? JSONEncoder().encode(meals) else { return }
         try? data.write(to: mealsFileURL)

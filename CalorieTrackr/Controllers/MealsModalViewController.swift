@@ -61,7 +61,7 @@ class MealsModalViewController: UIViewController {
             totalProteins += item.proteins
             totalGrams += item.grams
             if self.queryName != "" {
-                self.queryName = self.queryName + "\\" + item.name
+                self.queryName = self.queryName + " + " + item.name
             }
             else {
                 self.queryName = item.name
