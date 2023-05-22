@@ -9,11 +9,12 @@ import UIKit
 import SwipeCellKit
 
 class FoodCell: SwipeTableViewCell {
-    
     private var foodService = FoodService()
     var deleteAction: (() -> Void)?
     
-    @IBOutlet weak var label: UILabel!
+    @IBOutlet weak var labelName: UILabel!
+    @IBOutlet weak var labelCal: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

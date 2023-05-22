@@ -91,7 +91,8 @@ extension MealsViewController : UITableViewDataSource {
             let cell = tableViewBreak.dequeueReusableCell(withIdentifier: K.foodCell.cellIdentifier, for: indexPath) as! FoodCell
             let food = foodService.getFoodsFromMeal(meal: K.Api.food.breakfast)
             cell.backgroundColor = UIColor.clear
-            cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
+            cell.labelName.text = food[indexPath.row].name
+            cell.labelCal.text = String(Int(food[indexPath.row].calories))
             cell.delegate = self
             return cell
         }
@@ -99,7 +100,8 @@ extension MealsViewController : UITableViewDataSource {
             let cell = tableViewLunch.dequeueReusableCell(withIdentifier: K.foodCell.cellIdentifier , for: indexPath) as! FoodCell
             let food = foodService.getFoodsFromMeal(meal: K.Api.food.lunch)
             cell.backgroundColor = UIColor.clear
-            cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
+            cell.labelName.text = food[indexPath.row].name
+            cell.labelCal.text = String(Int(food[indexPath.row].calories))
             cell.delegate = self
             return cell
         }
@@ -107,7 +109,8 @@ extension MealsViewController : UITableViewDataSource {
             let cell = tableViewDinner.dequeueReusableCell(withIdentifier: K.foodCell.cellIdentifier , for: indexPath) as! FoodCell
             let food = foodService.getFoodsFromMeal(meal: K.Api.food.dinner)
             cell.backgroundColor = UIColor.clear
-            cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
+            cell.labelName.text = food[indexPath.row].name
+            cell.labelCal.text = String(Int(food[indexPath.row].calories))
             cell.delegate = self
             return cell
         }
