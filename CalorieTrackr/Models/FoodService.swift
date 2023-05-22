@@ -9,6 +9,8 @@ import Alamofire
 import CoreData
 
 class FoodService {
+    weak var delegate: ModalDelegate?
+    
     private let mealsFileURL: URL = {
         let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         return directory.appendingPathComponent(K.foodJson)
@@ -54,6 +56,7 @@ class FoodService {
         meals[meal, default: []].append(foodItem)
                 
         saveMealsToFile(meals: meals)
+        self.delegate?.didUpdateTable()
     }
     
     //delete a specific food from a specific meal

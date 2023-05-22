@@ -8,9 +8,13 @@
 import UIKit
 import SwipeCellKit
 
-class MealsViewController: UIViewController {
-    private var foodService = FoodService()
-    
+protocol ModalDelegate: AnyObject {
+    func didUpdateTable()
+}
+
+class MealsViewController: UIViewController, ModalDelegate {
+    private var foodService: FoodService!
+
     @IBOutlet weak var tableViewDinner: UITableView!
     @IBOutlet weak var tableViewLunch: UITableView!
     @IBOutlet weak var tableViewBreak: UITableView!
@@ -19,6 +23,7 @@ class MealsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         foodService = FoodService()
+        foodService.delegate = self
         
         setUpTables()
         totalCalories.text = String(Int(self.foodService.getTotalCaloriesFromMealFile()))
@@ -61,6 +66,15 @@ class MealsViewController: UIViewController {
         tableViewLunch.register(UINib(nibName: K.foodCell.cellNibName, bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
         tableViewDinner.register(UINib(nibName: K.foodCell.cellNibName, bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
     }
+    
+    func didUpdateTable() {
+//        reloadTables()
+    }
+    private func reloadTables() {
+        tableViewBreak.reloadData()
+        tableViewLunch.reloadData()
+        tableViewDinner.reloadData()
+    }
 }
 
 extension MealsViewController : UITableViewDataSource {
@@ -83,9 +97,6 @@ extension MealsViewController : UITableViewDataSource {
             let food = foodService.getFoodsFromMeal(meal: K.Api.food.breakfast)
             cell.backgroundColor = UIColor.clear
             cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
-            cell.deleteAction = { [] in
-                self.foodService.removeFoodItemFromMeal(meal: K.Api.food.breakfast, foodItem: food[indexPath.row])
-            }
             cell.delegate = self
             return cell
         }
@@ -94,9 +105,6 @@ extension MealsViewController : UITableViewDataSource {
             let food = foodService.getFoodsFromMeal(meal: K.Api.food.lunch)
             cell.backgroundColor = UIColor.clear
             cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
-            cell.deleteAction = { [] in
-                self.foodService.removeFoodItemFromMeal(meal: K.Api.food.lunch, foodItem: food[indexPath.row])
-            }
             cell.delegate = self
             return cell
         }
@@ -105,9 +113,6 @@ extension MealsViewController : UITableViewDataSource {
             let food = foodService.getFoodsFromMeal(meal: K.Api.food.dinner)
             cell.backgroundColor = UIColor.clear
             cell.label.text = food[indexPath.row].name + " " + String(Int(food[indexPath.row].calories))
-            cell.deleteAction = { [] in
-                self.foodService.removeFoodItemFromMeal(meal: K.Api.food.dinner, foodItem: food[indexPath.row])
-            }
             cell.delegate = self
             return cell
         }
@@ -137,12 +142,6 @@ extension MealsViewController : SwipeTableViewCellDelegate {
         self.foodService.removeFoodItemFromMeal(meal: meal, foodItem: food[index])
         self.reloadTables()
     }
-    
-    private func reloadTables() {
-        tableViewBreak.reloadData()
-        tableViewLunch.reloadData()
-        tableViewDinner.reloadData()
-    }
 }
 
 
@@ -161,4 +160,5 @@ extension MealsViewController: UITableViewDelegate {
         }
     }
 }
+
 
