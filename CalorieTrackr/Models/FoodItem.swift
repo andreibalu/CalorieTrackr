@@ -8,6 +8,7 @@
 import Foundation
 
 struct FoodItem: Codable, Equatable {
+    let id: UUID
     let name: String
     let calories: Double
     let proteins: Double

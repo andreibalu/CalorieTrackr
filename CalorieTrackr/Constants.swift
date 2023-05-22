@@ -64,6 +64,7 @@ struct K {
         static let url = "https://trackapi.nutritionix.com/v2/natural/nutrients"
         static let array = "foods"
         struct food{
+            static let id = "id"
             static let name = "food_name"
             static let grams = "serving_weight_grams"
             static let proteins = "nf_protein"

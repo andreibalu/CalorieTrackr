@@ -9,9 +9,6 @@ import Alamofire
 import CoreData
 
 class FoodService {
-    
-    weak var delegate: MealsViewControllerDelegate?
-    
     private let mealsFileURL: URL = {
         let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
         return directory.appendingPathComponent(K.foodJson)
@@ -38,7 +35,7 @@ class FoodService {
                                let grams = item[K.Api.food.grams] as? Double,
                                let proteins = item[K.Api.food.proteins] as? Double,
                                let calories = item[K.Api.food.calories] as? Double {
-                                items.append(FoodItem(name: name, calories: calories, proteins: proteins, grams: grams))
+                                items.append(FoodItem(id: UUID(), name: name, calories: calories, proteins: proteins, grams: grams))
                             }
                         }
                         completion(.success(items))
@@ -55,17 +52,15 @@ class FoodService {
         
         var meals = getMealsFromFile()
         meals[meal, default: []].append(foodItem)
-        
-        self.delegate?.didAddFoodItem()
-        
+                
         saveMealsToFile(meals: meals)
     }
     
     //delete a specific food from a specific meal
     func removeFoodItemFromMeal(meal: String, foodItem: FoodItem) {
         var meals = getMealsFromFile()
-        
-        meals[meal] = meals[meal]?.filter { $0 != foodItem }
+
+        meals[meal] = meals[meal]?.filter { $0.id != foodItem.id }
         saveMealsToFile(meals: meals)
         print("Removed \(foodItem.name) from file.")
     }

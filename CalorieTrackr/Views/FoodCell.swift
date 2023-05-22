@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import SwipeCellKit
 
-class FoodCell: UITableViewCell {
+class FoodCell: SwipeTableViewCell {
     
     private var foodService = FoodService()
     var deleteAction: (() -> Void)?

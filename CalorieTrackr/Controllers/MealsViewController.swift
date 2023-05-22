@@ -6,11 +6,7 @@
 //
 
 import UIKit
-
-protocol MealsViewControllerDelegate: AnyObject { //for refreshing tables after adding food to a meal
-    func didAddFoodItem()
-}
-
+import SwipeCellKit
 
 class MealsViewController: UIViewController {
     private var foodService = FoodService()
@@ -23,7 +19,6 @@ class MealsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         foodService = FoodService()
-        foodService.delegate = self
         
         setUpTables()
         totalCalories.text = String(Int(self.foodService.getTotalCaloriesFromMealFile()))
@@ -51,7 +46,7 @@ class MealsViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    func setUpTables() {
+    private func setUpTables() {
         tableViewBreak.dataSource = self
         tableViewBreak.delegate = self
         tableViewBreak.backgroundColor = UIColor.clear
@@ -91,6 +86,7 @@ extension MealsViewController : UITableViewDataSource {
             cell.deleteAction = { [] in
                 self.foodService.removeFoodItemFromMeal(meal: K.Api.food.breakfast, foodItem: food[indexPath.row])
             }
+            cell.delegate = self
             return cell
         }
         else if tableView ==  tableViewLunch {
@@ -101,6 +97,7 @@ extension MealsViewController : UITableViewDataSource {
             cell.deleteAction = { [] in
                 self.foodService.removeFoodItemFromMeal(meal: K.Api.food.lunch, foodItem: food[indexPath.row])
             }
+            cell.delegate = self
             return cell
         }
         else {
@@ -111,10 +108,44 @@ extension MealsViewController : UITableViewDataSource {
             cell.deleteAction = { [] in
                 self.foodService.removeFoodItemFromMeal(meal: K.Api.food.dinner, foodItem: food[indexPath.row])
             }
+            cell.delegate = self
             return cell
         }
     }
 }
+
+extension MealsViewController : SwipeTableViewCellDelegate {
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else { return nil }
+
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete") { [weak self] action, indexPath in
+            guard let self = self else { return }
+            if tableView == self.tableViewBreak {
+                self.deleteFoodItem(from: K.Api.food.breakfast, at: indexPath.row)
+            } else if tableView == self.tableViewLunch {
+                self.deleteFoodItem(from: K.Api.food.lunch, at: indexPath.row)
+            } else if tableView == self.tableViewDinner {
+                self.deleteFoodItem(from: K.Api.food.dinner, at: indexPath.row)
+            }
+        }
+        deleteAction.image = UIImage(named: "delete")
+        return [deleteAction]
+    }
+
+    private func deleteFoodItem(from meal: String, at index: Int) {
+        let food = self.foodService.getFoodsFromMeal(meal: meal)
+        self.foodService.removeFoodItemFromMeal(meal: meal, foodItem: food[index])
+        self.reloadTables()
+    }
+    
+    private func reloadTables() {
+        tableViewBreak.reloadData()
+        tableViewLunch.reloadData()
+        tableViewDinner.reloadData()
+    }
+}
+
+
 
 //deselecting other tables when in a table
 extension MealsViewController: UITableViewDelegate {
@@ -128,14 +159,6 @@ extension MealsViewController: UITableViewDelegate {
                 }
             }
         }
-    }
-}
-
-extension MealsViewController : MealsViewControllerDelegate {
-    func didAddFoodItem() {
-        tableViewBreak.reloadData()
-        tableViewLunch.reloadData()
-        tableViewDinner.reloadData()
     }
 }
 

@@ -7,5 +7,6 @@ target 'CalorieTrackr' do
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
   pod 'Alamofire'
+  pod 'SwipeCellKit'
 
 end

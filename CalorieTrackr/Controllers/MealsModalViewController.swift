@@ -17,6 +17,7 @@ class MealsModalViewController: UIViewController {
     var queryCalories = 0.0
     var queryProteins = 0.0
     var queryGrams = 0.0
+    var queryID : UUID?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +88,7 @@ class MealsModalViewController: UIViewController {
     }
     
     @IBAction func addPressed(_ sender: UIButton) {
-        let food = FoodItem(name: queryName, calories: queryCalories, proteins: queryProteins, grams: queryGrams)
+        let food = FoodItem(id: UUID(),name: queryName, calories: queryCalories, proteins: queryProteins, grams: queryGrams)
         if foodTextField.text != ""{
             if food.name != "" {
                 presentAddToMealActionSheet(for: food)
