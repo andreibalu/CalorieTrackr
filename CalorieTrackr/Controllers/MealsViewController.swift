@@ -8,11 +8,7 @@
 import UIKit
 import SwipeCellKit
 
-protocol ModalDelegate: AnyObject {
-    func didUpdateTable()
-}
-
-class MealsViewController: UIViewController, ModalDelegate {
+class MealsViewController: UIViewController {
     private var foodService: FoodService!
 
     @IBOutlet weak var tableViewDinner: UITableView!
@@ -23,18 +19,20 @@ class MealsViewController: UIViewController, ModalDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         foodService = FoodService()
-        foodService.delegate = self
         
         setUpTables()
         totalCalories.text = String(Int(self.foodService.getTotalCaloriesFromMealFile()))
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(self.reloadTables), name: NSNotification.Name(rawValue: K.Api.food.notif), object: nil)
+
+    }
+    
+    deinit {
+        NotificationCenter.default.removeObserver(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tableViewBreak.reloadData()
-        tableViewLunch.reloadData()
-        tableViewDinner.reloadData()
+        reloadTables()
     }
     
     @IBAction func deletePressed(_ sender: UIButton) {
@@ -66,14 +64,11 @@ class MealsViewController: UIViewController, ModalDelegate {
         tableViewLunch.register(UINib(nibName: K.foodCell.cellNibName, bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
         tableViewDinner.register(UINib(nibName: K.foodCell.cellNibName, bundle: nil), forCellReuseIdentifier: K.foodCell.cellIdentifier)
     }
-    
-    func didUpdateTable() {
-//        reloadTables()
-    }
-    private func reloadTables() {
+    @objc private func reloadTables() {
         tableViewBreak.reloadData()
         tableViewLunch.reloadData()
         tableViewDinner.reloadData()
+        totalCalories.text = "Total Calories: " + String(Int(self.foodService.getTotalCaloriesFromMealFile()))
     }
 }
 

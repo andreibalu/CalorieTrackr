@@ -9,7 +9,6 @@ import Alamofire
 import CoreData
 
 class FoodService {
-    weak var delegate: ModalDelegate?
     
     private let mealsFileURL: URL = {
         let directory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
@@ -56,7 +55,6 @@ class FoodService {
         meals[meal, default: []].append(foodItem)
                 
         saveMealsToFile(meals: meals)
-        self.delegate?.didUpdateTable()
     }
     
     //delete a specific food from a specific meal
@@ -142,5 +140,6 @@ class FoodService {
         guard let data = try? JSONEncoder().encode(meals) else { return }
         try? data.write(to: mealsFileURL)
         print("Saved new content.")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: K.Api.food.notif), object: nil)
     }
 }

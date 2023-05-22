@@ -72,6 +72,7 @@ struct K {
             static let breakfast = "Breakfast"
             static let lunch = "Lunch"
             static let dinner = "Dinner"
+            static let notif = "refresh"
         }
     }
     
