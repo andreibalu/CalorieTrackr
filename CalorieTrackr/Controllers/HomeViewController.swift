@@ -85,34 +85,80 @@ class HomeViewController: UIViewController {
             let currentValue = self.foodService.getTotalCaloriesFromMealFile() - activeEnergyBurned
             let targetValue = Double(target)
             print("Current food-burned=\(self.foodService.getTotalCaloriesFromMealFile()) - \(activeEnergyBurned) and target in circle=\(targetValue)")
-            if currentValue < 0 {                                                               //OUTCOME 1->Cals burned> cals ate
+            if self.foodService.getTotalCaloriesFromMealFile() == 0.0 {                                         //OUTCOME 1->Cals burned> cals ate
                 updateCircleProgress(currentValue: 0.0, targetValue: targetValue)
                 setUpLabels(current: currentValue, target: targetValue,
                             needText: "Eat something!",
                             burnedText: "You've burned \(Int(activeEnergyBurned)) calories today, but ate none !")
             }
-            else {                                                                              //OUTCOME 2 OR 3 -> PROGRESSING TO TARGET
-                if (targetValue > currentValue) {
-                    updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
-                    setUpLabels(current: currentValue, target: targetValue,                    //OUTCOME 2->Cals burned< cals ate
-                                needText: "You still need \(Int(targetValue) - Int(currentValue)) calories.",
-                                burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
-                    
-                } else {
-                    if ( weight < ideal) {
-                        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 3-> TARGET REACHED and can go on
+            else {
+                if ( weight < ideal) { //gain weight
+                    if (targetValue > currentValue) { //progressing target
+                        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
+                        setUpLabels(current: currentValue, target: targetValue,                    //OUTCOME 2 gaining weight and under target
+                                    needText: "You still need \(Int(targetValue) - Int(currentValue)) calories.",
+                                    burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
+                    }
+                    else { // over target while gaining weight
+                        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 3-> gaining weight and over target
                         setUpLabels(current: currentValue, target: targetValue,
                                     needText: "You did it! You have \(Int(currentValue) - Int(targetValue)) extra calories.",
                                     burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
                     }
-                    else {
-                        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 4-> TARGET REACHED and must stop
-                        setUpLabels(current: currentValue, target: targetValue,
-                                    needText: "You did it! Careful though, \(Int(currentValue) - Int(targetValue)) extra calories.",
-                                    burnedText: "You've burned \(Int(activeEnergyBurned)) calories today! Go burn some more to get in the range!")
+                }
+                else { // losing weight
+                    if (targetValue > currentValue) { //progressing target
+                        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
+                        setUpLabels(current: currentValue, target: targetValue,                    //OUTCOME 2-> losing weight and under target
+                                    needText: "You still need \(Int(targetValue) - Int(currentValue)) calories.",
+                                    burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
+                    }
+                    else { //over target while losing weight
+                        if( currentValue - targetValue > 200.0){
+                            updateCircleProgress(currentValue: currentValue, targetValue: targetValue)      //OUTCOME 4-> losing weight and big over target
+                            setUpLabels(current: currentValue, target: targetValue,
+                                        needText: "You did it! Careful though, \(Int(currentValue) - Int(targetValue)) extra calories.",
+                                        burnedText: "You've burned \(Int(activeEnergyBurned)) calories today! Go burn some more to get in the range!")
+                        }
+                        else {
+                            updateCircleProgress(currentValue: currentValue, targetValue: targetValue)     //OUTCOME 5-> losing weight and in target
+                            setUpLabels(current: currentValue, target: targetValue,
+                                        needText: "You did it! Now stay in range!",
+                                        burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
+                        }
                     }
                 }
             }
+            //            else {                                                                              //OUTCOME 2 OR 3 -> PROGRESSING TO TARGET
+//                if (targetValue > currentValue) {
+//                    updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
+//                    setUpLabels(current: currentValue, target: targetValue,                    //OUTCOME 2->Cals burned< cals ate
+//                                needText: "You still need \(Int(targetValue) - Int(currentValue)) calories.",
+//                                burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
+//
+//                } else {
+//                    if ( weight < ideal) {
+//                        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 3-> TARGET REACHED and can go on
+//                        setUpLabels(current: currentValue, target: targetValue,
+//                                    needText: "You did it! You have \(Int(currentValue) - Int(targetValue)) extra calories.",
+//                                    burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
+//                    }
+//                    else {
+//                        if( currentValue - targetValue > 200.0){
+//                            updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 4-> TARGET REACHED and must burn
+//                            setUpLabels(current: currentValue, target: targetValue,
+//                                        needText: "You did it! Careful though, \(Int(currentValue) - Int(targetValue)) extra calories.",
+//                                        burnedText: "You've burned \(Int(activeEnergyBurned)) calories today! Go burn some more to get in the range!")
+//                        }
+//                        else {
+//                            updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 5-> TARGET REACHED and should stay
+//                            setUpLabels(current: currentValue, target: targetValue,
+//                                        needText: "You did it!  calories now!",
+//                                        burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
+//                        }
+//                    }
+//                }
+//            }
         }
     }
     
