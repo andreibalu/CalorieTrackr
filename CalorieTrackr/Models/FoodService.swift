@@ -137,8 +137,12 @@ class FoodService {
     //writes new content to meals file
     func saveMealsToFile(meals: [String: [FoodItem]]) {
         guard let data = try? JSONEncoder().encode(meals) else { return }
-        try? data.write(to: mealsFileURL)
-        print("Saved new content.")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: K.Api.food.notif), object: nil)
+            do {
+                try data.write(to: mealsFileURL)
+                print("Saved new content.")
+                NotificationCenter.default.post(name: NSNotification.Name(rawValue: K.Api.food.notif), object: nil)
+            } catch {
+                print("Failed to save new content: \(error)")
+            }
     }
 }

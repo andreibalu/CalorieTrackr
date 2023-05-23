@@ -24,6 +24,7 @@ class HomeViewController: UIViewController {
     
     private var activeEnergyBurned: Double = 0.0
     private var target : Int = 0
+    private var streak : Int = 0
     
     
     override func viewDidLoad() {
@@ -44,12 +45,14 @@ class HomeViewController: UIViewController {
                 userDocumentRef.getDocument { (document, error) in
                     if let document = document, document.exists {
                         if let streakValue = document.data()?[K.FStore.streak] as? String {
+                            self.streak = Int(streakValue)!
+                            print("streakValue in auth: \(streakValue) days")
                             self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(streakValue) days", duration: 1)
                             // self.streakLabel.text = "Streak: \(fieldValue) days"
                         }
                         if let targetValue = document.data()?[K.FStore.target] as? String {
                             self.target = Int(targetValue)!
-                            print("targetValue in auth \(targetValue) ")
+                            print("targetValue in auth: \(targetValue) cals")
                             self.animateLabelChange(label: self.targetLabel, newText: "Target: \(targetValue) calories", duration: 1)
                         }
                     } else {
