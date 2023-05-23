@@ -25,7 +25,8 @@ class HomeViewController: UIViewController {
     private var activeEnergyBurned: Double = 0.0
     private var target : Int = 0
     private var streak : Int = 0
-    
+    private var weight : Int = 0
+    private var ideal : Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,12 +49,19 @@ class HomeViewController: UIViewController {
                             self.streak = Int(streakValue)!
                             print("streakValue in auth: \(streakValue) days")
                             self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(streakValue) days", duration: 1)
-                            // self.streakLabel.text = "Streak: \(fieldValue) days"
                         }
                         if let targetValue = document.data()?[K.FStore.target] as? String {
                             self.target = Int(targetValue)!
                             print("targetValue in auth: \(targetValue) cals")
                             self.animateLabelChange(label: self.targetLabel, newText: "Target: \(targetValue) calories", duration: 1)
+                        }
+                        if let weightValue = document.data()?[K.FStore.weight] as? String {
+                            self.weight = Int(weightValue)!
+                            print("weightValue in auth: \(weightValue) kg")
+                        }
+                        if let idealValue = document.data()?[K.FStore.ideal] as? String {
+                            self.ideal = Int(idealValue)!
+                            print("idealValue in auth: \(idealValue) kg")
                         }
                     } else {
                         print("Error at retrieving data from database \(String(describing: error?.localizedDescription))")
@@ -71,34 +79,40 @@ class HomeViewController: UIViewController {
     
     // Use the activeEnergyBurned variable after fetching it
     @objc func handleActiveEnergyBurnedValue(_ value: Double) {
-        Timer.scheduledTimer(withTimeInterval: 2, repeats: false) { [self] Timer in
-            print("Active Energy Burned: \(value).")
+        Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { [self] Timer in
+            print("Fetched Active Energy Burned: \(value).")
             
             let currentValue = self.foodService.getTotalCaloriesFromMealFile() - activeEnergyBurned
             let targetValue = Double(target)
-            print("targetvalue pt cerc = \(targetValue)")//must replace with user's target, calculated in survey logic feature
-            updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
-            
-            let neededCalorieLabel = UILabel(frame: CGRect(x: 0, y: circleView.frame.size.height/2 - 30, width: circleView.frame.size.width, height: 20))
-            neededCalorieLabel.textAlignment = .center
-            neededCalorieLabel.font = UIFont.systemFont(ofSize: 18.0)
-            neededCalorieLabel.textColor = UIColor.black
-            print("You've eaten \(self.foodService.getTotalCaloriesFromMealFile()) calories.")
-            circleView.addSubview(neededCalorieLabel)
-            
-            let burnedCalorieLabel = UILabel(frame: CGRect(x: 0, y: circleView.frame.size.height/2, width: circleView.frame.size.width, height: 20))
-            burnedCalorieLabel.textAlignment = .center
-            burnedCalorieLabel.font = UIFont.systemFont(ofSize: 15.0)
-            burnedCalorieLabel.textColor = UIColor.red
-            if targetValue > currentValue {
-                neededCalorieLabel.text = "You still need \(Int(targetValue) - Int(currentValue)) calories."
-                burnedCalorieLabel.text = "You've burned \(Int(activeEnergyBurned)) calories today."
+            print("Current food-burned=\(self.foodService.getTotalCaloriesFromMealFile()) - \(activeEnergyBurned) and target in circle=\(targetValue)")
+            if currentValue < 0 {                                                               //OUTCOME 1->Cals burned> cals ate
+                updateCircleProgress(currentValue: 0.0, targetValue: targetValue)
+                setUpLabels(current: currentValue, target: targetValue,
+                            needText: "Eat something!",
+                            burnedText: "You've burned \(Int(activeEnergyBurned)) calories today, but ate none !")
             }
-            else if targetValue < currentValue{
-                neededCalorieLabel.text = "Extra \(Int(currentValue)-(Int(targetValue))) calories."
-                burnedCalorieLabel.text = "You've burned \(Int(activeEnergyBurned)) calories today."
+            else {                                                                              //OUTCOME 2 OR 3 -> PROGRESSING TO TARGET
+                if (targetValue > currentValue) {
+                    updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
+                    setUpLabels(current: currentValue, target: targetValue,                    //OUTCOME 2->Cals burned< cals ate
+                                needText: "You still need \(Int(targetValue) - Int(currentValue)) calories.",
+                                burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
+                    
+                } else {
+                    if ( weight < ideal) {
+                        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 3-> TARGET REACHED and can go on
+                        setUpLabels(current: currentValue, target: targetValue,
+                                    needText: "You did it! You have \(Int(currentValue) - Int(targetValue)) extra calories.",
+                                    burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
+                    }
+                    else {
+                        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 4-> TARGET REACHED and must stop
+                        setUpLabels(current: currentValue, target: targetValue,
+                                    needText: "You did it! Careful though, \(Int(currentValue) - Int(targetValue)) extra calories.",
+                                    burnedText: "You've burned \(Int(activeEnergyBurned)) calories today! Go burn some more to get in the range!")
+                    }
+                }
             }
-            circleView.addSubview(burnedCalorieLabel)
         }
     }
     
@@ -206,9 +220,29 @@ class HomeViewController: UIViewController {
         circleView.clipsToBounds = true
     }
     
-    func animateCircleAppearance() {
-        circleView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0) // Set initial scale to 0
+    func setUpLabels(current currentValue: Double, target targetValue: Double, needText text1: String, burnedText text2: String) {
+        let neededCalorieLabel = UILabel(frame: CGRect(x: 0, y: circleView.frame.size.height/2 - 30, width: circleView.frame.size.width, height: 20))
+        neededCalorieLabel.textAlignment = .center
+        neededCalorieLabel.font = UIFont.systemFont(ofSize: 18.0)
+        neededCalorieLabel.textColor = UIColor.black
+        neededCalorieLabel.numberOfLines = 2
+        neededCalorieLabel.adjustsFontSizeToFitWidth = true
+        circleView.addSubview(neededCalorieLabel)
         
+        let burnedCalorieLabel = UILabel(frame: CGRect(x: 0, y: circleView.frame.size.height/2, width: circleView.frame.size.width, height: 20))
+        burnedCalorieLabel.textAlignment = .center
+        burnedCalorieLabel.font = UIFont.systemFont(ofSize: 18.0)
+        burnedCalorieLabel.textColor = UIColor.red
+        burnedCalorieLabel.numberOfLines = 2
+        burnedCalorieLabel.adjustsFontSizeToFitWidth = true
+        neededCalorieLabel.text = text1
+        burnedCalorieLabel.text = text2
+        
+        circleView.addSubview(burnedCalorieLabel)
+    }
+    
+    private func animateCircleAppearance() {
+        circleView.transform = CGAffineTransform(scaleX: 0.0, y: 0.0) // Set initial scale to 0
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             UIView.animate(withDuration: 0.5) {
                 self.circleView.transform = .identity // Animate to the original scale
@@ -216,7 +250,7 @@ class HomeViewController: UIViewController {
         }
     }
     
-    func animateLabelChange(label: UILabel, newText: String, duration: TimeInterval) {
+    private func animateLabelChange(label: UILabel, newText: String, duration: TimeInterval) {
         UIView.transition(with: label, duration: duration, options: .transitionCrossDissolve, animations: {
             label.text = newText
         }, completion: nil)

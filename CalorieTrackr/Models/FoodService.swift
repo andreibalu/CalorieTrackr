@@ -145,4 +145,22 @@ class FoodService {
                 print("Failed to save new content: \(error)")
             }
     }
+    
+    //if a new day started, empty the json
+    func refreshForToday() {
+        if let storedDate = UserDefaults.standard.object(forKey: "lastAccessedDate") as? Date {
+            print("Last accessed this app on: \(storedDate). Will check if new day.")
+            if !Calendar.current.isDateInToday(storedDate) {
+                print("Will empty meals.")
+                emptyMealsFile()
+            } else {
+                print("It is not a new day.")
+            }
+        } else {
+            print("Can't get last accessed date for app.")
+        }
+        // Update the last accessed date to now
+        UserDefaults.standard.set(Date(), forKey: "lastAccessedDate")
+    }
+
 }
