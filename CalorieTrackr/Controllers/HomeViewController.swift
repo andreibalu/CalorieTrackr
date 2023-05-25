@@ -15,7 +15,7 @@ class HomeViewController: UIViewController {
     
     private let db = Firestore.firestore()
     private var foodService: FoodService!
-    private let testingTimeInterval: TimeInterval = 10 // 600 seconds = 10 minutes
+//    private let testingTimeInterval: TimeInterval = 10 // 600 seconds = 10 minutes
     
     
     @IBOutlet weak var circleView: UIView!
