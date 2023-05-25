@@ -15,6 +15,8 @@ class HomeViewController: UIViewController {
     
     private let db = Firestore.firestore()
     private var foodService: FoodService!
+    private let testingTimeInterval: TimeInterval = 10 // 600 seconds = 10 minutes
+    
     
     @IBOutlet weak var circleView: UIView!
     @IBOutlet weak var muscleImage: UIImageView!
@@ -27,7 +29,7 @@ class HomeViewController: UIViewController {
     private var streak = UserDefaults.standard.integer(forKey: K.userDefaults.userStreak)
     private var weight : Int = 0
     private var ideal : Int = 0
-    private var streakChecker : Bool = false
+    private var streakChecker = UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +40,7 @@ class HomeViewController: UIViewController {
         animateCircleAppearance()
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleActiveEnergyBurnedValue(_:)), name: NSNotification.Name(rawValue: K.Api.food.notif), object: nil)
         self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(streak) days", duration: 1)
-        
+        messageLogic()
         muscleImage.image = UIImage(imageLiteralResourceName: K.Images.muscle)
         
         if let currentUser = Auth.auth().currentUser?.email{
@@ -47,11 +49,11 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now()) {  // maybe add a few secs if errors
                 userDocumentRef.getDocument { (document, error) in
                     if let document = document, document.exists {
-//                        if let streakValue = document.data()?[K.FStore.streak] as? String {
-//                            self.streak = Int(streakValue)!
-//                            print("streakValue in auth: \(streakValue) days")
-//                            self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(streakValue) days", duration: 1)
-//                        } else { print("Couldnt get streak")}
+                        //                        if let streakValue = document.data()?[K.FStore.streak] as? String {
+                        //                            self.streak = Int(streakValue)!
+                        //                            print("streakValue in auth: \(streakValue) days")
+                        //                            self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(streakValue) days", duration: 1)
+                        //                        } else { print("Couldnt get streak")}
                         if let targetValue = document.data()?[K.FStore.target] as? String {
                             self.target = Int(targetValue)!
                             print("targetValue in auth: \(targetValue) cals")
@@ -69,10 +71,8 @@ class HomeViewController: UIViewController {
                         print("Error at retrieving data from database \(String(describing: error?.localizedDescription))")
                     }
                 }
-                
             }
         }
-        
     }
     
     deinit {
@@ -135,42 +135,14 @@ class HomeViewController: UIViewController {
                     }
                 }
             }
-            //            else {                                                                              //OUTCOME 2 OR 3 -> PROGRESSING TO TARGET
-//                if (targetValue > currentValue) {
-//                    updateCircleProgress(currentValue: currentValue, targetValue: targetValue)
-//                    setUpLabels(current: currentValue, target: targetValue,                    //OUTCOME 2->Cals burned< cals ate
-//                                needText: "You still need \(Int(targetValue) - Int(currentValue)) calories.",
-//                                burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
-//
-//                } else {
-//                    if ( weight < ideal) {
-//                        updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 3-> TARGET REACHED and can go on
-//                        setUpLabels(current: currentValue, target: targetValue,
-//                                    needText: "You did it! You have \(Int(currentValue) - Int(targetValue)) extra calories.",
-//                                    burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
-//                    }
-//                    else {
-//                        if( currentValue - targetValue > 200.0){
-//                            updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 4-> TARGET REACHED and must burn
-//                            setUpLabels(current: currentValue, target: targetValue,
-//                                        needText: "You did it! Careful though, \(Int(currentValue) - Int(targetValue)) extra calories.",
-//                                        burnedText: "You've burned \(Int(activeEnergyBurned)) calories today! Go burn some more to get in the range!")
-//                        }
-//                        else {
-//                            updateCircleProgress(currentValue: currentValue, targetValue: targetValue)          //OUTCOME 5-> TARGET REACHED and should stay
-//                            setUpLabels(current: currentValue, target: targetValue,
-//                                        needText: "You did it!  calories now!",
-//                                        burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
-//                        }
-//                    }
-//                }
-//            }
+            if streakChecker {
+                UserDefaults.standard.set(true, forKey: K.userDefaults.streakCheck)
+            } else {
+                UserDefaults.standard.set(false, forKey: K.userDefaults.streakCheck)
+            }
+            print("streak checker after it sets is \(UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck))")
         }
-        if streakChecker {
-            UserDefaults.standard.set(true, forKey: K.userDefaults.streakCheck)
-        } else {
-            UserDefaults.standard.set(false, forKey: K.userDefaults.streakCheck)
-        }
+        
     }
     
     //Makes sure the view makes a circle
@@ -313,28 +285,64 @@ class HomeViewController: UIViewController {
         }, completion: nil)
     }
     
-    func updateStreak() { // trebuie urcat streak in userdefaults in survey, apoi extras aici in var streak. Scoti extragere firebase streak. aici schimbi val la streak din userdefaults.
+    private func messageLogic() {
+        switch streak {
+        case 0:
+            animateLabelChange(label: messageLabel, newText: "The first day is the hardest !", duration: 0.5)
+        case 1...3:
+            animateLabelChange(label: messageLabel, newText: "Keep going ! You're just getting started !", duration: 0.5)
+        case 4...10:
+            animateLabelChange(label: messageLabel, newText: "You're getting the hang of it !", duration: 0.5)
+        case 11...:
+            animateLabelChange(label: messageLabel, newText: "Sky is the limit 💪🏻", duration: 0.5)
+        default:
+            print("Couldn't get streak value")
+        }
+    }
+    
+//testing updateStreak()
+//    {
+//        print("Did he reach target? \(streakChecker)")
+//        if let storedDate = UserDefaults.standard.object(forKey: "lastAccessedDate") as? Date {
+//            print("Last accessed this app on: \(storedDate). Will check if it was within the testing interval.Current time:\(Date.now)")
+//
+//            let isLastAccessOlderThanInterval = Date().timeIntervalSince(storedDate) >= testingTimeInterval
+//
+//            if isLastAccessOlderThanInterval {
+//                print("Will update streak if user reached target during last interval")
+//                print(UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck))
+//                if UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck) {
+//                    streak = streak + 1
+//                    UserDefaults.standard.set(streak, forKey: K.userDefaults.userStreak)
+//                    print("Updated streak in userdefaults to new value: \(streak)")
+//                }
+//                streakChecker = false
+//                UserDefaults.standard.set(streakChecker, forKey: K.userDefaults.streakCheck)
+//            } else {
+//                print("App was accessed within the testing interval. Current streak is \(streak)")
+//            }
+//        } else {
+//            print("Can't get last accessed date for app.")
+//        }
+//        UserDefaults.standard.set(Date(), forKey: "lastAccessedDate")
+//    }
+//testing updateStreak()
+    
+    
+    func updateStreak() {
+        print("Did he reach the target? \(UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck))")
         if let storedDate = UserDefaults.standard.object(forKey: "lastAccessedDate") as? Date {
-            print("Last accessed this app on: \(storedDate). Will check if it was yesterday.")
+            print("Last accessed this app on: \(storedDate). Will check if it was yesterday. Current time:\(Date.now)")
             if Calendar.current.isDateInYesterday(storedDate) {
-                print("Will update streak if true")
-                let reachedTargetYesterday = UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck)
-                // let previousStreakCheck = true
-                if reachedTargetYesterday { // if user reached target yesterday
+                print("Will update streak if streak check is true => \(UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck))")
+                if UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck) { // if user reached target yesterday
                     streak = streak + 1
                     UserDefaults.standard.set(streak, forKey: K.userDefaults.userStreak)
                     print("Updated streak in userdefaults to new value: \(streak)")
-//                    if let uid = Auth.auth().currentUser?.email {
-//                        let docRef = db.collection(K.FStore.collectionName).document(uid)
-//                        print("Uploaded streak")
-//                        docRef.setData([
-//                            K.FStore.streak: String(streak)
-//                        ], merge: true){ error in
-//                            if let e = error {
-//                                print("There was an issue saving streak to firestore, \(e.localizedDescription)")
-//                            }
-//                        }
-//                    }
+                } else { //if he last accessed the app yesterday, and streak checker is off, will reset streak
+                    streak = 0
+                    UserDefaults.standard.set(streak, forKey: K.userDefaults.userStreak)
+                    print("Reseting streak, user did not achieve target, even though last accessed was yesterday")
                 }
                 streakChecker = false   //make sure streak checker is on false, either if he did it yesterday or not
                 UserDefaults.standard.set(streakChecker, forKey: K.userDefaults.streakCheck)

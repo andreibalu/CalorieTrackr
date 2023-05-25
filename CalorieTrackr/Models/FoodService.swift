@@ -160,7 +160,6 @@ class FoodService {
             print("Can't get last accessed date for app.")
         }
         // Update the last accessed date to now
-        UserDefaults.standard.set(Date(), forKey: "lastAccessedDate")
     }
 
 }
