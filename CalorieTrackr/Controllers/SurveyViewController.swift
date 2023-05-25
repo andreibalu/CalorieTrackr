@@ -101,6 +101,9 @@ class SurveyViewController: UIViewController {
         }
 
         if let name=name, let sex=sex, let age=age, let height=height, let weight=weight, let ideal=ideal, let weeks=weeks, let ex=ex, let uid = Auth.auth().currentUser?.email {
+            let intSTR = Int(streak)
+            UserDefaults.standard.set(intSTR, forKey: "userStreak")
+            print("Streak din survey \(streak)")
             let target = BmiBrain(sex: sex, age: age, height: height, weight: weight, ideal: ideal, weeks: weeks, ex: ex).getTarget()
             let docRef = db.collection(K.FStore.collectionName).document(uid)
             docRef.setData([
@@ -113,7 +116,6 @@ class SurveyViewController: UIViewController {
                 K.FStore.ideal: ideal,
                 K.FStore.weeks: weeks,
                 K.FStore.ex: ex,
-                K.FStore.streak: streak,
                 K.FStore.target: target,
                 K.FStore.dateField: Date().timeIntervalSince1970
             ], merge: true) { error in

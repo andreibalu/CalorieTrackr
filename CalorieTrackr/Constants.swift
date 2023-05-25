@@ -80,6 +80,10 @@ struct K {
         static let cellIdentifier = "Reuse"
         static let cellNibName = "FoodCell"
     }
+    struct userDefaults{
+        static let userStreak = "userStreak"
+        static let streakCheck = "streakChecker"
+    }
     
     static let foodJson = "meals.json"
     static let appName = "CalorieTrackr"

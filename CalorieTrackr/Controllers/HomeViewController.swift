@@ -24,9 +24,10 @@ class HomeViewController: UIViewController {
     
     private var activeEnergyBurned: Double = 0.0
     private var target : Int = 0
-    private var streak : Int = 0
+    private var streak = UserDefaults.standard.integer(forKey: K.userDefaults.userStreak)
     private var weight : Int = 0
     private var ideal : Int = 0
+    private var streakChecker : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,7 @@ class HomeViewController: UIViewController {
         circleProperties()
         animateCircleAppearance()
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleActiveEnergyBurnedValue(_:)), name: NSNotification.Name(rawValue: K.Api.food.notif), object: nil)
+        self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(streak) days", duration: 1)
         
         muscleImage.image = UIImage(imageLiteralResourceName: K.Images.muscle)
         
@@ -45,11 +47,11 @@ class HomeViewController: UIViewController {
             DispatchQueue.main.asyncAfter(deadline: .now()) {  // maybe add a few secs if errors
                 userDocumentRef.getDocument { (document, error) in
                     if let document = document, document.exists {
-                        if let streakValue = document.data()?[K.FStore.streak] as? String {
-                            self.streak = Int(streakValue)!
-                            print("streakValue in auth: \(streakValue) days")
-                            self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(streakValue) days", duration: 1)
-                        }
+//                        if let streakValue = document.data()?[K.FStore.streak] as? String {
+//                            self.streak = Int(streakValue)!
+//                            print("streakValue in auth: \(streakValue) days")
+//                            self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(streakValue) days", duration: 1)
+//                        } else { print("Couldnt get streak")}
                         if let targetValue = document.data()?[K.FStore.target] as? String {
                             self.target = Int(targetValue)!
                             print("targetValue in auth: \(targetValue) cals")
@@ -80,11 +82,11 @@ class HomeViewController: UIViewController {
     // Use the activeEnergyBurned variable after fetching it
     @objc func handleActiveEnergyBurnedValue(_ value: Double) {
         Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { [self] Timer in
-            print("Fetched Active Energy Burned: \(value).")
+            print("Fetched Active Energy Burned: \(Int(value)).")
             
             let currentValue = self.foodService.getTotalCaloriesFromMealFile() - activeEnergyBurned
             let targetValue = Double(target)
-            print("Current food-burned=\(self.foodService.getTotalCaloriesFromMealFile()) - \(activeEnergyBurned) and target in circle=\(targetValue)")
+            print("Current food-burned=\(Int(self.foodService.getTotalCaloriesFromMealFile())) - \(Int(activeEnergyBurned)) and target in circle=\(targetValue)")
             if self.foodService.getTotalCaloriesFromMealFile() == 0.0 {                                         //OUTCOME 1->Cals burned> cals ate
                 updateCircleProgress(currentValue: 0.0, targetValue: targetValue)
                 setUpLabels(current: currentValue, target: targetValue,
@@ -104,6 +106,8 @@ class HomeViewController: UIViewController {
                         setUpLabels(current: currentValue, target: targetValue,
                                     needText: "You did it! You have \(Int(currentValue) - Int(targetValue)) extra calories.",
                                     burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
+                        print("Will update streak next day if user keeps up!")
+                        streakChecker = true
                     }
                 }
                 else { // losing weight
@@ -117,7 +121,7 @@ class HomeViewController: UIViewController {
                         if( currentValue - targetValue > 200.0){
                             updateCircleProgress(currentValue: currentValue, targetValue: targetValue)      //OUTCOME 4-> losing weight and big over target
                             setUpLabels(current: currentValue, target: targetValue,
-                                        needText: "You did it! Careful though, \(Int(currentValue) - Int(targetValue)) extra calories.",
+                                        needText: "You were a bit too hungry! \(Int(currentValue) - Int(targetValue)) extra calories.",
                                         burnedText: "You've burned \(Int(activeEnergyBurned)) calories today! Go burn some more to get in the range!")
                         }
                         else {
@@ -125,6 +129,8 @@ class HomeViewController: UIViewController {
                             setUpLabels(current: currentValue, target: targetValue,
                                         needText: "You did it! Now stay in range!",
                                         burnedText: "You've burned \(Int(activeEnergyBurned)) calories today!")
+                            print("Will update streak next day if user keeps up!")
+                            streakChecker = true
                         }
                     }
                 }
@@ -159,6 +165,11 @@ class HomeViewController: UIViewController {
 //                    }
 //                }
 //            }
+        }
+        if streakChecker {
+            UserDefaults.standard.set(true, forKey: K.userDefaults.streakCheck)
+        } else {
+            UserDefaults.standard.set(false, forKey: K.userDefaults.streakCheck)
         }
     }
     
@@ -300,6 +311,45 @@ class HomeViewController: UIViewController {
         UIView.transition(with: label, duration: duration, options: .transitionCrossDissolve, animations: {
             label.text = newText
         }, completion: nil)
+    }
+    
+    func updateStreak() { // trebuie urcat streak in userdefaults in survey, apoi extras aici in var streak. Scoti extragere firebase streak. aici schimbi val la streak din userdefaults.
+        if let storedDate = UserDefaults.standard.object(forKey: "lastAccessedDate") as? Date {
+            print("Last accessed this app on: \(storedDate). Will check if it was yesterday.")
+            if Calendar.current.isDateInYesterday(storedDate) {
+                print("Will update streak if true")
+                let reachedTargetYesterday = UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck)
+                // let previousStreakCheck = true
+                if reachedTargetYesterday { // if user reached target yesterday
+                    streak = streak + 1
+                    UserDefaults.standard.set(streak, forKey: K.userDefaults.userStreak)
+                    print("Updated streak in userdefaults to new value: \(streak)")
+//                    if let uid = Auth.auth().currentUser?.email {
+//                        let docRef = db.collection(K.FStore.collectionName).document(uid)
+//                        print("Uploaded streak")
+//                        docRef.setData([
+//                            K.FStore.streak: String(streak)
+//                        ], merge: true){ error in
+//                            if let e = error {
+//                                print("There was an issue saving streak to firestore, \(e.localizedDescription)")
+//                            }
+//                        }
+//                    }
+                }
+                streakChecker = false   //make sure streak checker is on false, either if he did it yesterday or not
+                UserDefaults.standard.set(streakChecker, forKey: K.userDefaults.streakCheck)
+            } else if Calendar.current.isDateInToday(storedDate) {
+                print("It is was accessed today already, wont update streak in firebase. \(Date.now). Current streak is \(streak)")
+            } else { //it was accessed last time more than 2 days ago, so delete streak
+                print("it was accessed some older time, will reset streak value in userDefaults")
+                streak = 0
+                UserDefaults.standard.set(streak, forKey: K.userDefaults.userStreak)
+            }
+        } else {
+            print("Can't get last accessed date for app.")
+        }
+        // Update the last accessed date to now
+        UserDefaults.standard.set(Date(), forKey: "lastAccessedDate")
     }
 }
 
