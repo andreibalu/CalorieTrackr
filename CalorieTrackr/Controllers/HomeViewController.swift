@@ -288,13 +288,13 @@ class HomeViewController: UIViewController {
     private func messageLogic() {
         switch streak {
         case 0:
-            animateLabelChange(label: messageLabel, newText: "The first day is the hardest !", duration: 0.5)
+            animateLabelChange(label: messageLabel, newText: "The first day is the hardest !", duration: 2.0)
         case 1...3:
-            animateLabelChange(label: messageLabel, newText: "Keep going ! You're just getting started !", duration: 0.5)
+            animateLabelChange(label: messageLabel, newText: "Keep going ! You're just getting started !", duration: 2.0)
         case 4...10:
-            animateLabelChange(label: messageLabel, newText: "You're getting the hang of it !", duration: 0.5)
+            animateLabelChange(label: messageLabel, newText: "You're getting the hang of it !", duration: 2.0)
         case 11...:
-            animateLabelChange(label: messageLabel, newText: "Sky is the limit 💪🏻", duration: 0.5)
+            animateLabelChange(label: messageLabel, newText: "Sky is the limit 💪🏻", duration: 2.0)
         default:
             print("Couldn't get streak value")
         }
