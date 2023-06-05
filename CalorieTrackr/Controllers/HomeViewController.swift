@@ -8,6 +8,7 @@ import UIKit
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseAuth
+import WatchConnectivity
 
 import HealthKit
 
@@ -60,6 +61,13 @@ class HomeViewController: UIViewController {
             }
         }
         
+        let totalCalories = UserDefaults.standard.double(forKey: "TotalCalories")
+        print("Total Calories: \(totalCalories)")
+        
+        // Retrieve active calories burned from UserDefaults
+        let activeCalories = UserDefaults.standard.double(forKey: "ActiveCalories")
+        print("Active Calories: \(activeCalories)")
+        
     }
     
     deinit {
@@ -95,7 +103,19 @@ class HomeViewController: UIViewController {
                 neededCalorieLabel.text = "Extra \(Int(currentValue)-(Int(targetValue))) calories."
                 burnedCalorieLabel.text = "You've burned \(Int(activeEnergyBurned)) calories today."
             }
+            UserDefaults.standard.set(activeEnergyBurned, forKey: "ActiveCalories")
+            print("Active Calories Saved: \(activeEnergyBurned)")
             circleView.addSubview(burnedCalorieLabel)
+            
+            let data: [String: Any] = ["activeEnergyBurned": value]
+            
+            // Check if the watch is reachable
+            if WCSession.default.isReachable {
+                // Send the data to the Apple Watch
+                WCSession.default.sendMessage(data, replyHandler: nil, errorHandler: { error in
+                    print("Error sending message to Apple Watch: \(error.localizedDescription)")
+                })
+            }
         }
     }
     

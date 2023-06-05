@@ -7,8 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		22625CF92A177E7E00421F2A /* CalorieTrackrWatchExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22625CF82A177E7E00421F2A /* CalorieTrackrWatchExtension.swift */; };
-		22625CFB2A177E7E00421F2A /* CalorieTrackrWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22625CFA2A177E7E00421F2A /* CalorieTrackrWatch.swift */; };
+		22787DDF2A201F1A001A5668 /* Watch_CalorieTrackrApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22787DDE2A201F1A001A5668 /* Watch_CalorieTrackrApp.swift */; };
+		22787DE12A201F1A001A5668 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22787DE02A201F1A001A5668 /* ContentView.swift */; };
+		22787DE32A201F1B001A5668 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22787DE22A201F1B001A5668 /* Assets.xcassets */; };
+		22787DE62A201F1B001A5668 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 22787DE52A201F1B001A5668 /* Preview Assets.xcassets */; };
+		22787DF02A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22787DEF2A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppTests.swift */; };
+		22787DFA2A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22787DF92A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppUITests.swift */; };
+		22787DFC2A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22787DFB2A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppUITestsLaunchTests.swift */; };
+		22787DFF2A201F1B001A5668 /* Watch_CalorieTrackr Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 22787DDC2A201F1A001A5668 /* Watch_CalorieTrackr Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		22AB47852A2DFB7000681BAA /* LeaderBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB47842A2DFB7000681BAA /* LeaderBoardViewController.swift */; };
+		22AB47872A2E033200681BAA /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22AB47862A2E033200681BAA /* ProfileViewController.swift */; };
 		D45947E2172D930A5C34D9BC /* Pods_CalorieTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B36584155B619E98D4BAD6B /* Pods_CalorieTrackr.framework */; };
 		F02C19CD2A16C218003F6123 /* FoodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C19CC2A16C218003F6123 /* FoodService.swift */; };
 		F056C61F2A0D655B0038714F /* HomeScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F056C61E2A0D655B0038714F /* HomeScreen.storyboard */; };
@@ -36,11 +44,59 @@
 		F0FDE3362A12908500174273 /* BmiBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0FDE3352A12908500174273 /* BmiBrain.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		22787DEC2A201F1B001A5668 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0D407D429F406A700DC4D82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22787DDB2A201F1A001A5668;
+			remoteInfo = "Watch_CalorieTrackr Watch App";
+		};
+		22787DF62A201F1B001A5668 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0D407D429F406A700DC4D82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22787DDB2A201F1A001A5668;
+			remoteInfo = "Watch_CalorieTrackr Watch App";
+		};
+		22787DFD2A201F1B001A5668 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F0D407D429F406A700DC4D82 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22787DDB2A201F1A001A5668;
+			remoteInfo = "Watch_CalorieTrackr Watch App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		22787E002A201F1B001A5668 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				22787DFF2A201F1B001A5668 /* Watch_CalorieTrackr Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		223C1CFC2A293D3100039898 /* Watch_CalorieTrackr Watch App.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Watch_CalorieTrackr Watch App.entitlements"; sourceTree = "<group>"; };
 		22625CF62A177E7E00421F2A /* CalorieTrackrWatch.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = CalorieTrackrWatch.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		22625CF82A177E7E00421F2A /* CalorieTrackrWatchExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieTrackrWatchExtension.swift; sourceTree = "<group>"; };
-		22625CFA2A177E7E00421F2A /* CalorieTrackrWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieTrackrWatch.swift; sourceTree = "<group>"; };
-		22625CFC2A177E7E00421F2A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		22787DDC2A201F1A001A5668 /* Watch_CalorieTrackr Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Watch_CalorieTrackr Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22787DDE2A201F1A001A5668 /* Watch_CalorieTrackrApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watch_CalorieTrackrApp.swift; sourceTree = "<group>"; };
+		22787DE02A201F1A001A5668 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		22787DE22A201F1B001A5668 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		22787DE52A201F1B001A5668 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		22787DEB2A201F1B001A5668 /* Watch_CalorieTrackr Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Watch_CalorieTrackr Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22787DEF2A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watch_CalorieTrackr_Watch_AppTests.swift; sourceTree = "<group>"; };
+		22787DF52A201F1B001A5668 /* Watch_CalorieTrackr Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Watch_CalorieTrackr Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		22787DF92A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watch_CalorieTrackr_Watch_AppUITests.swift; sourceTree = "<group>"; };
+		22787DFB2A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watch_CalorieTrackr_Watch_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		22AB47842A2DFB7000681BAA /* LeaderBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewController.swift; sourceTree = "<group>"; };
+		22AB47862A2E033200681BAA /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		29426FB05E56E52942784AC7 /* Pods-CalorieTrackr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalorieTrackr.debug.xcconfig"; path = "Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr.debug.xcconfig"; sourceTree = "<group>"; };
 		3AC08F3B86D4A1A522EBCF87 /* Pods-CalorieTrackr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalorieTrackr.release.xcconfig"; path = "Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr.release.xcconfig"; sourceTree = "<group>"; };
 		5B36584155B619E98D4BAD6B /* Pods_CalorieTrackr.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CalorieTrackr.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -81,6 +137,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		22787DD92A201F1A001A5668 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22787DE82A201F1B001A5668 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22787DF22A201F1B001A5668 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F0D407D929F406A700DC4D82 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -92,14 +169,41 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		22625CF72A177E7E00421F2A /* CalorieTrackrWatch */ = {
+		22787DDD2A201F1A001A5668 /* Watch_CalorieTrackr Watch App */ = {
 			isa = PBXGroup;
 			children = (
-				22625CF82A177E7E00421F2A /* CalorieTrackrWatchExtension.swift */,
-				22625CFA2A177E7E00421F2A /* CalorieTrackrWatch.swift */,
-				22625CFC2A177E7E00421F2A /* Info.plist */,
+				223C1CFC2A293D3100039898 /* Watch_CalorieTrackr Watch App.entitlements */,
+				22787DDE2A201F1A001A5668 /* Watch_CalorieTrackrApp.swift */,
+				22787DE02A201F1A001A5668 /* ContentView.swift */,
+				22787DE22A201F1B001A5668 /* Assets.xcassets */,
+				22787DE42A201F1B001A5668 /* Preview Content */,
 			);
-			path = CalorieTrackrWatch;
+			path = "Watch_CalorieTrackr Watch App";
+			sourceTree = "<group>";
+		};
+		22787DE42A201F1B001A5668 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				22787DE52A201F1B001A5668 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		22787DEE2A201F1B001A5668 /* Watch_CalorieTrackr Watch AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				22787DEF2A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppTests.swift */,
+			);
+			path = "Watch_CalorieTrackr Watch AppTests";
+			sourceTree = "<group>";
+		};
+		22787DF82A201F1B001A5668 /* Watch_CalorieTrackr Watch AppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				22787DF92A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppUITests.swift */,
+				22787DFB2A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppUITestsLaunchTests.swift */,
+			);
+			path = "Watch_CalorieTrackr Watch AppUITests";
 			sourceTree = "<group>";
 		};
 		3A4D22351780626F796BFE64 /* Frameworks */ = {
@@ -123,7 +227,9 @@
 			isa = PBXGroup;
 			children = (
 				F0D407DE29F406A700DC4D82 /* CalorieTrackr */,
-				22625CF72A177E7E00421F2A /* CalorieTrackrWatch */,
+				22787DDD2A201F1A001A5668 /* Watch_CalorieTrackr Watch App */,
+				22787DEE2A201F1B001A5668 /* Watch_CalorieTrackr Watch AppTests */,
+				22787DF82A201F1B001A5668 /* Watch_CalorieTrackr Watch AppUITests */,
 				F0D407DD29F406A700DC4D82 /* Products */,
 				5B05021F5EF1A9893BBF6797 /* Pods */,
 				3A4D22351780626F796BFE64 /* Frameworks */,
@@ -135,6 +241,9 @@
 			children = (
 				F0D407DC29F406A700DC4D82 /* CalorieTrackr.app */,
 				22625CF62A177E7E00421F2A /* CalorieTrackrWatch.appex */,
+				22787DDC2A201F1A001A5668 /* Watch_CalorieTrackr Watch App.app */,
+				22787DEB2A201F1B001A5668 /* Watch_CalorieTrackr Watch AppTests.xctest */,
+				22787DF52A201F1B001A5668 /* Watch_CalorieTrackr Watch AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,6 +278,8 @@
 				F09B37FB2A0E909B00115896 /* SettingsViewController.swift */,
 				F0BB55E52A168FF70015527E /* MealsViewController.swift */,
 				F0A4F3E62A178B11005C8DB1 /* MealsModalViewController.swift */,
+				22AB47842A2DFB7000681BAA /* LeaderBoardViewController.swift */,
+				22AB47862A2E033200681BAA /* ProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -216,6 +327,59 @@
 			productReference = 22625CF62A177E7E00421F2A /* CalorieTrackrWatch.appex */;
 			productType = "com.apple.product-type.extensionkit-extension";
 		};
+		22787DDB2A201F1A001A5668 /* Watch_CalorieTrackr Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22787E072A201F1B001A5668 /* Build configuration list for PBXNativeTarget "Watch_CalorieTrackr Watch App" */;
+			buildPhases = (
+				22787DD82A201F1A001A5668 /* Sources */,
+				22787DD92A201F1A001A5668 /* Frameworks */,
+				22787DDA2A201F1A001A5668 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Watch_CalorieTrackr Watch App";
+			productName = "Watch_CalorieTrackr Watch App";
+			productReference = 22787DDC2A201F1A001A5668 /* Watch_CalorieTrackr Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		22787DEA2A201F1B001A5668 /* Watch_CalorieTrackr Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22787E082A201F1B001A5668 /* Build configuration list for PBXNativeTarget "Watch_CalorieTrackr Watch AppTests" */;
+			buildPhases = (
+				22787DE72A201F1B001A5668 /* Sources */,
+				22787DE82A201F1B001A5668 /* Frameworks */,
+				22787DE92A201F1B001A5668 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22787DED2A201F1B001A5668 /* PBXTargetDependency */,
+			);
+			name = "Watch_CalorieTrackr Watch AppTests";
+			productName = "Watch_CalorieTrackr Watch AppTests";
+			productReference = 22787DEB2A201F1B001A5668 /* Watch_CalorieTrackr Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		22787DF42A201F1B001A5668 /* Watch_CalorieTrackr Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 22787E092A201F1B001A5668 /* Build configuration list for PBXNativeTarget "Watch_CalorieTrackr Watch AppUITests" */;
+			buildPhases = (
+				22787DF12A201F1B001A5668 /* Sources */,
+				22787DF22A201F1B001A5668 /* Frameworks */,
+				22787DF32A201F1B001A5668 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				22787DF72A201F1B001A5668 /* PBXTargetDependency */,
+			);
+			name = "Watch_CalorieTrackr Watch AppUITests";
+			productName = "Watch_CalorieTrackr Watch AppUITests";
+			productReference = 22787DF52A201F1B001A5668 /* Watch_CalorieTrackr Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		F0D407DB29F406A700DC4D82 /* CalorieTrackr */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F0D407F029F406A900DC4D82 /* Build configuration list for PBXNativeTarget "CalorieTrackr" */;
@@ -225,10 +389,12 @@
 				F0D407D929F406A700DC4D82 /* Frameworks */,
 				F0D407DA29F406A700DC4D82 /* Resources */,
 				D90ED4F3E0A90A86EA8B8DB0 /* [CP] Embed Pods Frameworks */,
+				22787E002A201F1B001A5668 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				22787DFE2A201F1B001A5668 /* PBXTargetDependency */,
 			);
 			name = CalorieTrackr;
 			productName = CalorieTrackr;
@@ -247,6 +413,17 @@
 				TargetAttributes = {
 					22625CF52A177E7E00421F2A = {
 						CreatedOnToolsVersion = 14.3;
+					};
+					22787DDB2A201F1A001A5668 = {
+						CreatedOnToolsVersion = 14.3;
+					};
+					22787DEA2A201F1B001A5668 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 22787DDB2A201F1A001A5668;
+					};
+					22787DF42A201F1B001A5668 = {
+						CreatedOnToolsVersion = 14.3;
+						TestTargetID = 22787DDB2A201F1A001A5668;
 					};
 					F0D407DB29F406A700DC4D82 = {
 						CreatedOnToolsVersion = 14.3;
@@ -268,12 +445,38 @@
 			targets = (
 				F0D407DB29F406A700DC4D82 /* CalorieTrackr */,
 				22625CF52A177E7E00421F2A /* CalorieTrackrWatch */,
+				22787DDB2A201F1A001A5668 /* Watch_CalorieTrackr Watch App */,
+				22787DEA2A201F1B001A5668 /* Watch_CalorieTrackr Watch AppTests */,
+				22787DF42A201F1B001A5668 /* Watch_CalorieTrackr Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		22625CF42A177E7E00421F2A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22787DDA2A201F1A001A5668 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22787DE62A201F1B001A5668 /* Preview Assets.xcassets in Resources */,
+				22787DE32A201F1B001A5668 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22787DE92A201F1B001A5668 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22787DF32A201F1B001A5668 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -342,8 +545,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				22625CFB2A177E7E00421F2A /* CalorieTrackrWatch.swift in Sources */,
-				22625CF92A177E7E00421F2A /* CalorieTrackrWatchExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22787DD82A201F1A001A5668 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22787DE12A201F1A001A5668 /* ContentView.swift in Sources */,
+				22787DDF2A201F1A001A5668 /* Watch_CalorieTrackrApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22787DE72A201F1B001A5668 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22787DF02A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		22787DF12A201F1B001A5668 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				22787DFA2A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppUITests.swift in Sources */,
+				22787DFC2A201F1B001A5668 /* Watch_CalorieTrackr_Watch_AppUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -353,6 +580,8 @@
 			files = (
 				F0D407E429F406A700DC4D82 /* WelcomeViewController.swift in Sources */,
 				F0D407E029F406A700DC4D82 /* AppDelegate.swift in Sources */,
+				22AB47872A2E033200681BAA /* ProfileViewController.swift in Sources */,
+				22AB47852A2DFB7000681BAA /* LeaderBoardViewController.swift in Sources */,
 				F05D20B92A17B6BB0017AA83 /* FoodItem.swift in Sources */,
 				F0996A1B29F57D070001732C /* SurveyViewController.swift in Sources */,
 				F0E7261B29F97EDC00C7404A /* Questions.swift in Sources */,
@@ -373,6 +602,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		22787DED2A201F1B001A5668 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22787DDB2A201F1A001A5668 /* Watch_CalorieTrackr Watch App */;
+			targetProxy = 22787DEC2A201F1B001A5668 /* PBXContainerItemProxy */;
+		};
+		22787DF72A201F1B001A5668 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22787DDB2A201F1A001A5668 /* Watch_CalorieTrackr Watch App */;
+			targetProxy = 22787DF62A201F1B001A5668 /* PBXContainerItemProxy */;
+		};
+		22787DFE2A201F1B001A5668 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22787DDB2A201F1A001A5668 /* Watch_CalorieTrackr Watch App */;
+			targetProxy = 22787DFD2A201F1B001A5668 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F0D407E529F406A700DC4D82 /* Main.storyboard */ = {
@@ -411,7 +658,7 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = watch.CalorieTrackrWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.ProjectCalorieTrackr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -439,13 +686,157 @@
 					"@executable_path/../../../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = watch.CalorieTrackrWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.ProjectCalorieTrackr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.4;
+			};
+			name = Release;
+		};
+		22787E012A201F1B001A5668 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Watch_CalorieTrackr Watch App/Watch_CalorieTrackr Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Watch_CalorieTrackr Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 2F5K4GAPHQ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Watch_CalorieTrackr;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.balu10.ProjectCalorieTrackr;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.ProjectCalorieTrackr.watchKitApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.4;
+			};
+			name = Debug;
+		};
+		22787E022A201F1B001A5668 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Watch_CalorieTrackr Watch App/Watch_CalorieTrackr Watch App.entitlements";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Watch_CalorieTrackr Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 2F5K4GAPHQ;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Watch_CalorieTrackr;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.balu10.ProjectCalorieTrackr;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.ProjectCalorieTrackr.watchKitApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.4;
+			};
+			name = Release;
+		};
+		22787E032A201F1B001A5668 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2F5K4GAPHQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.ProjectCalorieTrackr;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Watch_CalorieTrackr Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Watch_CalorieTrackr Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.4;
+			};
+			name = Debug;
+		};
+		22787E042A201F1B001A5668 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2F5K4GAPHQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.ProjectCalorieTrackr;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Watch_CalorieTrackr Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Watch_CalorieTrackr Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.4;
+			};
+			name = Release;
+		};
+		22787E052A201F1B001A5668 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2F5K4GAPHQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.ProjectCalorieTrackr;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Watch_CalorieTrackr Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.4;
+			};
+			name = Debug;
+		};
+		22787E062A201F1B001A5668 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2F5K4GAPHQ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.ProjectCalorieTrackr;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "Watch_CalorieTrackr Watch App";
 				WATCHOS_DEPLOYMENT_TARGET = 9.4;
 			};
 			name = Release;
@@ -568,14 +959,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 29426FB05E56E52942784AC7 /* Pods-CalorieTrackr.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CalorieTrackr/CalorieTrackr.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WR23UX8DY4;
+				DEVELOPMENT_TEAM = 2F5K4GAPHQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CalorieTrackr/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Permission to record data and use it for better calculating calories";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Permission to record data and use it for better calculating calories";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -586,8 +981,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.CalorieTrackr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.ProjectCalorieTrackr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -598,14 +994,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3AC08F3B86D4A1A522EBCF87 /* Pods-CalorieTrackr.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = CalorieTrackr/CalorieTrackr.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = WR23UX8DY4;
+				DEVELOPMENT_TEAM = 2F5K4GAPHQ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = CalorieTrackr/Info.plist;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Permission to record data and use it for better calculating calories";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Permission to record data and use it for better calculating calories";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -616,8 +1016,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.CalorieTrackr;
+				PRODUCT_BUNDLE_IDENTIFIER = com.balu10.ProjectCalorieTrackr;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -632,6 +1033,33 @@
 			buildConfigurations = (
 				22625CFD2A177E7E00421F2A /* Debug */,
 				22625CFE2A177E7E00421F2A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22787E072A201F1B001A5668 /* Build configuration list for PBXNativeTarget "Watch_CalorieTrackr Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22787E012A201F1B001A5668 /* Debug */,
+				22787E022A201F1B001A5668 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22787E082A201F1B001A5668 /* Build configuration list for PBXNativeTarget "Watch_CalorieTrackr Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22787E032A201F1B001A5668 /* Debug */,
+				22787E042A201F1B001A5668 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		22787E092A201F1B001A5668 /* Build configuration list for PBXNativeTarget "Watch_CalorieTrackr Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				22787E052A201F1B001A5668 /* Debug */,
+				22787E062A201F1B001A5668 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
