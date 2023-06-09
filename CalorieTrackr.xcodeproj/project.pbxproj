@@ -15,6 +15,8 @@
 		2224D4382A2F895500971AF9 /* CalorieTrackrWatchOS_Watch_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2224D4372A2F895500971AF9 /* CalorieTrackrWatchOS_Watch_AppUITests.swift */; };
 		2224D43A2A2F895500971AF9 /* CalorieTrackrWatchOS_Watch_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2224D4392A2F895500971AF9 /* CalorieTrackrWatchOS_Watch_AppUITestsLaunchTests.swift */; };
 		2224D43D2A2F895500971AF9 /* CalorieTrackrWatchOS Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 2224D41A2A2F895200971AF9 /* CalorieTrackrWatchOS Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		2224D4492A331EE900971AF9 /* LeaderBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2224D4482A331EE900971AF9 /* LeaderBoardViewController.swift */; };
+		2224D44B2A331F1B00971AF9 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2224D44A2A331F1B00971AF9 /* ProfileViewController.swift */; };
 		D45947E2172D930A5C34D9BC /* Pods_CalorieTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B36584155B619E98D4BAD6B /* Pods_CalorieTrackr.framework */; };
 		F02C19CD2A16C218003F6123 /* FoodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C19CC2A16C218003F6123 /* FoodService.swift */; };
 		F056C61F2A0D655B0038714F /* HomeScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F056C61E2A0D655B0038714F /* HomeScreen.storyboard */; };
@@ -91,6 +93,8 @@
 		2224D4332A2F895400971AF9 /* CalorieTrackrWatchOS Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "CalorieTrackrWatchOS Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2224D4372A2F895500971AF9 /* CalorieTrackrWatchOS_Watch_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieTrackrWatchOS_Watch_AppUITests.swift; sourceTree = "<group>"; };
 		2224D4392A2F895500971AF9 /* CalorieTrackrWatchOS_Watch_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalorieTrackrWatchOS_Watch_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		2224D4482A331EE900971AF9 /* LeaderBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaderBoardViewController.swift; sourceTree = "<group>"; };
+		2224D44A2A331F1B00971AF9 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		22625CF62A177E7E00421F2A /* CalorieTrackrWatch.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = CalorieTrackrWatch.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		29426FB05E56E52942784AC7 /* Pods-CalorieTrackr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalorieTrackr.debug.xcconfig"; path = "Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr.debug.xcconfig"; sourceTree = "<group>"; };
 		3AC08F3B86D4A1A522EBCF87 /* Pods-CalorieTrackr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalorieTrackr.release.xcconfig"; path = "Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr.release.xcconfig"; sourceTree = "<group>"; };
@@ -272,6 +276,8 @@
 				F09B37FB2A0E909B00115896 /* SettingsViewController.swift */,
 				F0BB55E52A168FF70015527E /* MealsViewController.swift */,
 				F0A4F3E62A178B11005C8DB1 /* MealsModalViewController.swift */,
+				2224D4482A331EE900971AF9 /* LeaderBoardViewController.swift */,
+				2224D44A2A331F1B00971AF9 /* ProfileViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -572,6 +578,8 @@
 			files = (
 				F0D407E429F406A700DC4D82 /* WelcomeViewController.swift in Sources */,
 				F0D407E029F406A700DC4D82 /* AppDelegate.swift in Sources */,
+				2224D44B2A331F1B00971AF9 /* ProfileViewController.swift in Sources */,
+				2224D4492A331EE900971AF9 /* LeaderBoardViewController.swift in Sources */,
 				F05D20B92A17B6BB0017AA83 /* FoodItem.swift in Sources */,
 				F0996A1B29F57D070001732C /* SurveyViewController.swift in Sources */,
 				F0E7261B29F97EDC00C7404A /* Questions.swift in Sources */,

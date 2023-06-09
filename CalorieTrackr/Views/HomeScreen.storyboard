@@ -182,6 +182,23 @@
             </objects>
             <point key="canvasLocation" x="3725.9541984732823" y="435.91549295774649"/>
         </scene>
+        <!--Profile-->
+        <scene sceneID="UBm-vo-QrR">
+            <objects>
+                <viewController id="HZh-YI-XdL" customClass="ProfileViewController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ofP-eC-2yV">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="YA7-Bl-J07"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Profile" image="person" catalog="system" selectedImage="person.fill" id="YUL-MI-i3p"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UBy-VL-gE6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="323" y="-318"/>
+        </scene>
         <!--Item-->
         <scene sceneID="Rb4-cJ-EZy">
             <objects>
@@ -276,11 +293,30 @@
                         <segue destination="FHX-Rd-shU" kind="relationship" relationship="viewControllers" id="SwX-Iq-LU9"/>
                         <segue destination="MUe-cC-U3S" kind="relationship" relationship="viewControllers" id="l2p-a6-MNW"/>
                         <segue destination="Ze9-EK-3xy" kind="relationship" relationship="viewControllers" id="dNp-sT-agD"/>
+                        <segue destination="q76-By-mHJ" kind="relationship" relationship="viewControllers" id="tD6-5u-cgp"/>
+                        <segue destination="HZh-YI-XdL" kind="relationship" relationship="viewControllers" id="PAT-P4-IYR"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nmq-a4-CdZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="324" y="436"/>
+        </scene>
+        <!--LeaderBoards-->
+        <scene sceneID="wnS-tf-zGd">
+            <objects>
+                <viewController id="q76-By-mHJ" customClass="LeaderBoardViewController" customModule="CalorieTrackr" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QpD-wg-qG1">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="dZ7-ab-bEX"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="LeaderBoards" image="person.3" catalog="system" selectedImage="person.3.fill" id="wqZ-Ib-hiS"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vss-r3-HNc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="323" y="1280"/>
         </scene>
         <!--Settings-->
         <scene sceneID="fzo-hn-hXh">
@@ -375,6 +411,10 @@
         <image name="fork.knife" catalog="system" width="94" height="128"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="house.fill" catalog="system" width="128" height="104"/>
+        <image name="person" catalog="system" width="128" height="121"/>
+        <image name="person.3" catalog="system" width="128" height="62"/>
+        <image name="person.3.fill" catalog="system" width="128" height="61"/>
+        <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="rectangle.portrait.and.arrow.right.fill" catalog="system" width="128" height="108"/>
         <namedColor name="ColorCrem">
             <color red="0.99199998378753662" green="0.88599997758865356" blue="0.95300000905990601" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
