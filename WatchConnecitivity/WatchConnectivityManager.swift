@@ -47,12 +47,44 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
         }
     }
 }
+let jsonObject: [String: Any] = [
+    "burnedCalories": 69,
+    "consumedCalories": 69,
+    "proteins": 69,
+    "carbs": 69,
+    "fats": 69
+]
+
+/*WatchConnectivityManager.shared.send(createJson(from: jsonObject) ?? "")
+}*/
+
+func createJson(from jsonObject: [String: Any]) -> String? {
+    do {
+        // Convert the dictionary to JSON data
+        let jsonData = try JSONSerialization.data(withJSONObject: jsonObject, options: .prettyPrinted)
+        
+        // Convert the JSON data to a string
+        if let jsonString = String(data: jsonData, encoding: .utf8) {
+            return jsonString
+        }
+    } catch {
+        print("Error: \(error)")
+    }
+    return nil
+    }
 
 extension WatchConnectivityManager: WCSessionDelegate {
+    
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
+        print(message)
         if let notificationText = message[kMessageKey] as? String {
-            DispatchQueue.main.async { [weak self] in
-                self?.notificationMessage = NotificationMessage(text: notificationText)
+            if notificationText == "getData" {
+                print("Dicks and Fucks")
+                send(createJson(from: jsonObject) ?? "")
+            } else {
+                DispatchQueue.main.async { [weak self] in
+                    self?.notificationMessage = NotificationMessage(text: notificationText)
+                }
             }
         }
     }

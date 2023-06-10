@@ -98,10 +98,10 @@ struct ContentView: View {
     @State private var shouldAnimate = false
     @State private var shouldFadeIn = false
     @State private var activeCalories = Double(UserDefaults.standard.string(forKey: "burnedCalories") ?? "0")
-    @State private var eatenCalories: Double = 0
-    @State private var proteinVar: Double = 0
-    @State private var carbsVar: Double = 0
-    @State private var fatsVar: Double = 0
+    @State private var eatenCalories = Double(UserDefaults.standard.string(forKey: "consumedCalories") ?? "0")
+    @State private var proteinVar = Double(UserDefaults.standard.string(forKey: "proteins") ?? "0")
+    @State private var carbsVar = Double(UserDefaults.standard.string(forKey: "carbs") ?? "0")
+    @State private var fatsVar = Double(UserDefaults.standard.string(forKey: "fats") ?? "0")
     
     // Function to handle JSON deserialization
     private func readJSONObject(from jsonString: String) {
@@ -111,12 +111,8 @@ struct ContentView: View {
         }
         
         do {
-            if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
-                
-                if let burnedCalories = jsonObject["burnedCalories"] as? Int {
-                    activeCalories = Double(burnedCalories)
-                    UserDefaults.standard.setValue(activeCalories, forKey: "burnedCalories")
-                }
+            if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
+            {
                 if let consumedCalories = jsonObject["consumedCalories"] as? Int {
                     eatenCalories = Double(consumedCalories)
                     UserDefaults.standard.setValue(eatenCalories, forKey: "consumedCalories")
@@ -148,6 +144,9 @@ struct ContentView: View {
                     Label("Leaderboard", systemImage: "list.number")
                         .fontWeight(.light)
                 }
+                .onChange(of: selectedTab) { tab in
+                    connectivityManager.send("getData")
+                }
                 .tag(0)
             
             Button(action: {
@@ -158,13 +157,13 @@ struct ContentView: View {
                         Circle()
                             .fill(Color.black)
                             .frame(width: 100, height: 100)
-                        Text(" \(Int(eatenCalories - activeCalories!))")
+                        Text(" \(Int(eatenCalories! - activeCalories!))")
                             .foregroundColor(.white)
                             .font(.system(size: 30, weight: .medium))
                     }
                 } else {
                     VStack {
-                        Text("eaten: \(Int(eatenCalories))")
+                        Text("eaten: \(Int(eatenCalories!))")
                             .font(.title3)
                             .bold()
                             .padding()
@@ -180,6 +179,10 @@ struct ContentView: View {
                 Label("Purple", systemImage: "circle.fill")
             }
             .background(.purple)
+            .onChange(of: selectedTab) { tab in
+                print("dicks")
+                connectivityManager.send("getData")
+            }
             .tag(1)
             
             VStack {
@@ -187,7 +190,7 @@ struct ContentView: View {
                     .fill(Color.red)
                     .frame(width: shouldAnimate ? 90 : 50, height: shouldAnimate ? 90 : 50)
                     .overlay(
-                        Text("Protein\n\(Int(proteinVar))g")
+                        Text("Protein\n\(Int(proteinVar!))g")
                             .font(.title3)
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
@@ -199,7 +202,7 @@ struct ContentView: View {
                         .fill(Color.green)
                         .frame(width: shouldAnimate ? 90 : 50, height: shouldAnimate ? 90 : 50)
                         .overlay(
-                            Text("Carbs\n\(Int(carbsVar))g")
+                            Text("Carbs\n\(Int(carbsVar!))g")
                                 .font(.title3)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
@@ -211,7 +214,7 @@ struct ContentView: View {
                         .fill(Color.blue)
                         .frame(width: shouldAnimate ? 90 : 50, height: shouldAnimate ? 90 : 50)
                         .overlay(
-                            Text("Fat\n\(Int(fatsVar))g")
+                            Text("Fat\n\(Int(fatsVar!))g")
                                 .font(.title3)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
@@ -237,6 +240,8 @@ struct ContentView: View {
                 } else {
                     shouldFadeIn = true
                 }
+                connectivityManager.send("getData")
+                print("Fucks and Dicks")
             }
         }
         .onReceive(connectivityManager.$notificationMessage) { message in
@@ -258,6 +263,50 @@ struct ContentView: View {
             selectedTab = 1 // Set the purple tab as the default tab
         }
     }
+    private func requestAuthorizationForHealthKit() {
+            guard HKHealthStore.isHealthDataAvailable() else {
+                print("HealthKit is not available on this device.")
+                return
+            }
+
+            let healthStore = HKHealthStore()
+            let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)
+
+            healthStore.requestAuthorization(toShare: nil, read: [activeEnergyType!]) { success, error in
+                if success {
+                    self.fetchActiveCalories(healthStore: healthStore)
+                } else {
+                    print("Failed to request HealthKit authorization: \(String(describing: error))")
+                }
+            }
+        }
+
+        private func fetchActiveCalories(healthStore: HKHealthStore) {
+            let calendar = Calendar.current
+            let now = Date()
+            let startOfDay = calendar.startOfDay(for: now)
+            let predicate = HKQuery.predicateForSamples(withStart: startOfDay, end: now, options: .strictStartDate)
+            let activeEnergyType = HKObjectType.quantityType(forIdentifier: .activeEnergyBurned)
+            let query = HKStatisticsQuery(quantityType: activeEnergyType!, quantitySamplePredicate: predicate, options: .cumulativeSum) { _, result, error in
+                guard let result = result, let sum = result.sumQuantity() else {
+                    print("Failed to fetch active energy: \(String(describing: error))")
+                    return
+                }
+
+                let activeEnergy = sum.doubleValue(for: .kilocalorie())
+                DispatchQueue.main.async {
+                    self.activeCalories = activeEnergy
+                    UserDefaults.standard.setValue(activeEnergy, forKey: "burnedCalories")
+                }
+            }
+
+            healthStore.execute(query)
+        }
+
+        init() {
+            // Request HealthKit authorization and fetch active calories
+            requestAuthorizationForHealthKit()
+        }
 }
 
 struct ContentView_Previews: PreviewProvider {

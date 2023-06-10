@@ -26,7 +26,6 @@ class ProfileViewController: UIViewController {
         } catch {
             print("Error: \(error)")
         }
-        
         return nil
     }
 
@@ -40,6 +39,8 @@ class ProfileViewController: UIViewController {
 
     
     private let kMessageKey = "message"
+    
+    var bufferMessage = ""
         
     func send(_ message: String) {
         guard WCSession.default.activationState == .activated else {
@@ -57,6 +58,7 @@ class ProfileViewController: UIViewController {
         
         WCSession.default.sendMessage([kMessageKey : message], replyHandler: nil) { error in
             print("Cannot send message: \(String(describing: error))")
+            self.bufferMessage = message
         }
     }
 
