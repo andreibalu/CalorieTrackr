@@ -4,13 +4,14 @@
 //
 //  Created by Andrei Tatucu on 06.06.2023.
 //
-
+/*
 import SwiftUI
 import HealthKit
 import WatchConnectivity
 
 
 struct LeaderboardView: View {
+    /*@ObservedObject private var connectivityManager = WatchConnectivityManager.shared*/
     @State private var selectedTab: Int = 0
     
     var body: some View {
@@ -92,54 +93,11 @@ struct LeaderboardView: View {
 }
 
 struct ContentView: View {
-    @ObservedObject private var connectivityManager = WatchConnectivityManager.shared
     @State private var selectedTab = 1
     @State private var showCircle = true
     @State private var shouldAnimate = false
     @State private var shouldFadeIn = false
-    @State private var activeCalories = Double(UserDefaults.standard.string(forKey: "burnedCalories") ?? "0")
-    @State private var eatenCalories: Double = 0
-    @State private var proteinVar: Double = 0
-    @State private var carbsVar: Double = 0
-    @State private var fatsVar: Double = 0
-    
-    // Function to handle JSON deserialization
-    private func readJSONObject(from jsonString: String) {
-        guard let jsonData = jsonString.data(using: .utf8) else {
-            print("Failed to convert JSON string to data.")
-            return
-        }
-        
-        do {
-            if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any] {
-                
-                if let burnedCalories = jsonObject["burnedCalories"] as? Int {
-                    activeCalories = Double(burnedCalories)
-                    UserDefaults.standard.setValue(activeCalories, forKey: "burnedCalories")
-                }
-                if let consumedCalories = jsonObject["consumedCalories"] as? Int {
-                    eatenCalories = Double(consumedCalories)
-                    UserDefaults.standard.setValue(eatenCalories, forKey: "consumedCalories")
-                }
-                if let proteins = jsonObject["proteins"] as? Int {
-                    proteinVar = Double(proteins)
-                    UserDefaults.standard.setValue(proteinVar, forKey: "proteins")
-                }
-                if let carbs = jsonObject["carbs"] as? Int {
-                    carbsVar = Double(carbs)
-                    UserDefaults.standard.setValue(carbsVar, forKey: "carbs")
-                }
-                if let fats = jsonObject["fats"] as? Int {
-                    fatsVar = Double(fats)
-                    UserDefaults.standard.setValue(fatsVar, forKey: "fats")
-                }
-            } else {
-                print("Failed to parse JSON object.")
-            }
-        } catch {
-            print("Error: \(error)")
-        }
-    }
+    @State private var activeCalories: Double = 0 // Variable to store active calories
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -158,17 +116,17 @@ struct ContentView: View {
                         Circle()
                             .fill(Color.black)
                             .frame(width: 100, height: 100)
-                        Text(" \(Int(eatenCalories - activeCalories!))")
+                        Text("+500")
                             .foregroundColor(.white)
                             .font(.system(size: 30, weight: .medium))
                     }
                 } else {
                     VStack {
-                        Text("eaten: \(Int(eatenCalories))")
+                        Text("consumed: 1000")
                             .font(.title3)
                             .bold()
                             .padding()
-                        Text("burned: \(Int(activeCalories!))")
+                        Text("burned: \(Int(activeCalories))")
                             .font(.title3)
                             .bold()
                             .padding()
@@ -187,7 +145,7 @@ struct ContentView: View {
                     .fill(Color.red)
                     .frame(width: shouldAnimate ? 90 : 50, height: shouldAnimate ? 90 : 50)
                     .overlay(
-                        Text("Protein\n\(Int(proteinVar))g")
+                        Text("Protein\n120g")
                             .font(.title3)
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
@@ -199,7 +157,7 @@ struct ContentView: View {
                         .fill(Color.green)
                         .frame(width: shouldAnimate ? 90 : 50, height: shouldAnimate ? 90 : 50)
                         .overlay(
-                            Text("Carbs\n\(Int(carbsVar))g")
+                            Text("Carbs\n80g")
                                 .font(.title3)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
@@ -211,7 +169,7 @@ struct ContentView: View {
                         .fill(Color.blue)
                         .frame(width: shouldAnimate ? 90 : 50, height: shouldAnimate ? 90 : 50)
                         .overlay(
-                            Text("Fat\n\(Int(fatsVar))g")
+                            Text("Fat\n50g")
                                 .font(.title3)
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
@@ -238,11 +196,10 @@ struct ContentView: View {
                     shouldFadeIn = true
                 }
             }
-        }
-        .onReceive(connectivityManager.$notificationMessage) { message in
-            if let jsonMessage = message?.text{
-                readJSONObject(from: jsonMessage)
-            }
+            /*.alert(item: $connectivityManager.notificationMessage) { message in
+                 Alert(title: Text(message.text),
+                       dismissButton: .default(Text("Dismiss")))
+            }*/
         }
         .onAppear {
             // Set up Watch Connectivity session
@@ -267,3 +224,4 @@ struct ContentView_Previews: PreviewProvider {
 }
 
 
+*/

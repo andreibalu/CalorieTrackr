@@ -20,9 +20,16 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
     
     // Table view to display leaderboard
     var tableView: UITableView!
+    var segmentedControl: UISegmentedControl!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Create and configure the segmented control
+        segmentedControl = UISegmentedControl(items: ["Friends", "Country", "World"])
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
+        view.addSubview(segmentedControl)
+        
         // Create and configure the table view
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
@@ -31,6 +38,23 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         view.addSubview(tableView)
+        
+        // Set constraints for the segmented control
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+        ])
+        
+        // Set constraints for the table view
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 16),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        ])
     }
 
     // MARK: - UITableViewDataSource methods
@@ -57,6 +81,30 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Handle row selection if needed
     }
+    
+    @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
+            // Handle segmented control value change
+            let selectedIndex = sender.selectedSegmentIndex
+            switch selectedIndex {
+            case 0:
+                // Friends leaderboard
+                // Implement logic to update the leaderboard data accordingly
+                break
+            case 1:
+                // Country leaderboard
+                // Implement logic to update the leaderboard data accordingly
+                break
+            case 2:
+                // World leaderboard
+                // Implement logic to update the leaderboard data accordingly
+                break
+            default:
+                break
+            }
+            
+            // Reload the table view data after updating the leaderboard data
+            tableView.reloadData()
+        }
 }
 
 class LeaderboardCell: UITableViewCell {
