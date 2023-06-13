@@ -9,19 +9,44 @@ import UIKit
 import FirebaseCore
 import FirebaseFirestore
 import FirebaseAuth
+import WatchConnectivity
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
-
+class AppDelegate: UIResponder, UIApplicationDelegate , WCSessionDelegate {
+    
+    var window: UIWindow?
+    var session: WCSession?
+    var timer: Timer?
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         let foodService = FoodService()
         let homeVC = HomeViewController()
         foodService.refreshForToday()
         homeVC.updateStreak()
+        
+        if WCSession.isSupported() {
+            session = WCSession.default
+            session?.delegate = self
+            session?.activate()
+        }
+
+        // Start timer to send JSON every minute
+        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(sendEmptyJSON), userInfo: nil, repeats: true)
+
         return true
+    }
+    
+    @objc func sendEmptyJSON() {
+        guard WCSession.default.isReachable else {
+            return
+        }
+
+        let message: [String: Any] = ["message":"empty"]
+
+        session?.sendMessage(message, replyHandler: nil, errorHandler: { error in
+            print("Failed to send JSON: \(error)")
+        })
     }
 
     // MARK: UISceneSession Lifecycle
@@ -37,7 +62,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-
+    
+    func sessionDidBecomeInactive(_ session: WCSession) {
+        // Empty implementation
+    }
+    
+    func sessionDidDeactivate(_ session: WCSession) {
+        // Empty implementation
+    }
+    
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        // Empty implementation
+    }
 
 }
 

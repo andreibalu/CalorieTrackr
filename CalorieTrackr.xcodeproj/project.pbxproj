@@ -24,6 +24,8 @@
 		226B17392A3459EA0093AFFE /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222A13722A33B9E90026BA0B /* WatchConnectivityManager.swift */; };
 		226B173A2A3459EA0093AFFE /* WatchConnectivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 222A13722A33B9E90026BA0B /* WatchConnectivityManager.swift */; };
 		226B173C2A3462AD0093AFFE /* WatchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 226B173B2A3462AD0093AFFE /* WatchData.swift */; };
+		2279D0892A37F18D00B12210 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2279D0882A37F18D00B12210 /* SearchViewController.swift */; };
+		2279D08B2A37FC9600B12210 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2279D08A2A37FC9600B12210 /* DetailViewController.swift */; };
 		D45947E2172D930A5C34D9BC /* Pods_CalorieTrackr.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B36584155B619E98D4BAD6B /* Pods_CalorieTrackr.framework */; };
 		F02C19CD2A16C218003F6123 /* FoodService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F02C19CC2A16C218003F6123 /* FoodService.swift */; };
 		F056C61F2A0D655B0038714F /* HomeScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F056C61E2A0D655B0038714F /* HomeScreen.storyboard */; };
@@ -106,6 +108,8 @@
 		22625CF62A177E7E00421F2A /* CalorieTrackrWatch.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = CalorieTrackrWatch.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		226B17352A3457240093AFFE /* Code.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Code.swift; sourceTree = "<group>"; };
 		226B173B2A3462AD0093AFFE /* WatchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchData.swift; sourceTree = "<group>"; };
+		2279D0882A37F18D00B12210 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		2279D08A2A37FC9600B12210 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		22EB75632A34843500C3D560 /* CalorieTrackrWatchOS Watch AppDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CalorieTrackrWatchOS Watch AppDebug.entitlements"; sourceTree = "<group>"; };
 		29426FB05E56E52942784AC7 /* Pods-CalorieTrackr.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalorieTrackr.debug.xcconfig"; path = "Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr.debug.xcconfig"; sourceTree = "<group>"; };
 		3AC08F3B86D4A1A522EBCF87 /* Pods-CalorieTrackr.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CalorieTrackr.release.xcconfig"; path = "Target Support Files/Pods-CalorieTrackr/Pods-CalorieTrackr.release.xcconfig"; sourceTree = "<group>"; };
@@ -300,6 +304,8 @@
 				F0A4F3E62A178B11005C8DB1 /* MealsModalViewController.swift */,
 				2224D4482A331EE900971AF9 /* LeaderBoardViewController.swift */,
 				2224D44A2A331F1B00971AF9 /* ProfileViewController.swift */,
+				2279D0882A37F18D00B12210 /* SearchViewController.swift */,
+				2279D08A2A37FC9600B12210 /* DetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -617,7 +623,9 @@
 				F0A2BC742A1AA96400D2D835 /* FoodCell.swift in Sources */,
 				F0D407FB29F4197900DC4D82 /* RegisterViewController.swift in Sources */,
 				F0E7261D29F9800200C7404A /* QuestionsBrain.swift in Sources */,
+				2279D0892A37F18D00B12210 /* SearchViewController.swift in Sources */,
 				F0A4F3E72A178B11005C8DB1 /* MealsModalViewController.swift in Sources */,
+				2279D08B2A37FC9600B12210 /* DetailViewController.swift in Sources */,
 				F0D04DAE2A0D6BDC00A5862F /* TabBarHomeController.swift in Sources */,
 				F0D407F929F4196700DC4D82 /* LoginViewController.swift in Sources */,
 				F085EC7E29F43BE40077A979 /* HomeViewController.swift in Sources */,

@@ -17,7 +17,6 @@ protocol TabBarDelegate: AnyObject {
 class SettingsViewController: UIViewController {
     
     let db = Firestore.firestore()
-    @IBOutlet weak var titleLabel: UILabel!
     weak var tabBarDelegate: TabBarDelegate?
     
     override func viewDidLoad() {

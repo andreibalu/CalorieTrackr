@@ -24,8 +24,15 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        // Create and configure the title label
+        let titleLabel = UILabel()
+        titleLabel.text = "Today's Leaderboards"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.textAlignment = .center
+        view.addSubview(titleLabel)
+        
         // Create and configure the segmented control
-        segmentedControl = UISegmentedControl(items: ["Friends", "Country", "World"])
+        segmentedControl = UISegmentedControl(items: ["Calories Eaten\nToday", "Calories Burned\nToday", "Streaks"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
         view.addSubview(segmentedControl)
@@ -39,10 +46,18 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.backgroundColor = .clear
         view.addSubview(tableView)
         
+        // Set constraints for the title label
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
         // Set constraints for the segmented control
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
+            segmentedControl.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
@@ -56,7 +71,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
-
     // MARK: - UITableViewDataSource methods
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

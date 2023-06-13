@@ -23,6 +23,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var streakLabel: UILabel!
     @IBOutlet weak var targetLabel: UILabel!
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var rank: UILabel!
     
     private var activeEnergyBurned: Double = 0.0
     private var target : Int = 0
@@ -39,7 +40,35 @@ class HomeViewController: UIViewController {
         circleProperties()
         animateCircleAppearance()
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleActiveEnergyBurnedValue(_:)), name: NSNotification.Name(rawValue: K.Api.food.notif), object: nil)
-        self.animateLabelChange(label: self.streakLabel, newText: "Streak: \(streak) days", duration: 1)
+        
+        streak = 360
+        
+        self.animateLabelChange(label: self.streakLabel, newText: "🔥 \(streak)", duration: 1)
+        
+        if (streak < 5)
+        {
+            rank.text = "Wonderer"
+        }
+        else if (streak >= 5 && streak < 20)
+        {
+            rank.text = "Fighter"
+        }
+        else if (streak >= 20 && streak < 40)
+        {
+            rank.text = "Warrior"
+        }
+        else if (streak >= 40 && streak < 80)
+        {
+            rank.text = "King"
+        }
+        else if (streak >= 80 && streak < 130)
+        {
+            rank.text = "Demigod"
+        }
+        else if (streak >= 130)
+        {
+            rank.text = "God"
+        }
         messageLogic()
         muscleImage.image = UIImage(imageLiteralResourceName: K.Images.muscle)
         
@@ -83,8 +112,9 @@ class HomeViewController: UIViewController {
     @objc func handleActiveEnergyBurnedValue(_ value: Double) {
         Timer.scheduledTimer(withTimeInterval: 2.5, repeats: false) { [self] Timer in
             print("Fetched Active Energy Burned: \(Int(value)).")
-            
-            let currentValue = self.foodService.getTotalCaloriesFromMealFile() - activeEnergyBurned
+            let currentEatenCalories = self.foodService.getTotalCaloriesFromMealFile()
+            UserDefaults.standard.set(currentEatenCalories, forKey: "CurrentEatenCalories")
+            let currentValue = currentEatenCalories - activeEnergyBurned
             let targetValue = Double(target)
             print("Current food-burned=\(Int(self.foodService.getTotalCaloriesFromMealFile())) - \(Int(activeEnergyBurned)) and target in circle=\(targetValue)")
             if self.foodService.getTotalCaloriesFromMealFile() == 0.0 {                                         //OUTCOME 1->Cals burned> cals ate
@@ -250,19 +280,21 @@ class HomeViewController: UIViewController {
     }
     
     func setUpLabels(current currentValue: Double, target targetValue: Double, needText text1: String, burnedText text2: String) {
-        let neededCalorieLabel = UILabel(frame: CGRect(x: 0, y: circleView.frame.size.height/2 - 30, width: circleView.frame.size.width, height: 20))
+        let padding: CGFloat = 30.0 // Add padding
+        
+        let neededCalorieLabel = UILabel(frame: CGRect(x: padding, y: padding, width: circleView.frame.size.width - 2 * padding, height: circleView.frame.size.height/3))
         neededCalorieLabel.textAlignment = .center
         neededCalorieLabel.font = UIFont.systemFont(ofSize: 18.0)
         neededCalorieLabel.textColor = UIColor.black
-        neededCalorieLabel.numberOfLines = 2
+        neededCalorieLabel.numberOfLines = 0 // Set number of lines to 0
         neededCalorieLabel.adjustsFontSizeToFitWidth = true
         circleView.addSubview(neededCalorieLabel)
         
-        let burnedCalorieLabel = UILabel(frame: CGRect(x: 0, y: circleView.frame.size.height/2, width: circleView.frame.size.width, height: 20))
+        let burnedCalorieLabel = UILabel(frame: CGRect(x: padding, y: circleView.frame.size.height/2 + 15, width: circleView.frame.size.width - 2 * padding, height: circleView.frame.size.height/3))
         burnedCalorieLabel.textAlignment = .center
         burnedCalorieLabel.font = UIFont.systemFont(ofSize: 18.0)
         burnedCalorieLabel.textColor = UIColor.red
-        burnedCalorieLabel.numberOfLines = 2
+        burnedCalorieLabel.numberOfLines = 0 // Set number of lines to 0
         burnedCalorieLabel.adjustsFontSizeToFitWidth = true
         neededCalorieLabel.text = text1
         burnedCalorieLabel.text = text2

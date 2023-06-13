@@ -28,7 +28,7 @@ class TabBarHomeController: UITabBarController, TabBarDelegate{
         selectedIndex = initialIndex
         navigationItem.hidesBackButton = true
         
-        // Set self as the delegate for the SettingsVC after finding it
+        // Set self as the delegate for the ProfileVC after finding it
         guard let viewControllers = viewControllers else { return }
         for viewController in viewControllers {
             if let navController = viewController as? UINavigationController {
