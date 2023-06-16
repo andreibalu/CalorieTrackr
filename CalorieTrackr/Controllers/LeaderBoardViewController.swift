@@ -6,38 +6,32 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
-    // Sample leaderboard data
-    let leaderboardData = [
-        ("John", 500),
-        ("Emma", 450),
-        ("Alex", 400),
-        ("Sophia", 350),
-        ("Noah", 300)
-    ]
+    private let db = Firestore.firestore()
+    var leaderboardData :[String] = []
     
     // Table view to display leaderboard
     var tableView: UITableView!
     var segmentedControl: UISegmentedControl!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Create and configure the title label
+        
         let titleLabel = UILabel()
         titleLabel.text = "Today's Leaderboards"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         titleLabel.textAlignment = .center
         view.addSubview(titleLabel)
         
-        // Create and configure the segmented control
         segmentedControl = UISegmentedControl(items: ["Calories Eaten\nToday", "Calories Burned\nToday", "Streaks"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
         view.addSubview(segmentedControl)
         
-        // Create and configure the table view
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
@@ -46,7 +40,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.backgroundColor = .clear
         view.addSubview(tableView)
         
-        // Set constraints for the title label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
@@ -54,7 +47,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
         
-        // Set constraints for the segmented control
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
@@ -62,7 +54,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
         
-        // Set constraints for the table view
         tableView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 16),
@@ -70,9 +61,49 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
+        
+        fetchFollowingList()
+        
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+        tableView.reloadData()
+        tableView.reloadData()
     }
-    // MARK: - UITableViewDataSource methods
-
+    
+    @objc func refreshData(_ sender: UIRefreshControl) {
+        // Refresh leaderboard data
+        fetchFollowingList()
+        // End refreshing
+        tableView.reloadData()
+        tableView.reloadData()
+        sender.endRefreshing()
+        tableView.reloadData()
+        tableView.reloadData()
+    }
+    
+    private func fetchFollowingList()
+    {
+        if let currentUser = Auth.auth().currentUser?.email{
+            print(currentUser as Any)
+            let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
+            DispatchQueue.main.asyncAfter(deadline: .now()) {  // maybe add a few secs if errors
+                userDocumentRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        if let followingValue = document.data()?["following"] as? [String] {
+                            self.leaderboardData = followingValue
+                            self.tableView.reloadData()
+                            self.tableView.reloadData()
+                        }
+                        else {
+                            print("Error at retrieving data from database \(String(describing: error?.localizedDescription))")
+                        }
+                    }
+                }
+            }
+        }
+    }
+        
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return leaderboardData.count
     }
@@ -81,8 +112,8 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         let cell = tableView.dequeueReusableCell(withIdentifier: LeaderboardCell.identifier, for: indexPath) as! LeaderboardCell
         
         let player = leaderboardData[indexPath.row]
-        cell.configure(with: player, position: indexPath.row + 1)
-        
+        //cell.configure(with: player, position: indexPath.row + 1)
+        cell.configure(with: player)
         return cell
     }
     
@@ -97,28 +128,29 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-            // Handle segmented control value change
-            let selectedIndex = sender.selectedSegmentIndex
-            switch selectedIndex {
-            case 0:
-                // Friends leaderboard
-                // Implement logic to update the leaderboard data accordingly
-                break
-            case 1:
-                // Country leaderboard
-                // Implement logic to update the leaderboard data accordingly
-                break
-            case 2:
-                // World leaderboard
-                // Implement logic to update the leaderboard data accordingly
-                break
-            default:
-                break
-            }
-            
-            // Reload the table view data after updating the leaderboard data
-            tableView.reloadData()
+        // Handle segmented control value change
+        let selectedIndex = sender.selectedSegmentIndex
+        switch selectedIndex {
+        case 0:
+            // Friends leaderboard
+            // Implement logic to update the leaderboard data accordingly
+            break
+        case 1:
+            // Country leaderboard
+            // Implement logic to update the leaderboard data accordingly
+            break
+        case 2:
+            // World leaderboard
+            // Implement logic to update the leaderboard data accordingly
+            break
+        default:
+            break
         }
+        
+        // Reload the table view data after updating the leaderboard data
+        fetchFollowingList()
+        tableView.reloadData()
+    }
 }
 
 class LeaderboardCell: UITableViewCell {
@@ -176,9 +208,14 @@ class LeaderboardCell: UITableViewCell {
         ])
     }
     
-    func configure(with player: (name: String, score: Int), position: Int) {
-        positionLabel.text = "\(position)."
-        nameLabel.text = player.name
-        scoreLabel.text = "\(player.score)"
+//        func configure(with player: (name: String, score: Int), position: Int) {
+//            positionLabel.text = "\(position)."
+//            nameLabel.text = player.name
+//            scoreLabel.text = "\(player.score)"
+//        }
+    func configure(with player: String) {
+        positionLabel.text = "" // Set the position label text if needed
+        nameLabel.text = player
+        scoreLabel.text = "" // Set the score label text if needed
     }
 }

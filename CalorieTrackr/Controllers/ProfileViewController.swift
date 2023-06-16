@@ -19,10 +19,50 @@ import FirebaseAuth
 class ProfileViewController: UIViewController {
     let db = Firestore.firestore()
     weak var tabBarDelegate: TabBarDelegate?
+    private var following : [String] = []
+    private var followers : [String] = []
+    private var userEmails: [String] = []
+    
+    @IBOutlet weak var followingLabel: UIButton!
+    @IBOutlet weak var followersLabel: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //
+        
+        self.followingLabel.setTitle("\0 following", for: .normal)
+        self.followersLabel.setTitle("\0 followers", for: .normal)
+        
+        if let currentUser = Auth.auth().currentUser?.email{
+            print(currentUser as Any)
+            let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
+            DispatchQueue.main.asyncAfter(deadline: .now()) {  // maybe add a few secs if errors
+                userDocumentRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        if let followingValue = document.data()?["following"] as? [String] {
+                            self.following = followingValue
+                            //self.followingLabel.titleLabel?.text = "\(followingValue.count) followers"
+                            self.followingLabel.setTitle("\(followingValue.count) following", for: .normal)
+                        }
+                        
+                        if let followersValue = document.data()?["followers"] as? [String] {
+                            self.followers = followersValue
+                            //self.followingLabel.titleLabel?.text = "\(followingValue.count) followers"
+                            self.followersLabel.setTitle("\(followersValue.count) followers", for: .normal)
+                        }
+                        else
+                        {
+                            self.followersLabel.setTitle("\0 followers", for: .normal)
+                        }
+                        
+                        if let userValues = document.data()?.values {
+                            self.userEmails = userValues.compactMap { $0 as? String }
+                        }
+                        print("All emails:")
+                        print(self.userEmails)
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func logoutButtonAction(_ sender: UIButton) {

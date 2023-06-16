@@ -27,6 +27,8 @@ struct K {
         static let streak = "Streak"
         static let target = "Target"
         static let dateField = "date"
+        static let following = "following"
+        static let followers = "followers"
     }
     
     struct Survey {

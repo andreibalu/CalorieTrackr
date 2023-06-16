@@ -6,12 +6,15 @@
 //
 
 import UIKit
+import FirebaseCore
+import FirebaseFirestore
+import FirebaseAuth
 
 class SearchViewController: UIViewController {
     private let searchBar = UISearchBar()
     private let tableView = UITableView()
     
-    private let mockIDs = ["andrei_tatucu", "andrei_baluta", "alex_cadar"]
+    private var ids : [String] = []
     private var filteredIDs: [String] = []
     
     private var detailViewController: DetailViewController?
@@ -22,6 +25,32 @@ class SearchViewController: UIViewController {
         setupSearchBar()
         setupTableView()
         setupDetailViewController()
+        fetchUsers()
+    }
+    
+    private func fetchUsers()
+    {
+        let dbz = Firestore.firestore()
+        let usersCollection = dbz.collection("Users")
+
+        usersCollection.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting users: \(error)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found")
+                return
+            }
+            
+            for document in documents {
+                let name = document.get("Email") as? String ?? ""
+                self.ids.append(name)
+                print("email: \(name)")
+            }
+        }
+        print("Tatucu")
     }
     
     private func setupSearchBar() {
@@ -71,7 +100,7 @@ extension SearchViewController: UISearchBarDelegate {
         if searchText.isEmpty {
             filteredIDs = []
         } else {
-            filteredIDs = mockIDs.filter { $0.lowercased().contains(searchText.lowercased()) }
+            filteredIDs = ids.filter { $0.lowercased().contains(searchText.lowercased()) }
         }
         
         tableView.reloadData()
