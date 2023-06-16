@@ -12,11 +12,19 @@ import FirebaseFirestore
 
 class DetailViewController: UIViewController {
     var selectedID: String?
-    public var id: String?
+    public var id: String = ""
     private let profileImageView = UIImageView()
     private let nameLabel = UILabel()
     private let titleLabel = UILabel()
     private let followButton = UIButton(type: .system)
+    
+    //Displayed User Data
+    var name: String = ""
+    var streak: Int = 0
+    var height: String = ""
+    var weight: String = ""
+    var sex: String = ""
+    var target: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,15 +34,14 @@ class DetailViewController: UIViewController {
         setupProfileImageView()
         setupNameLabel()
         setupTitleLabel()
-        setupProfileInfoStack()
         setupFollowButton(selectedID: selectedID)
         setupConstraints()
         
         if let selectedID = selectedID {
-                id = selectedID
-                configureProfile(with: selectedID)
-                setupFollowButton(selectedID: selectedID) // Pass the selectedID parameter explicitly
-            }
+            self.id = selectedID
+            configureProfile(with: selectedID)
+            setupFollowButton(selectedID: selectedID)
+        }
     }
     
     private func setupProfileImageView() {
@@ -76,35 +83,42 @@ class DetailViewController: UIViewController {
     }
     
     public func configureProfile(with id: String) {
-        // Assuming you have some data associated with the ID to populate the profile
-        let profileData = ProfileData(name: "John Doe", title: "Software Engineer", profileImage: UIImage(named: "profile_image"))
-        
-        nameLabel.text = profileData.name
-        //titleLabel.text = profileData.title
         titleLabel.text = id
-        profileImageView.image = profileData.profileImage
-    }
-    
-    private func setupProfileInfoStack() {
-//        let followingLabel = UILabel()
-//        followingLabel.text = "20 following"
-//        followingLabel.textColor = .black
-//        followingLabel.textAlignment = .center
-//
-//        let followersLabel = UILabel()
-//        followersLabel.text = "20 followers"
-//        followersLabel.textColor = .black
-//        followersLabel.textAlignment = .center
-//
-//        let stackView = UIStackView(arrangedSubviews: [followingLabel, followersLabel])
-//        stackView.axis = .horizontal
-//        stackView.spacing = 20
-//
-//        view.addSubview(stackView)
-//
-//        stackView.translatesAutoresizingMaskIntoConstraints = false
-//        stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        stackView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
+        self.id = id
+        print("Displaying user with id: \(self.id)")
+        let db = Firestore.firestore()
+        let usersCollection = db.collection("Users")
+        let query = usersCollection.whereField("Email", isEqualTo: id)
+
+        query.getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error getting users: \(error)")
+                return
+            }
+            
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found")
+                return
+            }
+            print(documents)
+            
+            for document in documents {
+                let name = document.get("Name") as? String ?? ""
+                let streak = document.get("streak") as? Int ?? 0
+                let height = document.get("Height") as? String ?? ""
+                let weight = document.get("Weight") as? String ?? ""
+                let sex = document.get("Sex") as? String ?? ""
+                let target = document.get("Target") as? String ?? ""
+                self.name = name
+                self.streak = streak
+                self.height = height
+                self.weight = weight
+                self.sex = sex
+                self.target = target
+                
+                self.nameLabel.text = self.name
+            }
+        }
     }
     
     private func setupFollowButton(selectedID: String?) {
@@ -126,60 +140,46 @@ class DetailViewController: UIViewController {
         followButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    
     @objc private func followButtonTapped(_ sender: UIButton) {
         print("Follow tapped")
         
-        guard let currentUserID = Auth.auth().currentUser?.uid else {
-            print("No current user")
-            return
-        }
-        
-        guard let selectedID = selectedID else {
-            print("No selected ID")
+        if (self.id == "")
+        {
             return
         }
         
         let db = Firestore.firestore()
-        let currentUserRef = db.collection("Users").document(currentUserID)
         
-        currentUserRef.getDocument { (document, error) in
-            if let error = error {
-                print("Error fetching current user document: \(error.localizedDescription)")
-                return
-            }
-            
-            if let document = document, document.exists {
-                var followingArray = document.data()?["following"] as? [String] ?? []
-                
-                if followingArray.contains(selectedID) {
-                    // If the selected ID already exists in the "following" array, update the button's title and disable interaction
-                    self.followButton.setTitle("Following", for: .normal)
-                    self.followButton.isEnabled = false
-                    print("Already following")
-                } else {
-                    // Append the selected ID if it doesn't already exist in the array
-                    followingArray.append(selectedID)
-                    
-                    currentUserRef.updateData(["following": followingArray]) { error in
-                        if let error = error {
-                            print("Error updating following array in the database: \(error.localizedDescription)")
-                        } else {
-                            print("Successfully updated following array in the database")
-                            self.followButton.setTitle("Following", for: .normal)
-                            self.followButton.isEnabled = false
+        if let currentUser = Auth.auth().currentUser?.email{
+            print(currentUser as Any)
+            let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                userDocumentRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        if var followingValue = document.data()?["following"] as? [String] {
+                            if(followingValue.contains(self.id)){
+                                print("User is already followed")
+                            }
+                            else {
+                                followingValue.append(self.id)
+
+                                userDocumentRef.updateData(["following": followingValue]) { error in
+                                if let error = error {
+                                    print("Error updating following array in the database: \(error.localizedDescription)")
+                                }
+                                else {
+                                    print("Successfully updated following array in the database")
+                                    }
+                                }
+                            }
                         }
                     }
                 }
             }
         }
     }
-
-   
-
 }
 
-// Example struct to hold profile data
 struct ProfileData {
     let name: String
     let title: String

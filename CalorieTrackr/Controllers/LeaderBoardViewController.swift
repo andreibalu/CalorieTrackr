@@ -1,10 +1,3 @@
-//
-//  LeaderBoardViewController.swift
-//  CalorieTrackr
-//
-//  Created by Andrei Tatucu on 09.06.2023.
-//
-
 import UIKit
 import FirebaseCore
 import FirebaseFirestore
@@ -12,26 +5,45 @@ import FirebaseAuth
 
 class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     private let db = Firestore.firestore()
-    var leaderboardData :[String] = []
-    
+    var leaderboardData: [String] = []
+    var userData: [String: UserData] = [:]
+
     // Table view to display leaderboard
     var tableView: UITableView!
     var segmentedControl: UISegmentedControl!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let titleLabel = UILabel()
         titleLabel.text = "Today's Leaderboards"
         titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
         titleLabel.textAlignment = .center
         view.addSubview(titleLabel)
-        
+
         segmentedControl = UISegmentedControl(items: ["Calories Eaten\nToday", "Calories Burned\nToday", "Streaks"])
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
         view.addSubview(segmentedControl)
-        
+
+        let columnLabelsStackView = UIStackView()
+        columnLabelsStackView.axis = .horizontal
+        columnLabelsStackView.distribution = .fillEqually // Update distribution to fillEqually
+
+        let rankLabel = createColumnLabel(title: "Rank")
+        let nameLabel = createColumnLabel(title: "Name")
+        let consumedLabel = createColumnLabel(title: "Calories Consumed")
+        let burnedLabel = createColumnLabel(title: "Calories Burned")
+        let streakLabel = createColumnLabel(title: "Streak")
+
+        columnLabelsStackView.addArrangedSubview(rankLabel)
+        columnLabelsStackView.addArrangedSubview(nameLabel)
+        columnLabelsStackView.addArrangedSubview(consumedLabel)
+        columnLabelsStackView.addArrangedSubview(burnedLabel)
+        columnLabelsStackView.addArrangedSubview(streakLabel)
+
+        view.addSubview(columnLabelsStackView)
+
         tableView = UITableView(frame: view.bounds, style: .plain)
         tableView.dataSource = self
         tableView.delegate = self
@@ -39,38 +51,58 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.separatorStyle = .none
         tableView.backgroundColor = .clear
         view.addSubview(tableView)
-        
+
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
-        
+
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             segmentedControl.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 16),
             segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
-        
+
+        columnLabelsStackView.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    columnLabelsStackView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
+                    columnLabelsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+                    columnLabelsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+                    columnLabelsStackView.widthAnchor.constraint(equalTo: tableView.widthAnchor) // Add width constraint equal to tableView's width
+                ])
+
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 16),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
-        
+                NSLayoutConstraint.activate([
+                    tableView.topAnchor.constraint(equalTo: columnLabelsStackView.bottomAnchor, constant: 8),
+                    tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                    tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+                    tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+                    tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor) // Align horizontally to center
+                ])
+
         fetchFollowingList()
-        
+
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         tableView.refreshControl = refreshControl
         tableView.reloadData()
-        tableView.reloadData()
     }
-    
+
+    func createColumnLabel(title: String) -> UILabel {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 14)
+        label.textColor = .gray
+        label.textAlignment = .center
+        label.numberOfLines = 2
+        label.text = title
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }
+
+
     @objc func refreshData(_ sender: UIRefreshControl) {
         // Refresh leaderboard data
         fetchFollowingList()
@@ -81,90 +113,141 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.reloadData()
         tableView.reloadData()
     }
-    
-    private func fetchFollowingList()
-    {
-        if let currentUser = Auth.auth().currentUser?.email{
+
+    private func fetchFollowingList() {
+        if let currentUser = Auth.auth().currentUser?.email {
             print(currentUser as Any)
             let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
-            DispatchQueue.main.asyncAfter(deadline: .now()) {  // maybe add a few secs if errors
+            DispatchQueue.main.asyncAfter(deadline: .now()) { [weak self] in
                 userDocumentRef.getDocument { (document, error) in
+                    guard let self = self else { return }
                     if let document = document, document.exists {
                         if let followingValue = document.data()?["following"] as? [String] {
                             self.leaderboardData = followingValue
+                            // Add the current user to the leaderboard data
+                            if !self.leaderboardData.contains(currentUser) {
+                                self.leaderboardData.append(currentUser)
+                            }
+                            self.fetchUsers()
                             self.tableView.reloadData()
-                            self.tableView.reloadData()
-                        }
-                        else {
-                            print("Error at retrieving data from database \(String(describing: error?.localizedDescription))")
+                        } else {
+                            print("Error retrieving data from the database: \(String(describing: error?.localizedDescription))")
                         }
                     }
                 }
             }
         }
     }
-        
+
+
+    private func fetchUsers() {
+        let usersCollection = db.collection("Users")
+        let query = usersCollection.whereField("Email", in: leaderboardData)
+        query.getDocuments { [weak self] (querySnapshot, error) in
+            guard let self = self else { return }
+            if let error = error {
+                print("Error getting users: \(error)")
+                return
+            }
+            guard let documents = querySnapshot?.documents else {
+                print("No documents found")
+                return
+            }
+            var userData: [String: UserData] = [:]
+            for document in documents {
+                let id = document.documentID
+                let streak = document.get("streak") as? Int ?? 0
+                let activeBurned = document.get("activeBurned") as? Int ?? 0
+                let consumed = document.get("consumed") as? Int ?? 0
+                userData[id] = UserData(streak: streak, activeBurned: activeBurned, consumed: consumed)
+                print("ID: \(id), Streak: \(streak), Active Burned: \(activeBurned), Consumed: \(consumed)")
+            }
+            self.userData = userData
+            // Sort the leaderboard data based on the selected tab
+            self.segmentedControlValueChanged(self.segmentedControl)
+        }
+    }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return leaderboardData.count
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LeaderboardCell.identifier, for: indexPath) as! LeaderboardCell
-        
-        let player = leaderboardData[indexPath.row]
-        //cell.configure(with: player, position: indexPath.row + 1)
-        cell.configure(with: player)
+
+        let rank = indexPath.row + 1
+        let id = leaderboardData[indexPath.row]
+        let data = userData[id]
+
+        cell.configure(with: rank, name: id, consumed: data?.consumed ?? 0, burned: data?.activeBurned ?? 0, streak: data?.streak ?? 0)
+
+        if id == Auth.auth().currentUser?.email {
+            // Set the background color for the current user cell
+            cell.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.2)
+        } else {
+            // Set the default background color for other cells
+            cell.backgroundColor = .clear
+        }
+
         return cell
     }
-    
+
     // MARK: - UITableViewDelegate methods
-    
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 70
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // Handle row selection if needed
     }
-    
+
     @objc func segmentedControlValueChanged(_ sender: UISegmentedControl) {
-        // Handle segmented control value change
         let selectedIndex = sender.selectedSegmentIndex
         switch selectedIndex {
         case 0:
-            // Friends leaderboard
-            // Implement logic to update the leaderboard data accordingly
-            break
+            // Sort by consumed
+            leaderboardData.sort { id1, id2 in
+                let consumed1 = userData[id1]?.consumed ?? 0
+                let consumed2 = userData[id2]?.consumed ?? 0
+                return consumed1 > consumed2
+            }
         case 1:
-            // Country leaderboard
-            // Implement logic to update the leaderboard data accordingly
-            break
+            // Sort by activeBurned
+            leaderboardData.sort { id1, id2 in
+                let burned1 = userData[id1]?.activeBurned ?? 0
+                let burned2 = userData[id2]?.activeBurned ?? 0
+                return burned1 > burned2
+            }
         case 2:
-            // World leaderboard
-            // Implement logic to update the leaderboard data accordingly
-            break
+            // Sort by streaks
+            leaderboardData.sort { id1, id2 in
+                let streak1 = userData[id1]?.streak ?? 0
+                let streak2 = userData[id2]?.streak ?? 0
+                return streak1 > streak2
+            }
         default:
             break
         }
-        
-        // Reload the table view data after updating the leaderboard data
-        fetchFollowingList()
+
+        tableView.reloadData()
+        tableView.reloadData()
         tableView.reloadData()
     }
+
 }
 
 class LeaderboardCell: UITableViewCell {
-    
     static let identifier = "LeaderboardCell"
-    
-    let positionLabel: UILabel = {
+
+    let rankLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
@@ -172,50 +255,78 @@ class LeaderboardCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    let scoreLabel: UILabel = {
+
+    let consumedLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 16)
         label.textColor = .lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
+    let burnedLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+    let streakLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        setupViews()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupViews() {
-        contentView.addSubview(positionLabel)
+        contentView.addSubview(rankLabel)
         contentView.addSubview(nameLabel)
-        contentView.addSubview(scoreLabel)
-        
+        contentView.addSubview(consumedLabel)
+        contentView.addSubview(burnedLabel)
+        contentView.addSubview(streakLabel)
         NSLayoutConstraint.activate([
-            positionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            positionLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
-            nameLabel.leadingAnchor.constraint(equalTo: positionLabel.trailingAnchor, constant: 16),
+            rankLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            rankLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            rankLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/5),
+
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            
-            scoreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
-            scoreLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+            nameLabel.leadingAnchor.constraint(equalTo: rankLabel.trailingAnchor),
+            nameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/5),
+
+            consumedLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            consumedLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
+            consumedLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/5),
+
+            burnedLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            burnedLabel.leadingAnchor.constraint(equalTo: consumedLabel.trailingAnchor),
+            burnedLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/5),
+
+            streakLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            streakLabel.leadingAnchor.constraint(equalTo: burnedLabel.trailingAnchor),
+            streakLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            streakLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/5)
         ])
     }
-    
-//        func configure(with player: (name: String, score: Int), position: Int) {
-//            positionLabel.text = "\(position)."
-//            nameLabel.text = player.name
-//            scoreLabel.text = "\(player.score)"
-//        }
-    func configure(with player: String) {
-        positionLabel.text = "" // Set the position label text if needed
-        nameLabel.text = player
-        scoreLabel.text = "" // Set the score label text if needed
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+
+    func configure(with rank: Int, name: String, consumed: Int, burned: Int, streak: Int) {
+        rankLabel.text = "\(rank)"
+        nameLabel.text = name
+        consumedLabel.text = "\(consumed)"
+        burnedLabel.text = "\(burned)"
+        streakLabel.text = "\(streak)"
+    }
+}
+
+
+struct UserData {
+    let streak: Int
+    let activeBurned: Int
+    let consumed: Int
 }

@@ -50,7 +50,6 @@ class SearchViewController: UIViewController {
                 print("email: \(name)")
             }
         }
-        print("Tatucu")
     }
     
     private func setupSearchBar() {
