@@ -10,9 +10,9 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseAuth
 
-protocol TabBarDelegate: AnyObject {
-    func logoutAndNavigateToWelcome()
-}
+//protocol TabBarDelegate: AnyObject {
+//    func logoutAndNavigateToWelcome()
+//}
 
 class SettingsViewController: UIViewController {
     

@@ -12,9 +12,9 @@ import FirebaseFirestore
 import FirebaseAuth
 
 
-//protocol TabBarDelegate: AnyObject {
-//    func logoutAndNavigateToWelcome()
-//}
+protocol TabBarDelegate: AnyObject {
+    func logoutAndNavigateToWelcome()
+}
 
 class ProfileViewController: UIViewController {
     let db = Firestore.firestore()
@@ -23,14 +23,8 @@ class ProfileViewController: UIViewController {
     private var followers : [String] = []
     private var userEmails: [String] = []
     
-    @IBOutlet weak var followingLabel: UIButton!
-    @IBOutlet weak var followersLabel: UIButton!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.followingLabel.setTitle("\0 following", for: .normal)
-        self.followersLabel.setTitle("\0 followers", for: .normal)
         
         if let currentUser = Auth.auth().currentUser?.email{
             print(currentUser as Any)
@@ -41,17 +35,17 @@ class ProfileViewController: UIViewController {
                         if let followingValue = document.data()?["following"] as? [String] {
                             self.following = followingValue
                             //self.followingLabel.titleLabel?.text = "\(followingValue.count) followers"
-                            self.followingLabel.setTitle("\(followingValue.count) following", for: .normal)
+                            //self.followingLabel.setTitle("\(followingValue.count) following", for: .normal)
                         }
                         
                         if let followersValue = document.data()?["followers"] as? [String] {
                             self.followers = followersValue
                             //self.followingLabel.titleLabel?.text = "\(followingValue.count) followers"
-                            self.followersLabel.setTitle("\(followersValue.count) followers", for: .normal)
+                            //self.followersLabel.setTitle("\(followersValue.count) followers", for: .normal)
                         }
                         else
                         {
-                            self.followersLabel.setTitle("\0 followers", for: .normal)
+                            //self.followersLabel.setTitle("\0 followers", for: .normal)
                         }
                         
                         if let userValues = document.data()?.values {
@@ -110,7 +104,17 @@ class ProfileViewController: UIViewController {
         "consumedCalories": 1337,
         "proteins": 69,
         "carbs": 13,
-        "fats": 10
+        "fats": 10,
+        "bmr": 1234,
+        "consumed1": "Andrei Tatucu",
+        "consumed2": "Andrei Baluta",
+        "consumed3": "Mara Maria Maraton",
+        "burned1": "Mara Maria Maraton",
+        "burned2": "Andrei Tatucu",
+        "burned3": "Buzdugan Boris",
+        "streak1": "Andrei Baluta",
+        "streak2": "Andrei Tatucu",
+        "streak3": "Darius Atat",
     ]
 
     

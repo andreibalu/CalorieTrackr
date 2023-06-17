@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , WCSessionDelegate {
         }
 
         // Start timer to send JSON every minute
-        timer = Timer.scheduledTimer(timeInterval: 2, target: self, selector: #selector(sendEmptyJSON), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(sendEmptyJSON), userInfo: nil, repeats: true)
 
         return true
     }
@@ -42,12 +42,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate , WCSessionDelegate {
             return
         }
 
-        let message: [String: Any] = ["message":"empty"]
-
-        session?.sendMessage(message, replyHandler: nil, errorHandler: { error in
-            print("Failed to send JSON: \(error)")
-        })
+        WatchConnectivityManager.shared.send(createJson(from: jsonObject) ?? "")
     }
+    
+    var jsonObject: [String: Any] = [
+        "burnedCalories": 999,
+        "consumedCalories": 6969,
+        "proteins": 69,
+        "carbs": 13,
+        "fats": 10,
+        "bmr": 1234,
+        "consumed1": "Andrei Tatucu",
+        "consumed2": "Andrei Baluta",
+        "consumed3": "Mara Maria Maraton",
+        "burned1": "Mara Maria Maraton",
+        "burned2": "Andrei Tatucu",
+        "burned3": "Buzdugan Boris",
+        "streak1": "Andrei Baluta",
+        "streak2": "Andrei Tatucu",
+        "streak3": "Darius Atat",
+    ]
 
     // MARK: UISceneSession Lifecycle
 

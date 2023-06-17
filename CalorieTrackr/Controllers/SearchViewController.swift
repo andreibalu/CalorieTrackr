@@ -28,6 +28,10 @@ class SearchViewController: UIViewController {
         fetchUsers()
     }
     
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+    
     private func fetchUsers()
     {
         let dbz = Firestore.firestore()
@@ -100,6 +104,7 @@ extension SearchViewController: UISearchBarDelegate {
             filteredIDs = []
         } else {
             filteredIDs = ids.filter { $0.lowercased().contains(searchText.lowercased()) }
+            //filteredIDs.removeAll { $0 == current user }
         }
         
         tableView.reloadData()
@@ -127,7 +132,9 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         
         let selectedID = filteredIDs[indexPath.row]
         
-        searchBar.text = selectedID // Autofill the search bar with selected ID
+        searchBar.text = selectedID
+        
+        dismissKeyboard()
         
         detailViewController?.configureProfile(with: selectedID)
         detailViewController?.view.isHidden = false

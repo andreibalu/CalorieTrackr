@@ -49,7 +49,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.delegate = self
         tableView.register(LeaderboardCell.self, forCellReuseIdentifier: LeaderboardCell.identifier)
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .clear
+        tableView.backgroundColor = .white
         view.addSubview(tableView)
 
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -67,12 +67,12 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         ])
 
         columnLabelsStackView.translatesAutoresizingMaskIntoConstraints = false
-                NSLayoutConstraint.activate([
-                    columnLabelsStackView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
-                    columnLabelsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-                    columnLabelsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-                    columnLabelsStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0/4.0)
-                ])
+        NSLayoutConstraint.activate([
+            columnLabelsStackView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
+            columnLabelsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            columnLabelsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            columnLabelsStackView.heightAnchor.constraint(equalToConstant: 40)
+        ])
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
                 NSLayoutConstraint.activate([
@@ -91,39 +91,50 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.reloadData()
     }
 
+//    func createColumnLabel(title: String) -> UILabel {
+//        let label = UILabel()
+//        label.font = UIFont.systemFont(ofSize: 14)
+//        label.textColor = .gray
+//        label.textAlignment = .center
+//        label.numberOfLines = 2
+//
+//        switch segmentedControl.selectedSegmentIndex {
+//        case 0:
+//            // Display consumed field
+//            if title == "Calories Consumed" {
+//                label.text = title
+//            } else {
+//                label.isHidden = true
+//            }
+//        case 1:
+//            // Display activeBurned field
+//            if title == "Calories Burned" {
+//                label.text = title
+//            } else {
+//                label.isHidden = true
+//            }
+//        case 2:
+//            // Display streak field
+//            if title == "Streak" {
+//                label.text = title
+//            } else {
+//                label.isHidden = true
+//            }
+//        default:
+//            break
+//        }
+//
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }
+    
     func createColumnLabel(title: String) -> UILabel {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.textColor = .gray
         label.textAlignment = .center
         label.numberOfLines = 2
-        
-        switch segmentedControl.selectedSegmentIndex {
-        case 0:
-            // Display consumed field
-            if title == "Calories Consumed" {
-                label.text = title
-            } else {
-                label.isHidden = true
-            }
-        case 1:
-            // Display activeBurned field
-            if title == "Calories Burned" {
-                label.text = title
-            } else {
-                label.isHidden = true
-            }
-        case 2:
-            // Display streak field
-            if title == "Streak" {
-                label.text = title
-            } else {
-                label.isHidden = true
-            }
-        default:
-            break
-        }
-        
+        label.text = title
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
@@ -132,13 +143,11 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
 
     @objc func refreshData(_ sender: UIRefreshControl) {
         // Refresh leaderboard data
-        fetchFollowingList()
+        //fetchFollowingList()
         // End refreshing
-        tableView.reloadData()
-        tableView.reloadData()
+        //tableView.reloadData()
+        //tableView.reloadData()
         sender.endRefreshing()
-        tableView.reloadData()
-        tableView.reloadData()
     }
 
     private func fetchFollowingList() {
@@ -182,11 +191,12 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
             var userData: [String: UserData] = [:]
             for document in documents {
                 let id = document.documentID
+                let name = document.get("Name") as? String ?? ""
                 let streak = document.get("streak") as? Int ?? 0
                 let activeBurned = document.get("activeBurned") as? Int ?? 0
                 let consumed = document.get("consumed") as? Int ?? 0
-                userData[id] = UserData(streak: streak, activeBurned: activeBurned, consumed: consumed)
-                print("ID: \(id), Streak: \(streak), Active Burned: \(activeBurned), Consumed: \(consumed)")
+                userData[id] = UserData(name: name, streak: streak, activeBurned: activeBurned, consumed: consumed)
+                print("ID: \(id), Name: \(name), Streak: \(streak), Active Burned: \(activeBurned), Consumed: \(consumed)")
             }
             self.userData = userData
             // Sort the leaderboard data based on the selected tab
@@ -204,8 +214,9 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         let rank = indexPath.row + 1
         let id = leaderboardData[indexPath.row]
         let data = userData[id]
+        let name = data?.name ?? ""
         
-        cell.configure(with: rank, name: id, segmentedControl:segmentedControl)
+        cell.configure(with: rank, name: name, segmentedControl:segmentedControl)
         
         switch segmentedControl.selectedSegmentIndex {
         case 0:
@@ -326,37 +337,52 @@ class LeaderboardCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    let scoreLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .lightGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        contentView.addSubview(rankLabel)
-        contentView.addSubview(nameLabel)
-        contentView.addSubview(consumedLabel)
-        contentView.addSubview(burnedLabel)
-        contentView.addSubview(streakLabel)
-        NSLayoutConstraint.activate([
-            rankLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            rankLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            rankLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/5),
-
-            nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(equalTo: rankLabel.trailingAnchor),
-            nameLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/5),
-
-            consumedLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            consumedLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
-            consumedLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/5),
-
-            burnedLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            burnedLabel.leadingAnchor.constraint(equalTo: consumedLabel.trailingAnchor),
-            burnedLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/5),
-
-            streakLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            streakLabel.leadingAnchor.constraint(equalTo: burnedLabel.trailingAnchor),
-            streakLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            streakLabel.widthAnchor.constraint(equalTo: contentView.widthAnchor, multiplier: 1/5)
-        ])
-    }
+            super.init(style: style, reuseIdentifier: reuseIdentifier)
+            
+            let borderWidth: CGFloat = 0.0
+            let borderColor = UIColor.lightGray.cgColor
+            
+            contentView.addSubview(rankLabel)
+            contentView.addSubview(nameLabel)
+            contentView.addSubview(scoreLabel)
+            
+            // Add outlines to each column
+            rankLabel.layer.borderWidth = borderWidth
+            rankLabel.layer.borderColor = borderColor
+            nameLabel.layer.borderWidth = borderWidth
+            nameLabel.layer.borderColor = borderColor
+            scoreLabel.layer.borderWidth = borderWidth
+            scoreLabel.layer.borderColor = borderColor
+            
+            // Center-align the rank label and score label
+            rankLabel.textAlignment = .center
+            scoreLabel.textAlignment = .center
+            
+            NSLayoutConstraint.activate([
+                rankLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                rankLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+                rankLabel.widthAnchor.constraint(equalToConstant: 50), // Adjust width as needed
+                
+                nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                nameLabel.leadingAnchor.constraint(equalTo: rankLabel.trailingAnchor),
+                nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+                
+                scoreLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                scoreLabel.leadingAnchor.constraint(equalTo: nameLabel.trailingAnchor),
+                scoreLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+                scoreLabel.widthAnchor.constraint(equalToConstant: 80) // Adjust width as needed
+            ])
+        }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -368,17 +394,20 @@ class LeaderboardCell: UITableViewCell {
         
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            consumedLabel.isHidden = false
-            burnedLabel.isHidden = true
-            streakLabel.isHidden = true
+//            consumedLabel.isHidden = false
+//            burnedLabel.isHidden = true
+//            streakLabel.isHidden = true
+            scoreLabel.text = consumedLabel.text
         case 1:
-            consumedLabel.isHidden = true
-            burnedLabel.isHidden = false
-            streakLabel.isHidden = true
+//            consumedLabel.isHidden = true
+//            burnedLabel.isHidden = false
+//            streakLabel.isHidden = true
+            scoreLabel.text = burnedLabel.text
         case 2:
-            consumedLabel.isHidden = true
-            burnedLabel.isHidden = true
-            streakLabel.isHidden = false
+//            consumedLabel.isHidden = true
+//            burnedLabel.isHidden = true
+//            streakLabel.isHidden = false
+            scoreLabel.text = streakLabel.text
         default:
             break
         }
@@ -387,6 +416,7 @@ class LeaderboardCell: UITableViewCell {
 
 
 struct UserData {
+    let name: String
     let streak: Int
     let activeBurned: Int
     let consumed: Int

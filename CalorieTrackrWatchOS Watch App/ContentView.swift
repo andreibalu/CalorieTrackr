@@ -10,84 +10,152 @@ import HealthKit
 import WatchConnectivity
 
 
+struct FadeInModifier: ViewModifier {
+    @State var shouldFadeIn: Bool
+    
+    func body(content: Content) -> some View {
+        content
+            .opacity(shouldFadeIn ? 1 : 0)
+            .animation(Animation.easeInOut(duration: 0.5).delay(0.2))
+    }
+}
+
 struct LeaderboardView: View {
     @State private var selectedTab: Int = 0
+    @State var consumed1Var = String(UserDefaults.standard.string(forKey: "consumed1") ?? "0")
+    @State var consumed2Var = String(UserDefaults.standard.string(forKey: "consumed2") ?? "0")
+    @State var consumed3Var = String(UserDefaults.standard.string(forKey: "consumed3") ?? "0")
+    @State var burned1Var = String(UserDefaults.standard.string(forKey: "burned1") ?? "0")
+    @State var burned2Var = String(UserDefaults.standard.string(forKey: "burned2") ?? "0")
+    @State var burned3Var = String(UserDefaults.standard.string(forKey: "burned3") ?? "0")
+    @State var streak1Var = String(UserDefaults.standard.string(forKey: "streak1") ?? "0")
+    @State var streak2Var = String(UserDefaults.standard.string(forKey: "streak2") ?? "0")
+    @State var streak3Var = String(UserDefaults.standard.string(forKey: "streak3") ?? "0")
+    @State private var shouldFadeIn = false
     
     var body: some View {
         VStack {
             HStack {
                 Button(action: {
                     selectedTab = 0
+                    shouldFadeIn = true
                 }) {
                     VStack {
-                        Image(systemName: selectedTab == 0 ? "person.2.fill" : "person.2")
+                        Image(systemName: selectedTab == 0 ? "carrot.fill" : "carrot")
                             .font(.system(size: 25, weight: .medium))
                             
-                        Text("Friends")
+                        Text("Eaten")
                             .font(.system(size: 10, weight: .medium))
                     }
                 }
                 
                 Button(action: {
                     selectedTab = 1
+                    shouldFadeIn = true
                 }) {
                     VStack {
-                        Image(systemName: selectedTab == 1 ? "flag.fill" : "flag")
+                        Image(systemName: selectedTab == 1 ? "figure.yoga" : "figure.stand")
                             .font(.system(size: 25, weight: .medium))
                             
-                        Text("Country")
+                        Text("Burned")
                             .font(.system(size: 10, weight: .medium))
                     }
                 }
                 
                 Button(action: {
                     selectedTab = 2
+                    shouldFadeIn = true
                 }) {
                     VStack {
-                        Image(systemName: selectedTab == 2 ? "globe.americas.fill" : "globe.americas")
+                        Image(systemName: selectedTab == 2 ? "flame.fill" : "flame")
                             .font(.system(size: 25, weight: .medium))
                             
-                        Text("World")
+                        Text("Streaks")
                             .font(.system(size: 10, weight: .medium))
                     }
                 }
             }
             
-            // Placeholder content for leaderboard
-            List(1...10, id: \.self) { index in
+            
+            List(1...3, id: \.self) { index in
                 HStack {
                     if (index == 1)
                     {
                         Image(systemName: "trophy.fill")
+                        if (selectedTab == 0)
+                        {
+                            Text("\(consumed1Var)")
+                        }
+                        else if(selectedTab == 1)
+                        {
+                            Text("\(burned1Var)")
+                        }
+                        else
+                        {
+                            Text("\(streak1Var)")
+                        }
+                        
+                        //Text("\(consumed2Var)")
+                        //Text("\(UserDefaults.standard.string(forKey: "consumed3") ?? "")")
                     }
                     else if (index == 2)
                     {
                         Image(systemName: "trophy")
+                        if (selectedTab == 0)
+                        {
+                            Text("\(consumed2Var)")
+                        }
+                        else if(selectedTab == 1)
+                        {
+                            Text("\(burned2Var)")
+                        }
+                        else
+                        {
+                            Text("\(streak2Var)")
+                        }
                     }
                     else if (index == 3)
                     {
                         Image(systemName: "rosette")
+                        if (selectedTab == 0)
+                        {
+                            Text("\(consumed3Var)")
+                        }
+                        else if(selectedTab == 1)
+                        {
+                            Text("\(burned3Var)")
+                        }
+                        else
+                        {
+                            Text("\(streak3Var)")
+                        }
                     }
-                    Text("\(leaderboardTitle(for: selectedTab)) \(index)")
                 }
                 .padding()
+                .onAppear()
+                {
+                    getDataFromUserDefaults()
+                }
+                .onChange(of: selectedTab) { tab in
+                    getDataFromUserDefaults()
+                    print(selectedTab)
+                }
             }
             
             
         }
     }
     
-    private func leaderboardTitle(for tab: Int) -> String {
-        switch tab {
-        case 0:
-            return "Friends"
-        case 1:
-            return "Country"
-        case 2:
-            return "World"
-        default:
-            return ""
-        }
+    private func getDataFromUserDefaults() {
+        consumed1Var = String(UserDefaults.standard.string(forKey: "consumed1") ?? "0")
+        consumed2Var = String(UserDefaults.standard.string(forKey: "consumed2") ?? "0")
+        consumed3Var = String(UserDefaults.standard.string(forKey: "consumed3") ?? "0")
+        burned1Var = String(UserDefaults.standard.string(forKey: "burned1") ?? "0")
+        burned2Var = String(UserDefaults.standard.string(forKey: "burned2") ?? "0")
+        burned3Var = String(UserDefaults.standard.string(forKey: "burned3") ?? "0")
+        streak1Var = String(UserDefaults.standard.string(forKey: "streak1") ?? "0")
+        streak2Var = String(UserDefaults.standard.string(forKey: "streak2") ?? "0")
+        streak3Var = String(UserDefaults.standard.string(forKey: "streak3") ?? "0")
     }
 }
 
@@ -102,7 +170,17 @@ struct ContentView: View {
     @State private var proteinVar = Double(UserDefaults.standard.string(forKey: "proteins") ?? "0")
     @State private var carbsVar = Double(UserDefaults.standard.string(forKey: "carbs") ?? "0")
     @State private var fatsVar = Double(UserDefaults.standard.string(forKey: "fats") ?? "0")
-    
+    @State private var bmrVar = Double(UserDefaults.standard.string(forKey: "bmr") ?? "0")
+    @State private var consumed1Var = String(UserDefaults.standard.string(forKey: "consumed1") ?? "0")
+    @State private var consumed2Var = String(UserDefaults.standard.string(forKey: "consumed2") ?? "0")
+    @State private var consumed3Var = String(UserDefaults.standard.string(forKey: "consumed3") ?? "0")
+    @State private var burned1Var = String(UserDefaults.standard.string(forKey: "burned1") ?? "0")
+    @State private var burned2Var = String(UserDefaults.standard.string(forKey: "burned2") ?? "0")
+    @State private var burned3Var = String(UserDefaults.standard.string(forKey: "burned3") ?? "0")
+    @State private var streak1Var = String(UserDefaults.standard.string(forKey: "streak1") ?? "0")
+    @State private var streak2Var = String(UserDefaults.standard.string(forKey: "streak2") ?? "0")
+    @State private var streak3Var = String(UserDefaults.standard.string(forKey: "streak3") ?? "0")
+   
     // Function to handle JSON deserialization
     private func readJSONObject(from jsonString: String) {
         guard let jsonData = jsonString.data(using: .utf8) else {
@@ -128,6 +206,42 @@ struct ContentView: View {
                 if let fats = jsonObject["fats"] as? Int {
                     fatsVar = Double(fats)
                     UserDefaults.standard.setValue(fatsVar, forKey: "fats")
+                }
+                if let consumed1 = jsonObject["consumed1"] as? String {
+                    consumed1Var = consumed1
+                    UserDefaults.standard.setValue(consumed1Var, forKey: "consumed1")
+                }
+                if let consumed2 = jsonObject["consumed2"] as? String {
+                    consumed2Var = consumed2
+                    UserDefaults.standard.setValue(consumed2Var, forKey: "consumed2")
+                }
+                if let consumed3 = jsonObject["consumed3"] as? String {
+                    consumed3Var = consumed3
+                    UserDefaults.standard.setValue(consumed3Var, forKey: "consumed3")
+                }
+                if let burned1 = jsonObject["burned1"] as? String {
+                    burned1Var = burned1
+                    UserDefaults.standard.setValue(burned1Var, forKey: "burned1")
+                }
+                if let burned2 = jsonObject["burned2"] as? String {
+                    burned2Var = burned2
+                    UserDefaults.standard.setValue(burned2Var, forKey: "burned2")
+                }
+                if let burned3 = jsonObject["burned3"] as? String {
+                    burned3Var = burned3
+                    UserDefaults.standard.setValue(burned3Var, forKey: "burned3")
+                }
+                if let streak1 = jsonObject["streak1"] as? String {
+                    streak1Var = streak1
+                    UserDefaults.standard.setValue(streak1Var, forKey: "streak1")
+                }
+                if let streak2 = jsonObject["streak2"] as? String {
+                    streak2Var = streak2
+                    UserDefaults.standard.setValue(streak2Var, forKey: "streak2")
+                }
+                if let streak3 = jsonObject["streak3"] as? String {
+                    streak3Var = streak3
+                    UserDefaults.standard.setValue(streak3Var, forKey: "streak3")
                 }
             } else {
                 print("Failed to parse JSON object.")
@@ -180,7 +294,6 @@ struct ContentView: View {
             }
             .background(.purple)
             .onChange(of: selectedTab) { tab in
-                print("dicks")
                 connectivityManager.send("getData")
             }
             .tag(1)

@@ -36,6 +36,8 @@ class DetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
         
         view.backgroundColor = .white
         
@@ -50,6 +52,10 @@ class DetailViewController: UIViewController {
             configureProfile(with: selectedID)
             setupFollowButton(selectedID: selectedID)
         }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     private func setupProfileImageView() {
@@ -158,16 +164,26 @@ class DetailViewController: UIViewController {
                     DispatchQueue.main.asyncAfter(deadline: .now()) {
                         userDocumentRef.getDocument { (document, error) in
                             if let document = document, document.exists {
-                                if let followingValue = document.data()?["following"] as? [String] {
-                                    if (followingValue.contains(userId))
+                                if let followingValue = document.data()?["following"] as? [String],
+                                    let currentId = document.data()?["Email"] as? String
+                                {
+                                    if (userId == currentId)
+                                    {
+                                        self.followButton.setTitle("Viewing As Guest", for: .normal)
+                                        self.followButton.backgroundColor = .purple
+                                        self.followButton.isEnabled = false
+                                    }
+                                    else if (followingValue.contains(userId))
                                     {
                                         self.followButton.setTitle("Following", for: .normal)
                                         self.followButton.backgroundColor = .purple
+                                        self.followButton.isEnabled = true
                                     }
                                     else
                                     {
                                         self.followButton.setTitle("Follow", for: .normal)
                                         self.followButton.backgroundColor = .blue
+                                        self.followButton.isEnabled = true
                                     }
                                 }
                             }
