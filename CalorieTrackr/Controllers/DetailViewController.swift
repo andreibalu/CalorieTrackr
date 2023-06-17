@@ -18,6 +18,13 @@ class DetailViewController: UIViewController {
     private let titleLabel = UILabel()
     private let followButton = UIButton(type: .system)
     
+    let streakLabel = UILabel()
+    let heightLabel = UILabel()
+    let weightLabel = UILabel()
+    let sexLabel = UILabel()
+    let targetLabel = UILabel()
+    let followingCountLabel = UILabel()
+    
     //Displayed User Data
     var name: String = ""
     var streak: Int = 0
@@ -25,6 +32,7 @@ class DetailViewController: UIViewController {
     var weight: String = ""
     var sex: String = ""
     var target: String = ""
+    var followingCount: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,21 +78,43 @@ class DetailViewController: UIViewController {
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         followButton.translatesAutoresizingMaskIntoConstraints = false
-
+        
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.alignment = .center // Center the labels within the stack view
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Add labels to the stack view
+        stackView.addArrangedSubview(streakLabel)
+        stackView.addArrangedSubview(heightLabel)
+        stackView.addArrangedSubview(weightLabel)
+        stackView.addArrangedSubview(sexLabel)
+        stackView.addArrangedSubview(targetLabel)
+        stackView.addArrangedSubview(followingCountLabel)
+        
+        // Add stack view to the main view
+        view.addSubview(stackView)
+        
         NSLayoutConstraint.activate([
             nameLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             nameLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-
+            
             titleLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 8),
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
+            titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            
+            stackView.topAnchor.constraint(equalTo: followButton.bottomAnchor, constant: 20),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
     }
+
     
-    public func configureProfile(with id: String) {
+    public func configureProfile(with userId: String) {
         titleLabel.text = id
-        self.id = id
+        self.id = userId
         print("Displaying user with id: \(self.id)")
         let db = Firestore.firestore()
         let usersCollection = db.collection("Users")
@@ -109,23 +139,48 @@ class DetailViewController: UIViewController {
                 let weight = document.get("Weight") as? String ?? ""
                 let sex = document.get("Sex") as? String ?? ""
                 let target = document.get("Target") as? String ?? ""
-                self.name = name
-                self.streak = streak
-                self.height = height
-                self.weight = weight
-                self.sex = sex
-                self.target = target
+                let following = document.get("following") as? [String] ?? []
                 
-                self.nameLabel.text = self.name
+                self.nameLabel.text = name
+                self.titleLabel.text = userId
+                
+                self.streakLabel.text = "Streak: \(streak)"
+                self.heightLabel.text = "Height: \(height)"
+                self.weightLabel.text = "Weight: \(weight)"
+                self.sexLabel.text = "Sex: \(sex)"
+                self.targetLabel.text = "Target: \(target)"
+                self.followingCountLabel.text = "Following: \(following.count) people"
+                
+                
+                if let currentUser = Auth.auth().currentUser?.email{
+                    print(currentUser as Any)
+                    let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
+                    DispatchQueue.main.asyncAfter(deadline: .now()) {
+                        userDocumentRef.getDocument { (document, error) in
+                            if let document = document, document.exists {
+                                if let followingValue = document.data()?["following"] as? [String] {
+                                    if (followingValue.contains(userId))
+                                    {
+                                        self.followButton.setTitle("Following", for: .normal)
+                                        self.followButton.backgroundColor = .purple
+                                    }
+                                    else
+                                    {
+                                        self.followButton.setTitle("Follow", for: .normal)
+                                        self.followButton.backgroundColor = .blue
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
     
     private func setupFollowButton(selectedID: String?) {
-        followButton.setTitle("Follow", for: .normal)
         followButton.setTitleColor(.white, for: .normal)
         followButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        followButton.backgroundColor = .purple
         followButton.layer.cornerRadius = 10
         followButton.clipsToBounds = true
         
@@ -158,7 +213,17 @@ class DetailViewController: UIViewController {
                     if let document = document, document.exists {
                         if var followingValue = document.data()?["following"] as? [String] {
                             if(followingValue.contains(self.id)){
-                                print("User is already followed")
+                                followingValue.removeAll { $0 == self.id }
+                                userDocumentRef.updateData(["following": followingValue]) { error in
+                                if let error = error {
+                                    print("Error updating following array in the database: \(error.localizedDescription)")
+                                }
+                                else {
+                                    self.followButton.setTitle("Follow", for: .normal)
+                                    self.followButton.backgroundColor = .blue
+                                    print("Successfully updated following array in the database")
+                                    }
+                                }
                             }
                             else {
                                 followingValue.append(self.id)
@@ -168,6 +233,8 @@ class DetailViewController: UIViewController {
                                     print("Error updating following array in the database: \(error.localizedDescription)")
                                 }
                                 else {
+                                    self.followButton.setTitle("Following", for: .normal)
+                                    self.followButton.backgroundColor = .purple
                                     print("Successfully updated following array in the database")
                                     }
                                 }

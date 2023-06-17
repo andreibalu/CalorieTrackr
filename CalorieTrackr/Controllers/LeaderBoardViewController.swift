@@ -28,13 +28,13 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
 
         let columnLabelsStackView = UIStackView()
         columnLabelsStackView.axis = .horizontal
-        columnLabelsStackView.distribution = .fillEqually // Update distribution to fillEqually
+        columnLabelsStackView.distribution = .fillEqually
 
-        let rankLabel = createColumnLabel(title: "Rank")
-        let nameLabel = createColumnLabel(title: "Name")
-        let consumedLabel = createColumnLabel(title: "Calories Consumed")
-        let burnedLabel = createColumnLabel(title: "Calories Burned")
-        let streakLabel = createColumnLabel(title: "Streak")
+        let rankLabel = createColumnLabel(title: "")
+        let nameLabel = createColumnLabel(title: "")
+        let consumedLabel = createColumnLabel(title: "")
+        let burnedLabel = createColumnLabel(title: "")
+        let streakLabel = createColumnLabel(title: "")
 
         columnLabelsStackView.addArrangedSubview(rankLabel)
         columnLabelsStackView.addArrangedSubview(nameLabel)
@@ -71,7 +71,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
                     columnLabelsStackView.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 8),
                     columnLabelsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
                     columnLabelsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-                    columnLabelsStackView.widthAnchor.constraint(equalTo: tableView.widthAnchor) // Add width constraint equal to tableView's width
+                    columnLabelsStackView.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 1.0/4.0)
                 ])
 
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -97,10 +97,37 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         label.textColor = .gray
         label.textAlignment = .center
         label.numberOfLines = 2
-        label.text = title
+        
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            // Display consumed field
+            if title == "Calories Consumed" {
+                label.text = title
+            } else {
+                label.isHidden = true
+            }
+        case 1:
+            // Display activeBurned field
+            if title == "Calories Burned" {
+                label.text = title
+            } else {
+                label.isHidden = true
+            }
+        case 2:
+            // Display streak field
+            if title == "Streak" {
+                label.text = title
+            } else {
+                label.isHidden = true
+            }
+        default:
+            break
+        }
+        
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }
+
 
 
     @objc func refreshData(_ sender: UIRefreshControl) {
@@ -139,7 +166,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
 
-
     private func fetchUsers() {
         let usersCollection = db.collection("Users")
         let query = usersCollection.whereField("Email", in: leaderboardData)
@@ -174,13 +200,33 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LeaderboardCell.identifier, for: indexPath) as! LeaderboardCell
-
+        
         let rank = indexPath.row + 1
         let id = leaderboardData[indexPath.row]
         let data = userData[id]
-
-        cell.configure(with: rank, name: id, consumed: data?.consumed ?? 0, burned: data?.activeBurned ?? 0, streak: data?.streak ?? 0)
-
+        
+        cell.configure(with: rank, name: id, segmentedControl:segmentedControl)
+        
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            // Display consumed field
+            cell.consumedLabel.text = "\(data?.consumed ?? 0)"
+            cell.burnedLabel.isHidden = true
+            cell.streakLabel.isHidden = true
+        case 1:
+            // Display activeBurned field
+            cell.burnedLabel.text = "\(data?.activeBurned ?? 0)"
+            cell.consumedLabel.isHidden = true
+            cell.streakLabel.isHidden = true
+        case 2:
+            // Display streak field
+            cell.streakLabel.text = "\(data?.streak ?? 0)"
+            cell.consumedLabel.isHidden = true
+            cell.burnedLabel.isHidden = true
+        default:
+            break
+        }
+        
         if id == Auth.auth().currentUser?.email {
             // Set the background color for the current user cell
             cell.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.2)
@@ -188,9 +234,10 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
             // Set the default background color for other cells
             cell.backgroundColor = .clear
         }
-
+        
         return cell
     }
+
 
     // MARK: - UITableViewDelegate methods
 
@@ -315,12 +362,26 @@ class LeaderboardCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func configure(with rank: Int, name: String, consumed: Int, burned: Int, streak: Int) {
+    func configure(with rank: Int, name: String, segmentedControl: UISegmentedControl) {
         rankLabel.text = "\(rank)"
         nameLabel.text = name
-        consumedLabel.text = "\(consumed)"
-        burnedLabel.text = "\(burned)"
-        streakLabel.text = "\(streak)"
+        
+        switch segmentedControl.selectedSegmentIndex {
+        case 0:
+            consumedLabel.isHidden = false
+            burnedLabel.isHidden = true
+            streakLabel.isHidden = true
+        case 1:
+            consumedLabel.isHidden = true
+            burnedLabel.isHidden = false
+            streakLabel.isHidden = true
+        case 2:
+            consumedLabel.isHidden = true
+            burnedLabel.isHidden = true
+            streakLabel.isHidden = false
+        default:
+            break
+        }
     }
 }
 
@@ -330,3 +391,5 @@ struct UserData {
     let activeBurned: Int
     let consumed: Int
 }
+
+
