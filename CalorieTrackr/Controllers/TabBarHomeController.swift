@@ -10,20 +10,14 @@ import UIKit
 class TabBarHomeController: UITabBarController, TabBarDelegate{
     func logoutAndNavigateToWelcome() {
         self.tabBar.isUserInteractionEnabled = false
-        print("dick")
         //Go to WelcomeVC
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        print("dick")
         if let welcomeViewController = storyboard.instantiateViewController(withIdentifier: K.logout) as? WelcomeViewController {
-            print("dick")
             let navController = UINavigationController(rootViewController: welcomeViewController)
-            print("dick")
             navController.modalPresentationStyle = .fullScreen
-            print("dick")
 
             // Replace the current view controllers with the welcome view controller
             self.navigationController?.setViewControllers([welcomeViewController], animated: true)
-            print("dick")
         }
     }
     

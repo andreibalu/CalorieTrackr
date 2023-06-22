@@ -97,7 +97,6 @@ extension WatchConnectivityManager: WCSessionDelegate {
         print(message)
         if let notificationText = message[kMessageKey] as? String {
             if notificationText == "getData" {
-                print("Dicks and Fucks")
                 //send(createJson(from: createStringDictionary(from: burnedCalories, consumedCalories, proteins, carbs, fats)) ?? "")
             } else {
                 DispatchQueue.main.async { [weak self] in

@@ -113,6 +113,7 @@ class FoodService {
                 totalCalories += food.calories
             }
         }
+        UserDefaults.standard.set(totalCalories, forKey: "consumed")
         
         return totalCalories
     }

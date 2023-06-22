@@ -23,7 +23,7 @@ class DetailViewController: UIViewController {
     let weightLabel = UILabel()
     let sexLabel = UILabel()
     let targetLabel = UILabel()
-    let followingCountLabel = UILabel()
+    let rankLabel = UILabel()
     
     //Displayed User Data
     var name: String = ""
@@ -39,7 +39,28 @@ class DetailViewController: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
         
-        view.backgroundColor = .white
+        if let navyColor = UIColor(named: "ColorNavy") {
+            view.backgroundColor = navyColor
+        }
+        else
+        {
+            view.backgroundColor = .black
+        }
+        
+        streakLabel.textColor = .white
+        streakLabel.font = UIFont.boldSystemFont(ofSize: 23)
+        heightLabel.textColor = .white
+        heightLabel.font = UIFont.boldSystemFont(ofSize: 23)
+        weightLabel.textColor = .white
+        weightLabel.font = UIFont.boldSystemFont(ofSize: 23)
+        sexLabel.textColor = .white
+        sexLabel.font = UIFont.boldSystemFont(ofSize: 23)
+        targetLabel.textColor = .white
+        targetLabel.font = UIFont.boldSystemFont(ofSize: 23)
+        rankLabel.textColor = .white
+        rankLabel.font = UIFont.boldSystemFont(ofSize: 23)
+        nameLabel.textColor = .white
+        titleLabel.textColor = .white
         
         setupProfileImageView()
         setupNameLabel()
@@ -67,14 +88,14 @@ class DetailViewController: UIViewController {
     }
     
     private func setupNameLabel() {
-        nameLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        nameLabel.font = UIFont.boldSystemFont(ofSize: 30)
         nameLabel.textAlignment = .center
         
         view.addSubview(nameLabel)
     }
     
     private func setupTitleLabel() {
-        titleLabel.font = UIFont.systemFont(ofSize: 18)
+        titleLabel.font = UIFont.systemFont(ofSize: 24)
         titleLabel.textAlignment = .center
         
         view.addSubview(titleLabel)
@@ -87,17 +108,17 @@ class DetailViewController: UIViewController {
         
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.spacing = 8
+        stackView.spacing = 12
         stackView.alignment = .center // Center the labels within the stack view
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
         // Add labels to the stack view
         stackView.addArrangedSubview(streakLabel)
+        stackView.addArrangedSubview(rankLabel)
         stackView.addArrangedSubview(heightLabel)
         stackView.addArrangedSubview(weightLabel)
         stackView.addArrangedSubview(sexLabel)
         stackView.addArrangedSubview(targetLabel)
-        stackView.addArrangedSubview(followingCountLabel)
         
         // Add stack view to the main view
         view.addSubview(stackView)
@@ -111,7 +132,7 @@ class DetailViewController: UIViewController {
             titleLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             titleLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            stackView.topAnchor.constraint(equalTo: followButton.bottomAnchor, constant: 20),
+            stackView.topAnchor.constraint(equalTo: followButton.bottomAnchor, constant: 70),
             stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16)
         ])
@@ -155,8 +176,31 @@ class DetailViewController: UIViewController {
                 self.weightLabel.text = "Weight: \(weight)"
                 self.sexLabel.text = "Sex: \(sex)"
                 self.targetLabel.text = "Target: \(target)"
-                self.followingCountLabel.text = "Following: \(following.count) people"
                 
+                if (streak < 5)
+                {
+                    self.rankLabel.text = "Wonderer"
+                }
+                else if (streak >= 5 && streak < 20)
+                {
+                    self.rankLabel.text = "Fighter"
+                }
+                else if (streak >= 20 && streak < 40)
+                {
+                    self.rankLabel.text = "Warrior"
+                }
+                else if (streak >= 40 && streak < 80)
+                {
+                    self.rankLabel.text = "Captain"
+                }
+                else if (streak >= 80 && streak < 130)
+                {
+                    self.rankLabel.text = "General"
+                }
+                else if (streak >= 130)
+                {
+                    self.rankLabel.text = "Special Agent"
+                }
                 
                 if let currentUser = Auth.auth().currentUser?.email{
                     print(currentUser as Any)
@@ -205,7 +249,7 @@ class DetailViewController: UIViewController {
         view.addSubview(followButton)
 
         followButton.translatesAutoresizingMaskIntoConstraints = false
-        followButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20).isActive = true
+        followButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 70).isActive = true
         followButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         followButton.widthAnchor.constraint(equalToConstant: 200).isActive = true
         followButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -229,17 +273,23 @@ class DetailViewController: UIViewController {
                     if let document = document, document.exists {
                         if var followingValue = document.data()?["following"] as? [String] {
                             if(followingValue.contains(self.id)){
-                                followingValue.removeAll { $0 == self.id }
-                                userDocumentRef.updateData(["following": followingValue]) { error in
-                                if let error = error {
-                                    print("Error updating following array in the database: \(error.localizedDescription)")
-                                }
-                                else {
-                                    self.followButton.setTitle("Follow", for: .normal)
-                                    self.followButton.backgroundColor = .blue
-                                    print("Successfully updated following array in the database")
+                                let alert = UIAlertController(title: "Unfollow User", message: "Would you like to unfollow this user?", preferredStyle: .alert)
+                                alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+                                alert.addAction(UIAlertAction(title: "Unfollow", style: .default, handler: { (_) in
+                                    followingValue.removeAll { $0 == self.id }
+                                    userDocumentRef.updateData(["following": followingValue]) { error in
+                                    if let error = error {
+                                        print("Error updating following array in the database: \(error.localizedDescription)")
                                     }
-                                }
+                                    else {
+                                        self.followButton.setTitle("Follow", for: .normal)
+                                        self.followButton.backgroundColor = .blue
+                                        print("Successfully updated following array in the database")
+                                        }
+                                    }
+                                }))
+                                self.present(alert, animated: true, completion: nil)
+                                
                             }
                             else {
                                 followingValue.append(self.id)

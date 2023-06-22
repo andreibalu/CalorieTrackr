@@ -32,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate , WCSessionDelegate {
         }
 
         // Start timer to send JSON every minute
-        timer = Timer.scheduledTimer(timeInterval: 20, target: self, selector: #selector(sendEmptyJSON), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(sendEmptyJSON), userInfo: nil, repeats: true)
 
         return true
     }
@@ -46,21 +46,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate , WCSessionDelegate {
     }
     
     var jsonObject: [String: Any] = [
-        "burnedCalories": 999,
-        "consumedCalories": 6969,
-        "proteins": 69,
-        "carbs": 13,
-        "fats": 10,
+        //"consumedCalories": UserDefaults.standard.object(forKey: "consumed") as? Double ?? 0,
+        "consumedCalories": 2135,
+        "proteins": 35,
+        "carbs": 40,
+        "fats": 16,
         "bmr": 1234,
-        "consumed1": "Andrei Tatucu",
-        "consumed2": "Andrei Baluta",
-        "consumed3": "Mara Maria Maraton",
-        "burned1": "Mara Maria Maraton",
-        "burned2": "Andrei Tatucu",
-        "burned3": "Buzdugan Boris",
-        "streak1": "Andrei Baluta",
-        "streak2": "Andrei Tatucu",
-        "streak3": "Darius Atat",
+        "consumed1": UserDefaults.standard.object(forKey: "consumed1") as? String ?? "",
+        "consumed2": UserDefaults.standard.object(forKey: "consumed2") as? String ?? "",
+        "consumed3": UserDefaults.standard.object(forKey: "consumed3") as? String ?? "",
+        "burned1": UserDefaults.standard.object(forKey: "burned1") as? String ?? "",
+        "burned2": UserDefaults.standard.object(forKey: "burned2") as? String ?? "",
+        "burned3": UserDefaults.standard.object(forKey: "burned3") as? String ?? "",
+        "streak1": UserDefaults.standard.object(forKey: "streak1") as? String ?? "",
+        "streak2": UserDefaults.standard.object(forKey: "streak2") as? String ?? "",
+        "streak3": UserDefaults.standard.object(forKey: "streak3") as? String ?? ""
     ]
 
     // MARK: UISceneSession Lifecycle

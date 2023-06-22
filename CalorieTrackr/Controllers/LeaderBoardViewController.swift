@@ -143,7 +143,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
 
     @objc func refreshData(_ sender: UIRefreshControl) {
         // Refresh leaderboard data
-        //fetchFollowingList()
+        fetchFollowingList()
         // End refreshing
         //tableView.reloadData()
         //tableView.reloadData()
@@ -220,17 +220,14 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-            // Display consumed field
             cell.consumedLabel.text = "\(data?.consumed ?? 0)"
             cell.burnedLabel.isHidden = true
             cell.streakLabel.isHidden = true
         case 1:
-            // Display activeBurned field
             cell.burnedLabel.text = "\(data?.activeBurned ?? 0)"
             cell.consumedLabel.isHidden = true
             cell.streakLabel.isHidden = true
         case 2:
-            // Display streak field
             cell.streakLabel.text = "\(data?.streak ?? 0)"
             cell.consumedLabel.isHidden = true
             cell.burnedLabel.isHidden = true
@@ -239,10 +236,8 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         if id == Auth.auth().currentUser?.email {
-            // Set the background color for the current user cell
             cell.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.2)
         } else {
-            // Set the default background color for other cells
             cell.backgroundColor = .clear
         }
         
@@ -264,26 +259,35 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         let selectedIndex = sender.selectedSegmentIndex
         switch selectedIndex {
         case 0:
-            // Sort by consumed
             leaderboardData.sort { id1, id2 in
                 let consumed1 = userData[id1]?.consumed ?? 0
                 let consumed2 = userData[id2]?.consumed ?? 0
                 return consumed1 > consumed2
             }
+            let consumedNames = leaderboardData.prefix(3).map { userData[$0]?.name ?? "" }
+            UserDefaults.standard.set(consumedNames[0], forKey: "consumed1")
+            UserDefaults.standard.set(consumedNames[1], forKey: "consumed2")
+            UserDefaults.standard.set(consumedNames[2], forKey: "consumed3")
         case 1:
-            // Sort by activeBurned
             leaderboardData.sort { id1, id2 in
                 let burned1 = userData[id1]?.activeBurned ?? 0
                 let burned2 = userData[id2]?.activeBurned ?? 0
                 return burned1 > burned2
             }
+            let burnedNames = leaderboardData.prefix(3).map { userData[$0]?.name ?? "" }
+            UserDefaults.standard.set(burnedNames[0], forKey: "burned1")
+            UserDefaults.standard.set(burnedNames[1], forKey: "burned2")
+            UserDefaults.standard.set(burnedNames[2], forKey: "burned3")
         case 2:
-            // Sort by streaks
             leaderboardData.sort { id1, id2 in
                 let streak1 = userData[id1]?.streak ?? 0
                 let streak2 = userData[id2]?.streak ?? 0
                 return streak1 > streak2
             }
+            let streakNames = leaderboardData.prefix(3).map { userData[$0]?.name ?? "" }
+            UserDefaults.standard.set(streakNames[0], forKey: "streak1")
+            UserDefaults.standard.set(streakNames[1], forKey: "streak2")
+            UserDefaults.standard.set(streakNames[2], forKey: "streak3")
         default:
             break
         }

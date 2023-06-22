@@ -16,7 +16,7 @@ struct FadeInModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .opacity(shouldFadeIn ? 1 : 0)
-            .animation(Animation.easeInOut(duration: 0.5).delay(0.2))
+            .animation(Animation.easeInOut(duration: 0.5).delay(0.2), value: UUID())
     }
 }
 
@@ -94,9 +94,6 @@ struct LeaderboardView: View {
                         {
                             Text("\(streak1Var)")
                         }
-                        
-                        //Text("\(consumed2Var)")
-                        //Text("\(UserDefaults.standard.string(forKey: "consumed3") ?? "")")
                     }
                     else if (index == 2)
                     {
@@ -170,7 +167,7 @@ struct ContentView: View {
     @State private var proteinVar = Double(UserDefaults.standard.string(forKey: "proteins") ?? "0")
     @State private var carbsVar = Double(UserDefaults.standard.string(forKey: "carbs") ?? "0")
     @State private var fatsVar = Double(UserDefaults.standard.string(forKey: "fats") ?? "0")
-    @State private var bmrVar = Double(UserDefaults.standard.string(forKey: "bmr") ?? "0")
+    @State private var bmrVar = Double(UserDefaults.standard.string(forKey: "bmr") ?? "1234")
     @State private var consumed1Var = String(UserDefaults.standard.string(forKey: "consumed1") ?? "0")
     @State private var consumed2Var = String(UserDefaults.standard.string(forKey: "consumed2") ?? "0")
     @State private var consumed3Var = String(UserDefaults.standard.string(forKey: "consumed3") ?? "0")
@@ -180,8 +177,15 @@ struct ContentView: View {
     @State private var streak1Var = String(UserDefaults.standard.string(forKey: "streak1") ?? "0")
     @State private var streak2Var = String(UserDefaults.standard.string(forKey: "streak2") ?? "0")
     @State private var streak3Var = String(UserDefaults.standard.string(forKey: "streak3") ?? "0")
+    
+    private func getHour()
+    {
+        let date = Date()
+        let hour = Calendar.current.component(.hour, from: date)
+        
+        print("Tatucu: hour is \(hour)")
+    }
    
-    // Function to handle JSON deserialization
     private func readJSONObject(from jsonString: String) {
         guard let jsonData = jsonString.data(using: .utf8) else {
             print("Failed to convert JSON string to data.")
@@ -189,6 +193,9 @@ struct ContentView: View {
         }
         
         do {
+            let date = Date()
+            let hour = Calendar.current.component(.hour, from: date)
+            print(jsonData)
             if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
             {
                 if let consumedCalories = jsonObject["consumedCalories"] as? Int {
@@ -242,6 +249,14 @@ struct ContentView: View {
                 if let streak3 = jsonObject["streak3"] as? String {
                     streak3Var = streak3
                     UserDefaults.standard.setValue(streak3Var, forKey: "streak3")
+                    print(streak3Var)
+                }
+                if let bmr = jsonObject["bmr"] as? Double {
+                    bmrVar = Double(bmr * Double(hour)/24.0)
+                    UserDefaults.standard.setValue(bmrVar, forKey: "bmr")
+                    print("TatucubagPula")
+                    print(bmr)
+                    print(bmrVar!)
                 }
             } else {
                 print("Failed to parse JSON object.")
@@ -252,6 +267,7 @@ struct ContentView: View {
     }
     
     var body: some View {
+        
         TabView(selection: $selectedTab) {
             LeaderboardView() // Show leaderboard tab
                 .tabItem {
@@ -271,9 +287,18 @@ struct ContentView: View {
                         Circle()
                             .fill(Color.black)
                             .frame(width: 100, height: 100)
-                        Text(" \(Int(eatenCalories! - activeCalories!))")
-                            .foregroundColor(.white)
-                            .font(.system(size: 30, weight: .medium))
+                        if((eatenCalories! - activeCalories! - bmrVar!) > 0)
+                        {
+                            Text("+\(Int(eatenCalories! - activeCalories! - bmrVar!))")
+                                .foregroundColor(.white)
+                                .font(.system(size: 30, weight: .medium))
+                        }
+                        else
+                        {
+                            Text(" \(Int(eatenCalories! - activeCalories! - bmrVar!))")
+                                .foregroundColor(.white)
+                                .font(.system(size: 30, weight: .medium))
+                        }
                     }
                 } else {
                     VStack {
@@ -281,7 +306,7 @@ struct ContentView: View {
                             .font(.title3)
                             .bold()
                             .padding()
-                        Text("burned: \(Int(activeCalories!))")
+                        Text("burned: \(Int(activeCalories! + bmrVar!))")
                             .font(.title3)
                             .bold()
                             .padding()
@@ -308,7 +333,7 @@ struct ContentView: View {
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                             .opacity(shouldFadeIn ? 1 : 0)
-                            .animation(.easeIn(duration: 0.25))
+                            .animation(Animation.easeIn(duration: 0.25), value:UUID())
                     )
                 HStack {
                     Circle()
@@ -320,7 +345,7 @@ struct ContentView: View {
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
                                 .opacity(shouldFadeIn ? 1 : 0)
-                                .animation(.easeIn(duration: 0.25))
+                                .animation(Animation.easeIn(duration: 0.25), value:UUID())
                         )
                     
                     Circle()
@@ -332,7 +357,7 @@ struct ContentView: View {
                                 .foregroundColor(.white)
                                 .multilineTextAlignment(.center)
                                 .opacity(shouldFadeIn ? 1 : 0)
-                                .animation(.easeIn(duration: 0.25))
+                                .animation(Animation.easeIn(duration: 0.25), value:UUID())
                         )
                     
                 }
@@ -354,7 +379,6 @@ struct ContentView: View {
                     shouldFadeIn = true
                 }
                 connectivityManager.send("getData")
-                print("Fucks and Dicks")
             }
         }
         .onReceive(connectivityManager.$notificationMessage) { message in
@@ -370,6 +394,7 @@ struct ContentView: View {
            }
             
             if let savedActiveCalories = UserDefaults.standard.value(forKey: "ActiveCalories") as? Double {
+                print("Tatucu: bmrvar: \(bmrVar!)")
                 self.activeCalories = savedActiveCalories
             }
             shouldAnimate = false
@@ -417,7 +442,6 @@ struct ContentView: View {
         }
 
         init() {
-            // Request HealthKit authorization and fetch active calories
             requestAuthorizationForHealthKit()
         }
 }
