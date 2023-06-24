@@ -1,5 +1,9 @@
 # CalorieTrackR
 
+### Requirements:
+- macOS device;
+- Xcode with latest updates.
+
 ### How to run the project
 
 - Update to the latest version of macOS and Xcode
