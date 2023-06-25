@@ -5,6 +5,9 @@
 //  Created by Andrei Baluta on 19.05.2023.
 //
 import UIKit
+import FirebaseAuth
+import FirebaseCore
+import FirebaseFirestore
 
 class MealsModalViewController: UIViewController {
     
@@ -92,7 +95,24 @@ class MealsModalViewController: UIViewController {
                 self.resultTextView.attributedText = resultText
             }, completion: nil)
         }
-
+        
+        let db = Firestore.firestore()
+        
+        if let currentUser = Auth.auth().currentUser?.email{
+            print(currentUser as Any)
+            let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                userDocumentRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        userDocumentRef.updateData(["consumed": self.queryCalories]) { error in
+                            if let error = error {
+                                print("Error updating database in the database: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func addPressed(_ sender: UIButton) {

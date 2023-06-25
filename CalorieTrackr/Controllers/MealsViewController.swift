@@ -7,6 +7,9 @@
 
 import UIKit
 import SwipeCellKit
+import FirebaseAuth
+import FirebaseCore
+import FirebaseFirestore
 
 class MealsViewController: UIViewController {
     private var foodService: FoodService!
@@ -41,6 +44,23 @@ class MealsViewController: UIViewController {
         let confirmAction = UIAlertAction(title: "Proceed", style: .destructive) { (_) in
             do {
                 self.foodService.emptyMealsFile()
+                let db = Firestore.firestore()
+
+                if let currentUser = Auth.auth().currentUser?.email{
+                    print(currentUser as Any)
+                    let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
+                    DispatchQueue.main.asyncAfter(deadline: .now()) {
+                        userDocumentRef.getDocument { (document, error) in
+                            if let document = document, document.exists {
+                                userDocumentRef.updateData(["consumed": Int(0)]) { error in
+                                    if let error = error {
+                                        print("Error updating database array in the database: \(error.localizedDescription)")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
         alertController.addAction(cancelAction)
@@ -69,6 +89,23 @@ class MealsViewController: UIViewController {
         tableViewLunch.reloadData()
         tableViewDinner.reloadData()
         totalCalories.text = "Total Calories: " + String(Int(self.foodService.getTotalCaloriesFromMealFile()))
+        let db = Firestore.firestore()
+
+        if let currentUser = Auth.auth().currentUser?.email{
+            print(currentUser as Any)
+            let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                userDocumentRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        userDocumentRef.updateData(["consumed": Int(self.foodService.getTotalCaloriesFromMealFile())]) { error in
+                            if let error = error {
+                                print("Error updating database array in the database: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 

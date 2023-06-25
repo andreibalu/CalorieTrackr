@@ -40,6 +40,23 @@ class HomeViewController: UIViewController {
         proteinLabel.text = "P:  \(UserDefaults.standard.string(forKey: "proteins") ?? "0" )g"
         carbsLabel.text = "C:  \(UserDefaults.standard.string(forKey: "carbs") ?? "0" )g"
         fatsLabel.text = "F:  \(UserDefaults.standard.string(forKey: "fats") ?? "0" )g"
+        let db = Firestore.firestore()
+
+        if let currentUser = Auth.auth().currentUser?.email{
+            print(currentUser as Any)
+            let userDocumentRef = db.collection(K.FStore.collectionName).document(currentUser)
+            DispatchQueue.main.asyncAfter(deadline: .now()) {
+                userDocumentRef.getDocument { (document, error) in
+                    if let document = document, document.exists {
+                        userDocumentRef.updateData(["activeBurned": Int(self.activeEnergyBurned)]) { error in
+                            if let error = error {
+                                print("Error updating database in the database: \(error.localizedDescription)")
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     override func viewDidLoad() {
@@ -228,6 +245,7 @@ class HomeViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     self.activeEnergyBurned = totalEnergyBurned
+                    //UserDefaults.setValue(totalEnergyBurned, forKey: "burned")
                     self.handleActiveEnergyBurnedValue(self.activeEnergyBurned)
                 }
             }

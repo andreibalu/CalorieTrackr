@@ -154,7 +154,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
                 let activeBurned = document.get("activeBurned") as? Int ?? 0
                 let consumed = document.get("consumed") as? Int ?? 0
                 userData[id] = UserData(name: name, streak: streak, activeBurned: activeBurned, consumed: consumed)
-                print("ID: \(id), Name: \(name), Streak: \(streak), Active Burned: \(activeBurned), Consumed: \(consumed)")
             }
             self.userData = userData
             self.segmentedControlValueChanged(self.segmentedControl)
