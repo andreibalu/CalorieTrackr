@@ -139,4 +139,3 @@ extension SearchViewController: UITableViewDataSource, UITableViewDelegate {
         detailViewController?.view.isHidden = false
     }
 }
-

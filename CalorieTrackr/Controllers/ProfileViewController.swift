@@ -11,7 +11,6 @@ import FirebaseCore
 import FirebaseFirestore
 import FirebaseAuth
 
-
 protocol TabBarDelegate: AnyObject {
     func logoutAndNavigateToWelcome()
 }
@@ -176,7 +175,6 @@ class ProfileViewController: UIViewController {
         }
         return nil
     }
-
     
     private let kMessageKey = "message"
     

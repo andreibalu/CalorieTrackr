@@ -366,7 +366,6 @@ class LeaderboardCell: UITableViewCell {
     }
 }
 
-
 struct UserData {
     let name: String
     let streak: Int

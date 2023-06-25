@@ -316,4 +316,3 @@ struct ProfileData {
     let title: String
     let profileImage: UIImage?
 }
-
