@@ -31,37 +31,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate , WCSessionDelegate {
             session?.activate()
         }
 
-        // Start timer to send JSON every minute
-        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(sendEmptyJSON), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(sendJSON), userInfo: nil, repeats: true)
 
         return true
     }
     
-    @objc func sendEmptyJSON() {
+    @objc func sendJSON() {
         guard WCSession.default.isReachable else {
             return
         }
-
-        WatchConnectivityManager.shared.send(createJson(from: jsonObject) ?? "")
+        WatchConnectivityManager.shared.send(createJson(from: createDataJson()) ?? "")
     }
     
-    var jsonObject: [String: Any] = [
-        //"consumedCalories": UserDefaults.standard.object(forKey: "consumed") as? Double ?? 0,
-        "consumedCalories": 2135,
-        "proteins": 35,
-        "carbs": 40,
-        "fats": 16,
-        "bmr": 1234,
-        "consumed1": UserDefaults.standard.object(forKey: "consumed1") as? String ?? "",
-        "consumed2": UserDefaults.standard.object(forKey: "consumed2") as? String ?? "",
-        "consumed3": UserDefaults.standard.object(forKey: "consumed3") as? String ?? "",
-        "burned1": UserDefaults.standard.object(forKey: "burned1") as? String ?? "",
-        "burned2": UserDefaults.standard.object(forKey: "burned2") as? String ?? "",
-        "burned3": UserDefaults.standard.object(forKey: "burned3") as? String ?? "",
-        "streak1": UserDefaults.standard.object(forKey: "streak1") as? String ?? "",
-        "streak2": UserDefaults.standard.object(forKey: "streak2") as? String ?? "",
-        "streak3": UserDefaults.standard.object(forKey: "streak3") as? String ?? ""
-    ]
+    func createDataJson() -> [String:Any]
+    {
+        var jsonObject: [String: Any] = [
+            "consumedCalories": UserDefaults.standard.object(forKey: "consumed") as? Double ?? "0",
+            "proteins": UserDefaults.standard.object(forKey: "proteins") as? Double ?? "0",
+            "carbs": UserDefaults.standard.object(forKey: "carbs") as? Double ?? "0",
+            "fats": UserDefaults.standard.object(forKey: "fats") as? Double ?? "0",
+            "bmr": UserDefaults.standard.object(forKey: "bmr") as? Double ?? "0",
+            "consumed1": UserDefaults.standard.object(forKey: "consumed1") as? String ?? "",
+            "consumed2": UserDefaults.standard.object(forKey: "consumed2") as? String ?? "",
+            "consumed3": UserDefaults.standard.object(forKey: "consumed3") as? String ?? "",
+            "burned1": UserDefaults.standard.object(forKey: "burned1") as? String ?? "",
+            "burned2": UserDefaults.standard.object(forKey: "burned2") as? String ?? "",
+            "burned3": UserDefaults.standard.object(forKey: "burned3") as? String ?? "",
+            "streak1": UserDefaults.standard.object(forKey: "streak1") as? String ?? "",
+            "streak2": UserDefaults.standard.object(forKey: "streak2") as? String ?? "",
+            "streak3": UserDefaults.standard.object(forKey: "streak3") as? String ?? ""
+        ]
+        return jsonObject
+    }
+    
+    
 
     // MARK: UISceneSession Lifecycle
 

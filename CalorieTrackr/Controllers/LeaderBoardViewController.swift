@@ -216,8 +216,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         let data = userData[id]
         let name = data?.name ?? ""
         
-        cell.configure(with: rank, name: name, segmentedControl:segmentedControl)
-        
         switch segmentedControl.selectedSegmentIndex {
         case 0:
             cell.consumedLabel.text = "\(data?.consumed ?? 0)"
@@ -234,6 +232,8 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         default:
             break
         }
+        
+        cell.configure(with: rank, name: name, segmentedControl:segmentedControl)
         
         if id == Auth.auth().currentUser?.email {
             cell.backgroundColor = UIColor.systemPurple.withAlphaComponent(0.2)

@@ -266,6 +266,27 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Proteins: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="isF-bS-1Up">
+                                <rect key="frame" x="26" y="698" width="113" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Carbs" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRF-Aa-fpJ">
+                                <rect key="frame" x="152" y="698" width="117" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Fats" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5FC-1n-efi">
+                                <rect key="frame" x="260" y="697" width="117" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="RBJ-c6-Kul"/>
                         <color key="backgroundColor" name="ColorCrem"/>
@@ -273,9 +294,12 @@
                     <tabBarItem key="tabBarItem" title="Home" image="house.fill" catalog="system" id="f49-lG-hjA"/>
                     <navigationItem key="navigationItem" id="g9c-bP-0wQ"/>
                     <connections>
+                        <outlet property="carbsLabel" destination="DRF-Aa-fpJ" id="UzT-Hi-sk5"/>
                         <outlet property="circleView" destination="KTo-tE-DEa" id="Fjl-1n-laN"/>
+                        <outlet property="fatsLabel" destination="5FC-1n-efi" id="mlj-tE-WLr"/>
                         <outlet property="messageLabel" destination="gd0-6z-e1J" id="17v-JH-N0o"/>
                         <outlet property="muscleImage" destination="7MJ-FC-DsK" id="Uba-GG-AeD"/>
+                        <outlet property="proteinLabel" destination="isF-bS-1Up" id="don-gH-w0C"/>
                         <outlet property="rank" destination="eFI-FL-4zo" id="g7F-ke-DPW"/>
                         <outlet property="streakLabel" destination="lm8-hX-w3v" id="6RY-gR-NrY"/>
                         <outlet property="targetLabel" destination="VYF-IS-Clk" id="vz2-hc-k2A"/>
@@ -518,7 +542,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Vss-r3-HNc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="319.84732824427482" y="1943.661971830986"/>
+            <point key="canvasLocation" x="1732" y="1187"/>
         </scene>
         <!--Item-->
         <scene sceneID="VPD-6q-5yG">

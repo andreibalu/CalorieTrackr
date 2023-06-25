@@ -71,6 +71,8 @@ struct K {
             static let grams = "serving_weight_grams"
             static let proteins = "nf_protein"
             static let calories = "nf_calories"
+            static let carbs = "nf_total_carbohydrate"
+            static let fats = "nf_total_fat"
             static let breakfast = "Breakfast"
             static let lunch = "Lunch"
             static let dinner = "Dinner"

@@ -191,27 +191,26 @@ struct ContentView: View {
             print("Failed to convert JSON string to data.")
             return
         }
-        
         do {
             let date = Date()
             let hour = Calendar.current.component(.hour, from: date)
             print(jsonData)
             if let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: []) as? [String: Any]
             {
-                if let consumedCalories = jsonObject["consumedCalories"] as? Int {
-                    eatenCalories = Double(consumedCalories)
+                if let consumedCalories = jsonObject["consumedCalories"] as? Double {
+                    eatenCalories = consumedCalories
                     UserDefaults.standard.setValue(eatenCalories, forKey: "consumedCalories")
                 }
-                if let proteins = jsonObject["proteins"] as? Int {
-                    proteinVar = Double(proteins)
+                if let proteins = jsonObject["proteins"] as? Double {
+                    proteinVar = proteins
                     UserDefaults.standard.setValue(proteinVar, forKey: "proteins")
                 }
-                if let carbs = jsonObject["carbs"] as? Int {
-                    carbsVar = Double(carbs)
+                if let carbs = jsonObject["carbs"] as? Double {
+                    carbsVar = carbs
                     UserDefaults.standard.setValue(carbsVar, forKey: "carbs")
                 }
-                if let fats = jsonObject["fats"] as? Int {
-                    fatsVar = Double(fats)
+                if let fats = jsonObject["fats"] as? Double {
+                    fatsVar = fats
                     UserDefaults.standard.setValue(fatsVar, forKey: "fats")
                 }
                 if let consumed1 = jsonObject["consumed1"] as? String {
@@ -254,7 +253,6 @@ struct ContentView: View {
                 if let bmr = jsonObject["bmr"] as? Double {
                     bmrVar = Double(bmr * Double(hour)/24.0)
                     UserDefaults.standard.setValue(bmrVar, forKey: "bmr")
-                    print("TatucubagPula")
                     print(bmr)
                     print(bmrVar!)
                 }
@@ -269,7 +267,7 @@ struct ContentView: View {
     var body: some View {
         
         TabView(selection: $selectedTab) {
-            LeaderboardView() // Show leaderboard tab
+            LeaderboardView()
                 .tabItem {
                     Label("Leaderboard", systemImage: "list.number")
                         .fontWeight(.light)

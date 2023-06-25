@@ -16,6 +16,8 @@ class MealsModalViewController: UIViewController {
     var queryName = ""
     var queryCalories = 0.0
     var queryProteins = 0.0
+    var queryCarbs = 0.0
+    var queryFats = 0.0
     var queryGrams = 0.0
     var queryID : UUID?
     
@@ -45,6 +47,8 @@ class MealsModalViewController: UIViewController {
     private func displaySearchResults(_ items: [FoodItem],_ query: String) {
         var totalCalories = 0.0
         var totalProteins = 0.0
+        var totalCarbs = 0.0
+        var totalFats = 0.0
         var totalGrams = 0.0
         let resultText = NSMutableAttributedString()
         let titleAttributes: [NSAttributedString.Key: Any] = [
@@ -59,6 +63,8 @@ class MealsModalViewController: UIViewController {
         items.forEach { item in
             totalCalories += item.calories
             totalProteins += item.proteins
+            totalCarbs += item.carbs
+            totalFats += item.fats
             totalGrams += item.grams
             if self.queryName != "" {
                 self.queryName = self.queryName + " + " + item.name
@@ -74,6 +80,8 @@ class MealsModalViewController: UIViewController {
         self.queryCalories = totalCalories
         self.queryGrams = totalGrams
         self.queryProteins = totalProteins
+        self.queryCarbs = totalCarbs
+        self.queryFats = totalFats
         let totalTitle = NSAttributedString(string: "\nTotal:\n", attributes: titleAttributes)
         let totalDetails = NSAttributedString(string: "Calories: \(Int(totalCalories))\nProteins: \(String(format: "%.2f",totalProteins))g\nGrams: \(Int(totalGrams))g", attributes: itemAttributes)
         resultText.append(totalTitle)
@@ -88,7 +96,7 @@ class MealsModalViewController: UIViewController {
     }
     
     @IBAction func addPressed(_ sender: UIButton) {
-        let food = FoodItem(id: UUID(),name: queryName, calories: queryCalories, proteins: queryProteins, grams: queryGrams)
+        let food = FoodItem(id: UUID(),name: queryName, calories: queryCalories, proteins: queryProteins, carbs: queryCarbs, fats: queryFats, grams: queryGrams)
         if foodTextField.text != ""{
             if food.name != "" {
                 presentAddToMealActionSheet(for: food)
@@ -128,6 +136,8 @@ class MealsModalViewController: UIViewController {
         queryName = ""
         queryCalories = 0.0
         queryProteins = 0.0
+        queryCarbs = 0.0
+        queryFats = 0.0
         queryGrams = 0.0
     }
 }

@@ -35,8 +35,10 @@ class FoodService {
                             if let name = item[K.Api.food.name] as? String,
                                let grams = item[K.Api.food.grams] as? Double,
                                let proteins = item[K.Api.food.proteins] as? Double,
+                               let carbs = item[K.Api.food.carbs] as? Double,
+                               let fats = item[K.Api.food.fats] as? Double,
                                let calories = item[K.Api.food.calories] as? Double {
-                                items.append(FoodItem(id: UUID(), name: name, calories: calories, proteins: proteins, grams: grams))
+                                items.append(FoodItem(id: UUID(), name: name, calories: calories, proteins: proteins, carbs: carbs, fats: fats, grams: grams))
                             }
                         }
                         completion(.success(items))
@@ -107,13 +109,22 @@ class FoodService {
         let meals = getMealsFromFile()
         
         var totalCalories: Double = 0.0
+        var totalProteins: Double = 0.0
+        var totalCarbs: Double = 0.0
+        var totalFats: Double = 0.0
         
         for (_, foods) in meals {
             for food in foods {
                 totalCalories += food.calories
+                totalProteins += food.proteins
+                totalCarbs += food.carbs
+                totalFats += food.fats
             }
         }
         UserDefaults.standard.set(totalCalories, forKey: "consumed")
+        UserDefaults.standard.setValue(totalProteins, forKey: "proteins")
+        UserDefaults.standard.setValue(totalCarbs, forKey: "carbs")
+        UserDefaults.standard.setValue(totalFats, forKey: "fats")
         
         return totalCalories
     }

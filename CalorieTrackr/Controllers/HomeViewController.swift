@@ -25,12 +25,22 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var rank: UILabel!
     
+    @IBOutlet weak var proteinLabel: UILabel!
+    
+    @IBOutlet weak var carbsLabel: UILabel!
+    @IBOutlet weak var fatsLabel: UILabel!
     private var activeEnergyBurned: Double = 0.0
     private var target : Int = 0
     private var streak = UserDefaults.standard.integer(forKey: K.userDefaults.userStreak)
     private var weight : Int = 0
     private var ideal : Int = 0
     private var streakChecker = UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck)
+    
+    override func viewDidAppear(_ animated: Bool) {
+        proteinLabel.text = "Prot:  \(UserDefaults.standard.string(forKey: "proteins") ?? "0" )g"
+        carbsLabel.text = "Crb:  \(UserDefaults.standard.string(forKey: "carbs") ?? "0" )g"
+        fatsLabel.text = "Fts:  \(UserDefaults.standard.string(forKey: "fats") ?? "0" )g"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

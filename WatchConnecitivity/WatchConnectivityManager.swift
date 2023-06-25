@@ -46,27 +46,6 @@ final class WatchConnectivityManager: NSObject, ObservableObject {
             print("Cannot send message: \(String(describing: error))")
         }
     }
-    var jsonObject = [
-        "burnedCalories": 69,
-        "consumedCalories": 69,
-        "proteins": 69,
-        "carbs": 69,
-        "fats": 69
-    ]
-    
-    /*func createStringDictionary(from values: (Int, Int, Int, Int)) -> [String: String] {
-        let (value1, value2, value3, value4, value5) = values
-        
-        let dictionary: [String: String] = [
-            "burnedCalories": String(value1),
-            "consumedCalories": String(value2),
-            "proteins": String(value3),
-            "carbs": String(value4),
-            "fats": String(value5)
-        ]
-        
-        return dictionary
-    }*/
     
     var burnedCalories = 0;
     var consumedCalories = 0;
@@ -96,12 +75,8 @@ extension WatchConnectivityManager: WCSessionDelegate {
     func session(_ session: WCSession, didReceiveMessage message: [String: Any]) {
         print(message)
         if let notificationText = message[kMessageKey] as? String {
-            if notificationText == "getData" {
-                //send(createJson(from: createStringDictionary(from: burnedCalories, consumedCalories, proteins, carbs, fats)) ?? "")
-            } else {
-                DispatchQueue.main.async { [weak self] in
-                    self?.notificationMessage = NotificationMessage(text: notificationText)
-                }
+            DispatchQueue.main.async { [weak self] in
+                self?.notificationMessage = NotificationMessage(text: notificationText)
             }
         }
     }
