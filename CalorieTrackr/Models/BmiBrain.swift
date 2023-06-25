@@ -56,6 +56,9 @@ struct BmiBrain {
     }
     
     var BMR : String{
+        var baseBmr : Double
+        baseBmr = Double(10 * weightD + 6.25 * heightD - 5 * ageD + 5 + sexD)
+        UserDefaults.standard.set(baseBmr, forKey: "bmr")
         switch exD {
         case 0 :
             return String(Int((10 * weightD + 6.25 * heightD - 5 * ageD + 5 + sexD) * 1.2))

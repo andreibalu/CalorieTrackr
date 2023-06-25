@@ -45,12 +45,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate , WCSessionDelegate {
     
     func createDataJson() -> [String:Any]
     {
+        print("Tatucu: \(UserDefaults.standard.object(forKey: "bmr") as? Double ?? 0)")
         var jsonObject: [String: Any] = [
             "consumedCalories": UserDefaults.standard.object(forKey: "consumed") as? Double ?? "0",
             "proteins": UserDefaults.standard.object(forKey: "proteins") as? Double ?? "0",
             "carbs": UserDefaults.standard.object(forKey: "carbs") as? Double ?? "0",
             "fats": UserDefaults.standard.object(forKey: "fats") as? Double ?? "0",
-            "bmr": UserDefaults.standard.object(forKey: "bmr") as? Double ?? "0",
+            "bmr": UserDefaults.standard.object(forKey: "bmr") as? Double ?? 0,
             "consumed1": UserDefaults.standard.object(forKey: "consumed1") as? String ?? "",
             "consumed2": UserDefaults.standard.object(forKey: "consumed2") as? String ?? "",
             "consumed3": UserDefaults.standard.object(forKey: "consumed3") as? String ?? "",

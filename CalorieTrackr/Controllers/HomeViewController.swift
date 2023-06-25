@@ -37,9 +37,9 @@ class HomeViewController: UIViewController {
     private var streakChecker = UserDefaults.standard.bool(forKey: K.userDefaults.streakCheck)
     
     override func viewDidAppear(_ animated: Bool) {
-        proteinLabel.text = "Prot:  \(UserDefaults.standard.string(forKey: "proteins") ?? "0" )g"
-        carbsLabel.text = "Crb:  \(UserDefaults.standard.string(forKey: "carbs") ?? "0" )g"
-        fatsLabel.text = "Fts:  \(UserDefaults.standard.string(forKey: "fats") ?? "0" )g"
+        proteinLabel.text = "P:  \(UserDefaults.standard.string(forKey: "proteins") ?? "0" )g"
+        carbsLabel.text = "C:  \(UserDefaults.standard.string(forKey: "carbs") ?? "0" )g"
+        fatsLabel.text = "F:  \(UserDefaults.standard.string(forKey: "fats") ?? "0" )g"
     }
     
     override func viewDidLoad() {
@@ -50,8 +50,6 @@ class HomeViewController: UIViewController {
         circleProperties()
         animateCircleAppearance()
         NotificationCenter.default.addObserver(self, selector: #selector(self.handleActiveEnergyBurnedValue(_:)), name: NSNotification.Name(rawValue: K.Api.food.notif), object: nil)
-        
-        streak = 360
         
         self.animateLabelChange(label: self.streakLabel, newText: "🔥 \(streak)", duration: 1)
         

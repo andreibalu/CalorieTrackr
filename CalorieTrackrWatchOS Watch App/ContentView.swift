@@ -167,7 +167,7 @@ struct ContentView: View {
     @State private var proteinVar = Double(UserDefaults.standard.string(forKey: "proteins") ?? "0")
     @State private var carbsVar = Double(UserDefaults.standard.string(forKey: "carbs") ?? "0")
     @State private var fatsVar = Double(UserDefaults.standard.string(forKey: "fats") ?? "0")
-    @State private var bmrVar = Double(UserDefaults.standard.string(forKey: "bmr") ?? "1234")
+    @State private var bmrVar = Double(UserDefaults.standard.string(forKey: "bmr") ?? "78237847")
     @State private var consumed1Var = String(UserDefaults.standard.string(forKey: "consumed1") ?? "0")
     @State private var consumed2Var = String(UserDefaults.standard.string(forKey: "consumed2") ?? "0")
     @State private var consumed3Var = String(UserDefaults.standard.string(forKey: "consumed3") ?? "0")

@@ -211,6 +211,8 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: LeaderboardCell.identifier, for: indexPath) as! LeaderboardCell
         
+        cell.selectionStyle = .none
+        
         let rank = indexPath.row + 1
         let id = leaderboardData[indexPath.row]
         let data = userData[id]
