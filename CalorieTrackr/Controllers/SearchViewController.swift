@@ -104,7 +104,6 @@ extension SearchViewController: UISearchBarDelegate {
             filteredIDs = []
         } else {
             filteredIDs = ids.filter { $0.lowercased().contains(searchText.lowercased()) }
-            //filteredIDs.removeAll { $0 == current user }
         }
         
         tableView.reloadData()

@@ -109,10 +109,9 @@ class DetailViewController: UIViewController {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 12
-        stackView.alignment = .center // Center the labels within the stack view
+        stackView.alignment = .center
         stackView.translatesAutoresizingMaskIntoConstraints = false
         
-        // Add labels to the stack view
         stackView.addArrangedSubview(streakLabel)
         stackView.addArrangedSubview(rankLabel)
         stackView.addArrangedSubview(heightLabel)
@@ -120,7 +119,6 @@ class DetailViewController: UIViewController {
         stackView.addArrangedSubview(sexLabel)
         stackView.addArrangedSubview(targetLabel)
         
-        // Add stack view to the main view
         view.addSubview(stackView)
         
         NSLayoutConstraint.activate([

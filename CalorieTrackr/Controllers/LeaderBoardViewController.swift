@@ -7,8 +7,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
     private let db = Firestore.firestore()
     var leaderboardData: [String] = []
     var userData: [String: UserData] = [:]
-
-    // Table view to display leaderboard
+    
     var tableView: UITableView!
     var segmentedControl: UISegmentedControl!
 
@@ -80,7 +79,7 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
                     tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                     tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                     tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-                    tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor) // Align horizontally to center
+                    tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
                 ])
 
         fetchFollowingList()
@@ -90,43 +89,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
         tableView.refreshControl = refreshControl
         tableView.reloadData()
     }
-
-//    func createColumnLabel(title: String) -> UILabel {
-//        let label = UILabel()
-//        label.font = UIFont.systemFont(ofSize: 14)
-//        label.textColor = .gray
-//        label.textAlignment = .center
-//        label.numberOfLines = 2
-//
-//        switch segmentedControl.selectedSegmentIndex {
-//        case 0:
-//            // Display consumed field
-//            if title == "Calories Consumed" {
-//                label.text = title
-//            } else {
-//                label.isHidden = true
-//            }
-//        case 1:
-//            // Display activeBurned field
-//            if title == "Calories Burned" {
-//                label.text = title
-//            } else {
-//                label.isHidden = true
-//            }
-//        case 2:
-//            // Display streak field
-//            if title == "Streak" {
-//                label.text = title
-//            } else {
-//                label.isHidden = true
-//            }
-//        default:
-//            break
-//        }
-//
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        return label
-//    }
     
     func createColumnLabel(title: String) -> UILabel {
         let label = UILabel()
@@ -142,11 +104,8 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
 
 
     @objc func refreshData(_ sender: UIRefreshControl) {
-        // Refresh leaderboard data
         fetchFollowingList()
-        // End refreshing
-        //tableView.reloadData()
-        //tableView.reloadData()
+        tableView.reloadData()
         sender.endRefreshing()
     }
 
@@ -160,7 +119,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
                     if let document = document, document.exists {
                         if let followingValue = document.data()?["following"] as? [String] {
                             self.leaderboardData = followingValue
-                            // Add the current user to the leaderboard data
                             if !self.leaderboardData.contains(currentUser) {
                                 self.leaderboardData.append(currentUser)
                             }
@@ -199,7 +157,6 @@ class LeaderBoardViewController: UIViewController, UITableViewDataSource, UITabl
                 print("ID: \(id), Name: \(name), Streak: \(streak), Active Burned: \(activeBurned), Consumed: \(consumed)")
             }
             self.userData = userData
-            // Sort the leaderboard data based on the selected tab
             self.segmentedControlValueChanged(self.segmentedControl)
         }
     }
@@ -362,7 +319,6 @@ class LeaderboardCell: UITableViewCell {
             contentView.addSubview(nameLabel)
             contentView.addSubview(scoreLabel)
             
-            // Add outlines to each column
             rankLabel.layer.borderWidth = borderWidth
             rankLabel.layer.borderColor = borderColor
             nameLabel.layer.borderWidth = borderWidth
@@ -370,7 +326,6 @@ class LeaderboardCell: UITableViewCell {
             scoreLabel.layer.borderWidth = borderWidth
             scoreLabel.layer.borderColor = borderColor
             
-            // Center-align the rank label and score label
             rankLabel.textAlignment = .center
             scoreLabel.textAlignment = .center
             
@@ -400,19 +355,10 @@ class LeaderboardCell: UITableViewCell {
         
         switch segmentedControl.selectedSegmentIndex {
         case 0:
-//            consumedLabel.isHidden = false
-//            burnedLabel.isHidden = true
-//            streakLabel.isHidden = true
             scoreLabel.text = consumedLabel.text
         case 1:
-//            consumedLabel.isHidden = true
-//            burnedLabel.isHidden = false
-//            streakLabel.isHidden = true
             scoreLabel.text = burnedLabel.text
         case 2:
-//            consumedLabel.isHidden = true
-//            burnedLabel.isHidden = true
-//            streakLabel.isHidden = false
             scoreLabel.text = streakLabel.text
         default:
             break
@@ -427,5 +373,3 @@ struct UserData {
     let activeBurned: Int
     let consumed: Int
 }
-
-

@@ -28,7 +28,6 @@ class OutlinedLabel: UILabel {
             boxColor.setFill()
             backgroundPath.fill()
             
-            // Draw outlined text
             let strokeTextAttributes: [NSAttributedString.Key: Any] = [
                 .foregroundColor: textColor,
                 .strokeColor: outlineColor,
@@ -202,7 +201,4 @@ class ProfileViewController: UIViewController {
             self.bufferMessage = message
         }
     }
-
-
-
 }

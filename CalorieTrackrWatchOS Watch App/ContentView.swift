@@ -385,7 +385,6 @@ struct ContentView: View {
             }
         }
         .onAppear {
-            // Set up Watch Connectivity session
            guard WCSession.isSupported() else {
                print("Watch Connectivity is not supported on this device.")
                return
@@ -396,7 +395,7 @@ struct ContentView: View {
                 self.activeCalories = savedActiveCalories
             }
             shouldAnimate = false
-            selectedTab = 1 // Set the purple tab as the default tab
+            selectedTab = 1
         }
     }
     private func requestAuthorizationForHealthKit() {
